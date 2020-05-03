@@ -1,0 +1,25 @@
+﻿<div class="@NavMenuCssClass">
+    <div class="dropdown">
+        <button class="dropbtn">
+            @Engine.Language.File
+            <i class="fa fa-caret-down"></i>
+        </button>
+        <div class="dropdown-content">
+            <a href="#">Abrir</a>
+            <a href="#" class="@NavMenuSaveClass">Salvar</a>
+        </div>
+    </div>
+</div>
+
+@code {
+    private bool collapseNavMenu = false;
+
+    private string NavMenuCssClass => collapseNavMenu ? "navbar collapse" : "navbar";
+
+    private string NavMenuSaveClass => Engine.CanSave ? null : "collapse";
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}
