@@ -1,7 +1,11 @@
 ﻿@page "/"
 
-<h1>Hello, world!</h1>
+<ListBox @ref="Engine.DialogueBox" />
 
-Welcome to your new app.
-
-<SurveyPrompt Title="How is Blazor working for you?" />
+<div class="DialogueBox">
+    <input type="text" spellcheck="true">
+</div>
+<div class="ButtonContainer">
+    <button type="button" class="LeftButton">@Engine.Language.Back</button>
+    <button type="button" class="RightButton">@Engine.Language.Next</button>
+</div>

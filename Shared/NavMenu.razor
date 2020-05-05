@@ -1,17 +1,30 @@
-﻿<div class="@NavMenuCssClass">
-    <div class="dropdown">
-        <button class="dropbtn">
-            @Engine.Language.File
-            <i class="fa fa-caret-down"></i>
-        </button>
-        <div class="dropdown-content">
-            <a href="#">Abrir</a>
-            <a href="#" class="@NavMenuSaveClass">Salvar</a>
+﻿@using System.IO;
+
+@using Blazor.FileReader;
+@using Blazored.LocalStorage;
+
+@inject ILocalStorageService LStorage
+@inject IFileReaderService FReader
+
+<div id="menu">
+    <div class="@NavMenuCssClass">
+        <div class="dropdown">
+            <button class="dropbtn" onclick="ShowDropDown(FileDropContent)">
+                @Sermone.Engine.Language.File
+                <i class="fa fa-caret-down"></i>
+            </button>
+            <div class="dropdown-content" id="FileDropContent">
+
+                <input type="file" id="FOpen" @ref="Engine.InputRef" @onchange="Engine.FileChanged" hidden>
+                <a href="#" onclick="OpenFile(FOpen)">@Sermone.Engine.Language.Open</a>
+                <a href="#" class="@NavMenuSaveClass">@Sermone.Engine.Language.Save</a>
+            </div>
         </div>
     </div>
 </div>
 
 @code {
+
     private bool collapseNavMenu = false;
 
     private string NavMenuCssClass => collapseNavMenu ? "navbar collapse" : "navbar";
@@ -22,4 +35,8 @@
     {
         collapseNavMenu = !collapseNavMenu;
     }
+
+
+    public ILocalStorageService LocalStorage => LStorage;
+    public IFileReaderService ReaderService => FReader;
 }

@@ -1,0 +1,30 @@
+﻿<li class="@ItemClass">
+    @if (Checked)
+    {
+        <input type="checkbox" id="@CKID" @onchange="Args => CheckedChanged(Args.Value)">
+    }
+    else
+    {
+        <input type="checkbox" id="@CKID" @onchange="Args => CheckedChanged(Args.Value)" checked>
+    }
+    <label for="@CKID">@Value</label>
+</li>
+
+@code {
+    [Parameter]
+    public int ID { get; set; } = 0;
+
+    [Parameter]
+    public string Value { get; set; } = string.Empty;
+
+    [Parameter]
+    public bool Checked { get; set; } = false;
+
+    string CKID => "CK" + ID;
+
+    public string ItemClass => ID % 2 == 0 ? "ItemA" : "ItemB";
+
+    private void CheckedChanged(object nChecked) {
+        Engine.CheckedChanged(ID, (bool)nChecked);
+    }
+}

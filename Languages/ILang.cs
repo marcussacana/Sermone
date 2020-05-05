@@ -16,5 +16,8 @@ namespace Sermone.Languages
         public string Save { get; }
 
 
+        //Buttons
+        public string Next { get; }
+        public string Back { get; }
     }
 }
