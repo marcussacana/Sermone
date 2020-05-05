@@ -104,7 +104,8 @@ namespace Sermone
             for (int i = 0; i < Length; i++)
             {
                 var Name = await LocalStorage.KeyAsync(i);
-                Cache[Name] = await LocalStorage.GetItemAsync<byte[]>(Name);
+                if (Name.StartsWith("B64"))
+                    Cache[Name.Substring(3)] = await LocalStorage.GetItemAsync<byte[]>(Name);
             }
             RemoteWrapper.HttpClient = new HttpClient();
             RemoteWrapper.Cache = Cache;
@@ -112,7 +113,7 @@ namespace Sermone
         private static async Task SaveCache()
         {
             foreach (var Item in RemoteWrapper.Cache) {
-                await LocalStorage.SetItemAsync(Item.Key, Item.Value);
+                await LocalStorage.SetItemAsync("B64" + Item.Key, Item.Value);
             }
         }
     }

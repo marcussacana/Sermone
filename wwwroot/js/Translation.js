@@ -5,6 +5,6 @@ switch (userLang) {
         LoadDesc.innerText = "A primeira vez pode levar um tempo.";
         ErrorMessage.innerText = "Um erro inesperado ocorreu.";
         ReloadLink.innerText = "Recarregar";
-        Dismiss.innerText = "Ignorar";
+        //Dismiss.innerText = "❌";
         break;
 }
