@@ -1,10 +1,12 @@
 ﻿@using System.IO;
 
+@using BlazorFileSaver;
 @using Blazor.FileReader;
 @using Blazored.LocalStorage;
 
 @inject ILocalStorageService LStorage
 @inject IFileReaderService FReader
+@inject IBlazorFileSaver FSaver
 
 <div id="menu">
     <div class="@NavMenuCssClass">
@@ -17,7 +19,7 @@
 
                 <input type="file" id="FOpen" @ref="Engine.InputRef" @onchange="Engine.FileChanged" hidden>
                 <a href="#" onclick="OpenFile(FOpen)">@Sermone.Engine.Language.Open</a>
-                <a href="#" class="@NavMenuSaveClass">@Sermone.Engine.Language.Save</a>
+                <a href="#" class="@NavMenuSaveClass" @onclick="@Engine.SaveFile">@Sermone.Engine.Language.Save</a>
             </div>
         </div>
     </div>
@@ -27,16 +29,18 @@
 
     private bool collapseNavMenu = false;
 
-    private string NavMenuCssClass => collapseNavMenu ? "navbar collapse" : "navbar";
+    private string NavMenuCssClass => collapseNavMenu ? "navbar hide" : "navbar";
 
-    private string NavMenuSaveClass => Engine.CanSave ? null : "collapse";
+    private string NavMenuSaveClass => Engine.CanSave ? null : "hide";
 
     private void ToggleNavMenu()
     {
         collapseNavMenu = !collapseNavMenu;
     }
 
+    public void Refresh() => this.StateHasChanged();
 
     public ILocalStorageService LocalStorage => LStorage;
     public IFileReaderService ReaderService => FReader;
+    public IBlazorFileSaver SaverService => FSaver;
 }

@@ -14,6 +14,8 @@
   <ItemGroup>
     <PackageReference Include="Blazor.ContextMenu" Version="1.6.0" />
     <PackageReference Include="Blazored.LocalStorage" Version="2.1.5" />
+    <PackageReference Include="BlazorFileSaver" Version="3.1.1" />
+    <PackageReference Include="LiquidTechnologies.Blazor.ModalDialog" Version="0.9.7" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="3.2.0-rc1.20223.4" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Build" Version="3.2.0-rc1.20223.4" PrivateAssets="all" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="3.2.0-rc1.20223.4" PrivateAssets="all" />
@@ -27,6 +29,9 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\SacanaWrapper\SacanaWrapper\SacanaWrapper.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Dialog\" />
   </ItemGroup>
 
 </Project>

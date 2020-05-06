@@ -8,6 +8,8 @@ using Sermone.Languages;
 using Sermone.Types;
 using Blazor.FileReader;
 using Blazored.LocalStorage;
+using BlazorFileSaver;
+using Blazor.ModalDialog;
 
 namespace Sermone
 {
@@ -18,6 +20,8 @@ namespace Sermone
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.Services.AddBlazorContextMenu();
             builder.Services.AddBlazoredLocalStorage();
+            builder.Services.AddBlazorFileSaver();
+            builder.Services.AddModalDialog();
             builder.Services.AddFileReaderService(opt => opt.UseWasmSharedBuffer = false);
             builder.RootComponents.Add<App>("app");
 

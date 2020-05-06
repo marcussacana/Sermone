@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Components;
 using Blazored.LocalStorage;
 using System.Net.Http;
 using System.Linq;
+using BlazorFileSaver;
 
 namespace Sermone
 {
@@ -22,6 +23,8 @@ namespace Sermone
 
         public static IFileReaderService FReader => MainNavMenu.ReaderService;
         public static ILocalStorageService LocalStorage => MainNavMenu.LocalStorage;
+
+        public static IBlazorFileSaver FSaver => MainNavMenu.SaverService;
 
         public static ElementReference InputRef;
 
@@ -36,6 +39,8 @@ namespace Sermone
 
         public static IPluginCreator[] Plugins;
         public static IPlugin CurrentPlugin;
+
+        public static bool NotSaved;
 
         public static void RefreshDialogueBox() {
             DialogueBox.Refresh();
@@ -86,11 +91,17 @@ namespace Sermone
                                       }).ToArray());
 
                 DialogueBox.Refresh();
+
+                CanSave = true;
+                MainNavMenu.Refresh();
             }
         }
 
-        public static async Task SaveFile() { 
-        
+        public static async Task SaveFile() {
+            NotSaved = false;
+            var Lines = (from x in DialogueBox.Items select x.Value).ToArray();
+            var Data = CurrentPlugin.Export(Lines);
+            await FSaver.SaveAsBase64(CurrentName, Convert.ToBase64String(Data), "application/octet-stream");
         }
 
         public static void CheckedChanged(int ID, bool Checked) {

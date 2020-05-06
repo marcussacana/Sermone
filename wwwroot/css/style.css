@@ -110,6 +110,10 @@
   display: block;
 }
 
+.hide {
+  display: none !important;
+}
+
 .loading-section {
     text-align: center;
     height: 80vh;
