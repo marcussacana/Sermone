@@ -98,6 +98,9 @@ namespace Sermone
         }
 
         public static async Task SaveFile() {
+            if (!CanSave)
+                return;
+
             NotSaved = false;
             var Lines = (from x in DialogueBox.Items select x.Value).ToArray();
             var Data = CurrentPlugin.Export(Lines);

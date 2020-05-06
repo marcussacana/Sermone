@@ -10,6 +10,8 @@
         public string Open => "Abrir";
         public string Save => "Salvar";
 
+        //Nav Bar
+        public string Search => "Procurar";
 
         //Buttons
         public string Next => "Avançar >";

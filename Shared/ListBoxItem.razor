@@ -20,9 +20,12 @@
     [Parameter]
     public bool Checked { get; set; } = false;
 
+    [Parameter]
+    public bool Selected { get; set; } = false;
+
     string CKID => "CK" + ID;
 
-    public string ItemClass => ID % 2 == 0 ? "ItemA" : "ItemB";
+    public string ItemClass => (ID % 2 == 0 ? "ItemA" : "ItemB") + (Selected ? " list-group-item-primary" : "");
 
     private void CheckedChanged(object nChecked) {
         Engine.CheckedChanged(ID, (bool)nChecked);

@@ -8,35 +8,31 @@
 @inject IFileReaderService FReader
 @inject IBlazorFileSaver FSaver
 
-<div id="menu">
-    <div class="@NavMenuCssClass">
-        <div class="dropdown">
-            <button class="dropbtn" onclick="ShowDropDown(FileDropContent)">
-                @Sermone.Engine.Language.File
-                <i class="fa fa-caret-down"></i>
-            </button>
-            <div class="dropdown-content" id="FileDropContent">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">Sermone</a>
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="NavFileDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    @Engine.Language.File
+                </a>
+                <div class="dropdown-menu" aria-labelledby="NavFileDropdown">
 
-                <input type="file" id="FOpen" @ref="Engine.InputRef" @onchange="Engine.FileChanged" hidden>
-                <a href="#" onclick="OpenFile(FOpen)">@Sermone.Engine.Language.Open</a>
-                <a href="#" class="@NavMenuSaveClass" @onclick="@Engine.SaveFile">@Sermone.Engine.Language.Save</a>
-            </div>
-        </div>
-    </div>
-</div>
+                    <input type="file" id="FOpen" @ref="Engine.InputRef" @onchange="Engine.FileChanged" hidden>
+                    <a class="dropdown-item" onclick="OpenFile(FOpen)" href="#">@Sermone.Engine.Language.Open</a>
+                    <a class="dropdown-item @(NavMenuSaveClass)" @onclick="@Engine.SaveFile" href="#">@Sermone.Engine.Language.Save</a>
+
+                </div>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="@Engine.Language.Search" aria-label="@Engine.Language.Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">@Engine.Language.Search</button>
+        </form>
+</nav>
 
 @code {
 
-    private bool collapseNavMenu = false;
-
-    private string NavMenuCssClass => collapseNavMenu ? "navbar hide" : "navbar";
-
-    private string NavMenuSaveClass => Engine.CanSave ? null : "hide";
-
-    private void ToggleNavMenu()
-    {
-        collapseNavMenu = !collapseNavMenu;
-    }
+    private string NavMenuSaveClass => Engine.CanSave ? null : "disabled";
 
     public void Refresh() => this.StateHasChanged();
 
