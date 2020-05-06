@@ -1,0 +1,54 @@
+﻿@using System.IO;
+
+@using BlazorFileSaver;
+@using Blazor.FileReader;
+@using Blazored.LocalStorage;
+@using BlazorWorker.Core
+@using BlazorWorker.WorkerBackgroundService
+
+@inject IWorkerFactory Worker
+@inject ILocalStorageService LStorage
+@inject IFileReaderService FReader
+@inject IBlazorFileSaver FSaver
+@inject NavigationManager NavManager
+
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark @NavMenuVisibility">
+    <a class="navbar-brand" href="#">Sermone</a>
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="NavFileDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                @Engine.Language.File
+            </a>
+            <div class="dropdown-menu" aria-labelledby="NavFileDropdown">
+
+                <input type="file" id="FOpen" @ref="Engine.InputRef" @onchange="Engine.FileChanged" hidden>
+                <a class="dropdown-item" onclick="OpenFile(FOpen)" href="#">@Sermone.Engine.Language.Open</a>
+                <a class="dropdown-item @(NavMenuSaveClass)" @onclick="@Engine.SaveFile" href="#">@Sermone.Engine.Language.Save</a>
+
+            </div>
+        </li>
+    </ul>
+    <div class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="@Engine.Language.Search" aria-label="@Engine.Language.Search" @bind-value:event="oninput" @bind-value="@Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" @onclick="@(async() => await Engine.DoSearch(Search))">@Engine.Language.Search</button>
+    </div>
+</nav>
+
+@code {
+
+    public string Search { get; private set; }
+
+    private string NavMenuVisibility => Engine.Plugins == null ? "hide" : "";
+
+    private string NavMenuSaveClass => Engine.CanSave ? null : "disabled";
+
+    public void Refresh() => this.StateHasChanged();
+
+    public ILocalStorageService LocalStorage => LStorage;
+    public IFileReaderService ReaderService => FReader;
+    public IBlazorFileSaver SaverService => FSaver;
+    public IWorkerFactory WorkerService => Worker;
+
+    public NavigationManager Navigator => NavManager;
+}

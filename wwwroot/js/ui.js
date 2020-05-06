@@ -17,3 +17,17 @@ window.onclick = function(e) {
         }
   }
 }
+async function Initialize() {
+    if (typeof (ReadyFlag) == "undefined")
+        return;
+
+    if (Interval !== null) {
+        clearInterval(Interval);
+        Interval = null;
+    }
+
+    await DotNet.invokeMethodAsync('Sermone', 'Initialize');
+    setTimeout(Initialize);
+}
+
+var Interval = setInterval(Initialize, 100);

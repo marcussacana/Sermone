@@ -2,10 +2,15 @@
 
 <ListBox @ref="Engine.DialogueBox" />
 
-<div class="DialogueBox">
-    <input type="text" spellcheck="true">
-</div>
-<div class="ButtonContainer">
-    <button type="button" class="LeftButton">@Engine.Language.Back</button>
-    <button type="button" class="RightButton">@Engine.Language.Next</button>
-</div>
+<DialogueEditor @ref="Engine.EditorBox"/>
+
+@code {
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (Engine.Plugins == null) {
+            Engine.MainNavMenu.Navigator.NavigateTo("/Load");
+        }
+        await base.OnInitializedAsync();
+    }
+}

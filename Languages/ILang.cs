@@ -18,6 +18,10 @@ namespace Sermone.Languages
         //Nav Bar
         public string Search { get; }
 
+        //Loading Page
+        public string PluginList { get; }
+        public string LoadingPlugin { get; }
+        public string LoadingDesc { get; }
 
         //Buttons
         public string Next { get; }

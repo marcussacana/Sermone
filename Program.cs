@@ -1,15 +1,12 @@
-using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Text;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Sermone.Languages;
-using Sermone.Types;
 using Blazor.FileReader;
 using Blazored.LocalStorage;
 using BlazorFileSaver;
 using Blazor.ModalDialog;
+using BlazorWorker.Core;
 
 namespace Sermone
 {
@@ -22,6 +19,7 @@ namespace Sermone
             builder.Services.AddBlazoredLocalStorage();
             builder.Services.AddBlazorFileSaver();
             builder.Services.AddModalDialog();
+            builder.Services.AddWorkerFactory();
             builder.Services.AddFileReaderService(opt => opt.UseWasmSharedBuffer = false);
             builder.RootComponents.Add<App>("app");
 
@@ -33,6 +31,7 @@ namespace Sermone
         {
             Engine.Language = new Portuguese();
             Engine.CanSave = false;
+            Engine.NotSaved = false;
         }
     }
 }

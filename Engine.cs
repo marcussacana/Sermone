@@ -1,51 +1,18 @@
-﻿using Sermone.Languages;
-using Sermone.Shared;
-using Sermone.Types;
-using SacanaWrapper;
-using Blazor.FileReader;
-using System;
+﻿using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Components;
-using Blazored.LocalStorage;
 using System.Net.Http;
 using System.Linq;
-using BlazorFileSaver;
+using Sermone.Types;
+using SacanaWrapper;
+using System.Collections;
+using Blazored.LocalStorage;
 
 namespace Sermone
 {
-    public static class Engine
+    static partial class Engine
     {
-        public static bool CanSave;
-        public static ILang Language;
-
-
-        public static IFileReaderService FReader => MainNavMenu.ReaderService;
-        public static ILocalStorageService LocalStorage => MainNavMenu.LocalStorage;
-
-        public static IBlazorFileSaver FSaver => MainNavMenu.SaverService;
-
-        public static ElementReference InputRef;
-
-        public static RemoteWrapper Wrapper = new RemoteWrapper();
-
-        public static NavMenu MainNavMenu = null;
-
-        public static ListBox DialogueBox;
-
-        public static string CurrentName;
-        public static byte[] CurrentScript;
-
-        public static IPluginCreator[] Plugins;
-        public static IPlugin CurrentPlugin;
-
-        public static bool NotSaved;
-
-        public static void RefreshDialogueBox() {
-            DialogueBox.Refresh();
-        }
-
         public async static void FileChanged() {
             foreach (var file in await FReader.CreateReference(InputRef).EnumerateFilesAsync())
             {
@@ -61,12 +28,6 @@ namespace Sermone
         }
 
         public static async Task OpenFile() {
-            if (Plugins == null) {
-                await LoadCache();
-                Plugins = await Wrapper.GetAllPlugins();
-                await SaveCache();
-            }
-
             DialogueBox.SetItems(new ListBoxItemInfo[0]);
             DialogueBox.Refresh();
 
@@ -105,30 +66,6 @@ namespace Sermone
             var Lines = (from x in DialogueBox.Items select x.Value).ToArray();
             var Data = CurrentPlugin.Export(Lines);
             await FSaver.SaveAsBase64(CurrentName, Convert.ToBase64String(Data), "application/octet-stream");
-        }
-
-        public static void CheckedChanged(int ID, bool Checked) {
-
-        }
-
-        private static async Task LoadCache()
-        {
-            Dictionary<string, byte[]> Cache = new Dictionary<string, byte[]>();
-            int Length = await LocalStorage.LengthAsync();
-            for (int i = 0; i < Length; i++)
-            {
-                var Name = await LocalStorage.KeyAsync(i);
-                if (Name.StartsWith("B64"))
-                    Cache[Name.Substring(3)] = await LocalStorage.GetItemAsync<byte[]>(Name);
-            }
-            RemoteWrapper.HttpClient = new HttpClient();
-            RemoteWrapper.Cache = Cache;
-        }
-        private static async Task SaveCache()
-        {
-            foreach (var Item in RemoteWrapper.Cache) {
-                await LocalStorage.SetItemAsync("B64" + Item.Key, Item.Value);
-            }
         }
     }
 }

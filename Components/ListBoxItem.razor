@@ -1,0 +1,43 @@
+﻿<li class="@ItemClass">
+    @if (Checked)
+    {
+        <input type="checkbox" id="@CKID" @onchange="Args => CheckedChanged(Args.Value)" checked>
+    }
+    else
+    {
+        <input type="checkbox" id="@CKID" @onchange="Args => CheckedChanged(Args.Value)">
+    }
+    <label for="@CKID" class="ItemLabel" @onclick="@OnItemClicked" @onclick:preventDefault="@PreventCheck">@Value</label>
+</li>
+
+@code {
+    [Parameter]
+    public int ID { get; set; }
+
+    [Parameter]
+    public string Value { get; set; }
+
+    [Parameter]
+    public bool Checked { get; set; }
+
+    [Parameter]
+    public bool Selected { get; set; }
+
+    string CKID => "CK" + ID;
+
+    public string ItemClass => (ID % 2 == 0 || Selected ? "ItemA" : "ItemB") 
+                             + (Selected ? " list-group-item-primary" : "");
+
+    private async Task CheckedChanged(object nChecked) {
+        await Engine.CheckedChanged(ID, (bool)nChecked);
+    }
+
+    private bool PreventCheck;
+
+    private async Task OnItemClicked(MouseEventArgs Args) {
+        PreventCheck = Args.ClientX > 100;
+        if (PreventCheck) {
+            await Engine.SelectChanged(ID);
+        }
+    }
+}
