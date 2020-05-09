@@ -19,9 +19,10 @@ namespace Sermone.Languages
         public string Search { get; }
 
         //Loading Page
-        public string PluginList { get; }
         public string LoadingPlugin { get; }
         public string LoadingDesc { get; }
+        public string RefreshingDesc { get; }
+        public string PluginList { get; }
 
         //Buttons
         public string Next { get; }

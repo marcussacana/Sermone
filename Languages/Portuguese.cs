@@ -14,10 +14,10 @@
         public string Search => "Procurar";
 
         //Loading Page
-        public string PluginList => "lista de plugins";
         public string LoadingPlugin => "Carregando...";
-
         public string LoadingDesc => "Inicializando {0}...";
+        public string RefreshingDesc => "Atualizando {0}...";
+        public string PluginList => "lista de plugins";
 
         //Buttons
         public string Next => "Avançar >";
