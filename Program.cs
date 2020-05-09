@@ -6,7 +6,6 @@ using Blazor.FileReader;
 using Blazored.LocalStorage;
 using BlazorFileSaver;
 using Blazor.ModalDialog;
-using BlazorWorker.Core;
 
 namespace Sermone
 {
@@ -19,7 +18,6 @@ namespace Sermone
             builder.Services.AddBlazoredLocalStorage();
             builder.Services.AddBlazorFileSaver();
             builder.Services.AddModalDialog();
-            builder.Services.AddWorkerFactory();
             builder.Services.AddFileReaderService(opt => opt.UseWasmSharedBuffer = false);
             builder.RootComponents.Add<App>("app");
 

@@ -1,4 +1,4 @@
-﻿<li class="@ItemClass">
+﻿<li class="@ItemClass"  @onclick="@OnItemClicked">
     @if (Checked)
     {
         <input type="checkbox" id="@CKID" @onchange="Args => CheckedChanged(Args.Value)" checked>
@@ -29,7 +29,9 @@
                              + (Selected ? " list-group-item-primary" : "");
 
     private async Task CheckedChanged(object nChecked) {
-        await Engine.CheckedChanged(ID, (bool)nChecked);
+        Checked = (bool)nChecked;
+        await Engine.CheckedChanged(ID, Checked);
+        Console.WriteLine("New Check: " + ID + " - " + Checked.ToString());
     }
 
     private bool PreventCheck;
@@ -40,4 +42,6 @@
             await Engine.SelectChanged(ID);
         }
     }
+
+    public void Refresh() => this.StateHasChanged();
 }

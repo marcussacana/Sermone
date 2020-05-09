@@ -3,10 +3,7 @@
 @using BlazorFileSaver;
 @using Blazor.FileReader;
 @using Blazored.LocalStorage;
-@using BlazorWorker.Core
-@using BlazorWorker.WorkerBackgroundService
 
-@inject IWorkerFactory Worker
 @inject ILocalStorageService LStorage
 @inject IFileReaderService FReader
 @inject IBlazorFileSaver FSaver
@@ -48,7 +45,6 @@
     public ILocalStorageService LocalStorage => LStorage;
     public IFileReaderService ReaderService => FReader;
     public IBlazorFileSaver SaverService => FSaver;
-    public IWorkerFactory WorkerService => Worker;
 
     public NavigationManager Navigator => NavManager;
 }
