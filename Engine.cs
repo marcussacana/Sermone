@@ -1,13 +1,10 @@
 ﻿using System;
 using System.IO;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Net.Http;
 using System.Linq;
 using Sermone.Types;
-using SacanaWrapper;
-using System.Collections;
-using Blazored.LocalStorage;
+using Sermone.Tools;
+using Microsoft.JSInterop;
 
 namespace Sermone
 {
@@ -41,21 +38,37 @@ namespace Sermone
                     CurrentPlugin = Plugin.Create(CurrentScript);
                 }
                 catch (Exception ex) {
-                    Console.WriteLine($"Plugin Creation Error:\n{ex.ToString()}");
+                    Console.Error.WriteLine($"Plugin Creation Error:\n{ex}");
                     continue;
                 }
 
+
+                await SetTile($"Sermone - {Language.Loading}");
                 DialogueBox.SetItems((from x in CurrentPlugin.Import()
                                       select new ListBoxItemInfo() {
-                                          Checked = false,
-                                          Value = x
-                                      }).ToArray());
-
+                                        Checked = true,
+                                        Visible = true,
+                                        Value = x
+                                    }).ToArray());
                 DialogueBox.Refresh();
 
                 CanSave = true;
                 MainNavMenu.Refresh();
+                break;
             }
+
+            var Result = await (from x in DialogueBox.Items select x.Value).ToArray().BulkIsDialogue();
+            for (int i = 0, x = 0; i < Result.Length; i++) {
+                if (!Result[i]) {
+                    DialogueBox.Items[i].Checked = Result[i];
+                    DialogueBox.Refresh(i);
+                    x++;
+                }
+
+                if (x % 50 == 0)
+                    await DoEvents();
+            }
+            await SetTile($"Sermone");
         }
 
         public static async Task SaveFile() {
@@ -67,5 +80,8 @@ namespace Sermone
             var Data = CurrentPlugin.Export(Lines);
             await FSaver.SaveAsBase64(CurrentName, Convert.ToBase64String(Data), "application/octet-stream");
         }
+
+        public static async Task SetTile(string Title) => await JSRuntime.InvokeVoidAsync("SetTitle", Title);
+        public static async Task DoEvents() => await Task.Delay(10);
     }
 }

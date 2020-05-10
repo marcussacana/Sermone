@@ -1,4 +1,5 @@
 ﻿using SacanaWrapper;
+using Sermone.Tools;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +29,7 @@ namespace Sermone
                 Engine.Loading.Refresh();
 
                 CacheDic = new Dictionary<string, byte[]>(); ;
-                Cache = LoadCache(async (x) =>
+                Cache = LoadCache((x) =>
                 {
                     Engine.Loading.LoadStatus = x;
                     Engine.Loading.Refresh();
@@ -55,7 +56,7 @@ namespace Sermone
 
                         Plugins = new List<IPluginCreator>();
                         Engine.Wrapper = new RemoteWrapper();
-                        Creator = Engine.Wrapper.GetAllPlugins(async (x) =>
+                        Creator = Engine.Wrapper.GetAllPlugins((x) =>
                         {
                             Engine.Loading.LoadStatus = x;
                             Engine.Loading.Refresh();
@@ -76,7 +77,7 @@ namespace Sermone
                                 Engine.Loading.Description = Engine.Language.RefreshingDesc;
                                 Engine.Loading.Refresh();
 
-                                Saver = SaveCache(async (x) =>
+                                Saver = SaveCache((x) =>
                                 {
                                     Engine.Loading.LoadStatus = x;
                                     Engine.Loading.Refresh();
@@ -103,7 +104,7 @@ namespace Sermone
         {
             int Length = await Engine.LocalStorage.LengthAsync();
             for (int i = 0; i < Length; i++) {
-                ProgressChanged?.Invoke($"{Math.Round(((double)i/Length * 100))}%");
+                ProgressChanged?.Invoke(i.ToPercentage(Length));
                 var Name = await Engine.LocalStorage.KeyAsync(i);
                 if (Name.StartsWith("B64"))
                     yield return new ValueTuple<string, byte[]>(Name, await Engine.LocalStorage.GetItemAsync<byte[]>(Name));
@@ -116,7 +117,7 @@ namespace Sermone
             var Length = RemoteWrapper.Cache.Count;
             for (int i = 0; i < Length; i++)
             {
-                ProgressChanged?.Invoke($"{Math.Round(((double)i / Length * 100))}%");
+                ProgressChanged?.Invoke(i.ToPercentage(Length));
                 var Item = RemoteWrapper.Cache.ElementAt(i);
                 await Engine.LocalStorage.SetItemAsync("B64" + Item.Key, Item.Value);
                 yield return true;

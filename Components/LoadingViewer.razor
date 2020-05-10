@@ -1,7 +1,7 @@
 ﻿@using System.Threading
 
 <div class="loading-section">
-    <h2 id="LoadTitle">@Engine.Language.LoadingPlugin</h2>
+    <h2 id="LoadTitle">@Engine.Language.Loading</h2>
     <div id="LoadDesc">@string.Format(Description, LoadStatus)</div>
     <div class="loader mt-5">
         <div class="loader-dot dot1"></div>
@@ -16,6 +16,7 @@
     [JSInvokable]
     public static async Task Initialize()
     {
+        await Program.EntryPoint();
         await Loader.LoadPlugins();
     }
 

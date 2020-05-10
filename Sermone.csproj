@@ -29,6 +29,10 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\SacanaWrapper\SacanaWrapper\SacanaWrapper.csproj" />
+    <ProjectReference Include="..\Dependencies\BlazorWorker.ServiceFactory\BlazorWorker.BackgroundServiceFactory.csproj" />
+    <ProjectReference Include="..\Dependencies\BlazorWorker.WorkerBackgroundService\BlazorWorker.WorkerBackgroundService.csproj" />
+    <ProjectReference Include="..\Dependencies\BlazorWorker.WorkerCore\BlazorWorker.WorkerCore.csproj" />
+    <ProjectReference Include="..\Dependencies\BlazorWorker\BlazorWorker.Core.csproj" />
   </ItemGroup>
 
 </Project>

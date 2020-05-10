@@ -14,7 +14,7 @@
         public string Search => "Procurar";
 
         //Loading Page
-        public string LoadingPlugin => "Carregando...";
+        public string Loading => "Carregando...";
         public string LoadingDesc => "Inicializando {0}...";
         public string RefreshingDesc => "Atualizando {0}...";
         public string PluginList => "lista de plugins";
@@ -22,5 +22,9 @@
         //Buttons
         public string Next => "Avançar >";
         public string Back => "< Retornar";
+
+        //About
+        public string AboutVersion => "Versão Protótipo";
+        public string AboutDesc => "Essa é uma versão protótipo do software Sermone voltada para fins experimentais e como tal carece de recursos mais avançados para um uso prático, pode também contar com erros no decorrer do uso.";
     }
 }

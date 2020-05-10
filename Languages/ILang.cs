@@ -19,7 +19,7 @@ namespace Sermone.Languages
         public string Search { get; }
 
         //Loading Page
-        public string LoadingPlugin { get; }
+        public string Loading { get; }
         public string LoadingDesc { get; }
         public string RefreshingDesc { get; }
         public string PluginList { get; }
@@ -27,5 +27,9 @@ namespace Sermone.Languages
         //Buttons
         public string Next { get; }
         public string Back { get; }
+
+        //About
+        public string AboutVersion { get; }
+        public string AboutDesc { get; }
     }
 }

@@ -1,5 +1,5 @@
-﻿<li class="@ItemClass"  @onclick="@OnItemClicked">
-    @if (Checked)
+﻿<li class="@ItemClass" @onclick="@OnItemClicked">
+    @if (VirtualChecked ?? Checked)
     {
         <input type="checkbox" id="@CKID" @onchange="Args => CheckedChanged(Args.Value)" checked>
     }
@@ -21,17 +21,26 @@
     public bool Checked { get; set; }
 
     [Parameter]
+    public bool Visible { get; set; }
+
+    [Parameter]
     public bool Selected { get; set; }
+
+    [Parameter]
+    public int? VisibleIndex { get; set; }
+
+    [Parameter]
+    public bool? VirtualChecked { get; set; }
 
     string CKID => "CK" + ID;
 
-    public string ItemClass => (ID % 2 == 0 || Selected ? "ItemA" : "ItemB") 
-                             + (Selected ? " list-group-item-primary" : "");
+    public string ItemClass => (ID % 2 == 0 || Selected ? "ItemA" : "ItemB")
+                         + (Selected ? " list-group-item-primary" : "");
+    //+ (Visible ? "" : " hide");
 
-    private async Task CheckedChanged(object nChecked) {
+    private void CheckedChanged(object nChecked) {
         Checked = (bool)nChecked;
-        await Engine.CheckedChanged(ID, Checked);
-        Console.WriteLine("New Check: " + ID + " - " + Checked.ToString());
+        Engine.CheckedChanged(ID, Checked);
     }
 
     private bool PreventCheck;
@@ -40,8 +49,11 @@
         PreventCheck = Args.ClientX > 100;
         if (PreventCheck) {
             await Engine.SelectChanged(ID);
+            await Engine.EditorBox.Focus();
         }
     }
+
+    public async Task EnsureVisible() => await Engine.JSRuntime.InvokeVoidAsync("EnsureItemVisible", ID);
 
     public void Refresh() => this.StateHasChanged();
 }

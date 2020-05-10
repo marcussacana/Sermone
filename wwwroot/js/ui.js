@@ -17,6 +17,21 @@ window.onclick = function(e) {
         }
   }
 }
+
+window.SetTitle = (title) => {
+    console.log('Setting title', title);
+    document.title = title;
+}
+
+window.EnsureItemVisible = (item) => {
+    var elm = document.getElementById("CK" + item).parentElement;
+    elm.scrollIntoView({ block: 'center', behavior: 'smooth' });
+}
+
+window.FocusElement = (elm) => {
+    elm.focus();
+}
+
 async function Initialize() {
     if (typeof (ReadyFlag) == "undefined")
         return;
@@ -27,7 +42,7 @@ async function Initialize() {
     }
 
     await DotNet.invokeMethodAsync('Sermone', 'Initialize');
-    setTimeout(Initialize);
+    setTimeout(Initialize, 10);
 }
 
 var Interval = setInterval(Initialize, 100);

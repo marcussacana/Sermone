@@ -2,7 +2,7 @@
     <ol>
         @for (int i = 0; i < Items?.Length; i++)
         {
-            <ListBoxItem Checked="@Items[i].Checked" Value="@Items[i].Value" Selected="@(i == SelectedIndex)" ID="@i" @ref="Reference"/>
+            <ListBoxItem Checked="@Items[i].Checked" Value="@Items[i].Value" Selected="@(i == SelectedIndex)" ID="@i" Visible="@Items[i].Visible" VirtualChecked="@Items[i].VirtualChecked" VisibleIndex="@Items[i].VisibleIndex" @ref="Reference"/>
         }
     </ol>
 </div>
@@ -23,9 +23,18 @@
     public void Refresh() => this.StateHasChanged();
 
     public void Refresh(int ItemID) {
+#pragma warning disable BL0005
+        Refs[ItemID].VirtualChecked = Items[ItemID].VirtualChecked;
+        Refs[ItemID].VisibleIndex = Items[ItemID].VisibleIndex;
         Refs[ItemID].Selected = ItemID == SelectedIndex;
         Refs[ItemID].Checked = Items[ItemID].Checked;
+        Refs[ItemID].Visible = Items[ItemID].Visible;
         Refs[ItemID].Value = Items[ItemID].Value;
+#pragma warning restore BL0005
         Refs[ItemID].Refresh();
     }
+
+    public async Task EnsureItemVisible(int ItemID) {
+        await Refs[ItemID].EnsureVisible();
     }
+}

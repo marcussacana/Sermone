@@ -1,16 +1,29 @@
 ﻿@page "/"
 
+@using Blazor.ModalDialog
+@inject IModalDialogService ModalDialog
+
 <ListBox @ref="Engine.DialogueBox" />
 
-<DialogueEditor @ref="Engine.EditorBox"/>
+<DialogueEditor @ref="Engine.EditorBox" />
 
 @code {
 
     protected override async Task OnInitializedAsync()
     {
-        if (Engine.Plugins == null) {
-            Engine.MainNavMenu.Navigator.NavigateTo("/Load");
+        if (Engine.Plugins == null)
+        {
+            Engine.MainNavMenu.Navigator.NavigateTo("/Initialize");
         }
         await base.OnInitializedAsync();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender && Engine.Plugins != null)
+        {
+            await ModalDialog.ShowDialogAsync<About>("Sermone", new ModalDialogOptions() { BackgroundClickToClose = true, ShowCloseButton = true });
+        }
+        await base.OnAfterRenderAsync(firstRender);
     }
 }
