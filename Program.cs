@@ -15,6 +15,10 @@ namespace Sermone
     {
         public static async Task Main(string[] args)
         {
+            WorkerProxy.Dependencies = new string[] {
+                "System.IO.Compression.dll",
+                "BrotliSharpLib.dll"
+            };
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.Services.AddBlazorContextMenu();
             builder.Services.AddBlazoredLocalStorage();

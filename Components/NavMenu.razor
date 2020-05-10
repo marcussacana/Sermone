@@ -3,7 +3,8 @@
 @using BlazorFileSaver;
 @using Blazor.FileReader;
 @using Blazored.LocalStorage;
-@using BlazorWorker.Core; 
+@using BlazorWorker.Core;
+@using BlazorWorker.BackgroundServiceFactory
 
 @inject ILocalStorageService LStorage
 @inject IFileReaderService FReader
@@ -37,6 +38,16 @@
 
 @code {
 
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (Engine.Compressor == null)
+        {
+            var Worker = await Engine.Worker.CreateAsync();
+            Engine.Compressor = await Worker.CreateBackgroundServiceAsync<Sermone.Tools.CompressorService>();
+        }
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
     public string Search { get; private set; }
 
     private string NavMenuVisibility => Engine.Plugins == null ? "hide" : "";
@@ -46,8 +57,10 @@
     DateTime LastEvent = DateTime.Now;
     TimeSpan EleapsedTime => DateTime.Now - LastEvent;
 
-    public async Task OnSearchKeyDown(KeyboardEventArgs Args) {
-        if (Args.Code == "Enter" && EleapsedTime.TotalMilliseconds > 200) {
+    public async Task OnSearchKeyDown(KeyboardEventArgs Args)
+    {
+        if (Args.Code == "Enter" && EleapsedTime.TotalMilliseconds > 200)
+        {
             await Engine.DoSearch(Search);
             LastEvent = DateTime.Now;
         }

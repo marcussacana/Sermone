@@ -2,13 +2,17 @@
 using Blazored.LocalStorage;
 using BlazorFileSaver;
 using BlazorWorker.Core;
+using BlazorWorker.WorkerBackgroundService;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using SacanaWrapper;
 using Sermone.Components;
 using Sermone.Languages;
 using Sermone.Pages;
+using Sermone.Tools;
 using Sermone.Types;
+using System;
+using System.Threading.Tasks;
 
 namespace Sermone
 {
@@ -22,6 +26,8 @@ namespace Sermone
         public static IBlazorFileSaver FSaver => MainNavMenu.SaverService;
         public static IJSRuntime JSRuntime => MainNavMenu.JSRuntime;
         public static IWorkerFactory Worker => MainNavMenu.Worker;
+
+        public static IWorkerBackgroundService<CompressorService> Compressor;
 
 #pragma warning disable 649
         public static ElementReference InputRef;

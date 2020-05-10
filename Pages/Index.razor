@@ -13,6 +13,7 @@
     {
         if (Engine.Plugins == null)
         {
+            await Program.EntryPoint();
             Engine.MainNavMenu.Navigator.NavigateTo("/Initialize");
         }
         await base.OnInitializedAsync();
@@ -21,9 +22,7 @@
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender && Engine.Plugins != null)
-        {
             await ModalDialog.ShowDialogAsync<About>("Sermone", new ModalDialogOptions() { BackgroundClickToClose = true, ShowCloseButton = true });
-        }
         await base.OnAfterRenderAsync(firstRender);
     }
 }

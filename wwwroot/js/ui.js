@@ -1,11 +1,3 @@
-function ShowDropDown(e) {
-  e.classList.toggle("show");
-}
-
-function OpenFile(e) {
-    e.click();
-}
-
 window.onclick = function(e) {
     if (!e.target.matches('.dropbtn')) {
         var DropDowns = document.getElementsByClassName('dropdown-content');
@@ -30,6 +22,14 @@ window.EnsureItemVisible = (item) => {
 
 window.FocusElement = (elm) => {
     elm.focus();
+}
+
+function ShowDropDown(e) {
+    e.classList.toggle("show");
+}
+
+function OpenFile(e) {
+    e.click();
 }
 
 async function Initialize() {

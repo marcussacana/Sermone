@@ -6,9 +6,9 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace Sermone
+namespace Sermone.Tools
 {
-    public static class Loader
+    public static class Initializer
     {
         static List<IPluginCreator> Plugins;
         static Dictionary<string, byte[]> CacheDic;
@@ -70,6 +70,14 @@ namespace Sermone
                             Plugins.Add(Plugin);
                         if (!await CreatorEnumerator.MoveNextAsync())
                         {
+                            if (!RemoteWrapper.CacheChanged)
+                            {
+                                //Cache Storage Refreshed
+                                Engine.Plugins = Plugins.ToArray();
+                                Engine.MainNavMenu.Refresh();
+                                Engine.MainNavMenu.Navigator.NavigateTo("/");
+                                return;
+                            }
                             //Plugin Initialization Finished
                             if (SaverEnumerator == null)
                             {
@@ -106,8 +114,12 @@ namespace Sermone
             for (int i = 0; i < Length; i++) {
                 ProgressChanged?.Invoke(i.ToPercentage(Length));
                 var Name = await Engine.LocalStorage.KeyAsync(i);
-                if (Name.StartsWith("B64"))
-                    yield return new ValueTuple<string, byte[]>(Name, await Engine.LocalStorage.GetItemAsync<byte[]>(Name));
+
+                if (Name.StartsWith("CB64")) {
+                    var Compressed = await Engine.LocalStorage.GetItemAsync<byte[]>(Name);
+                    var Decompressed = await Engine.Compressor.Decompress(Compressed);
+                    yield return new ValueTuple<string, byte[]>(Name.Substring(4), Decompressed);
+                }
             }
 
             ProgressChanged?.Invoke("100%");
@@ -119,7 +131,8 @@ namespace Sermone
             {
                 ProgressChanged?.Invoke(i.ToPercentage(Length));
                 var Item = RemoteWrapper.Cache.ElementAt(i);
-                await Engine.LocalStorage.SetItemAsync("B64" + Item.Key, Item.Value);
+                var Compressed = await Engine.Compressor.Compress(Item.Value);
+                await Engine.LocalStorage.SetItemAsync("CB64" + Item.Key, Compressed);
                 yield return true;
             }
             ProgressChanged?.Invoke("100%");

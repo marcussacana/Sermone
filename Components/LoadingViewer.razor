@@ -16,8 +16,10 @@
     [JSInvokable]
     public static async Task Initialize()
     {
-        await Program.EntryPoint();
-        await Loader.LoadPlugins();
+        if (Engine.Compressor == null)
+            return;
+
+        await Tools.Initializer.LoadPlugins();
     }
 
     public string Description = Engine.Language.LoadingDesc;
