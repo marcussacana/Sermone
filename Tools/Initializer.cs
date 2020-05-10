@@ -1,5 +1,4 @@
 ﻿using SacanaWrapper;
-using Sermone.Tools;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,9 +16,6 @@ namespace Sermone.Tools
 
         static IAsyncEnumerable<ValueTuple<string, byte[]>> Cache;
         static IAsyncEnumerator<ValueTuple<string, byte[]>> CacheEnumerator;
-
-        static IAsyncEnumerable<bool> Saver;
-        static IAsyncEnumerator<bool> SaverEnumerator;
 
         public static async Task LoadPlugins()
         {
@@ -70,39 +66,11 @@ namespace Sermone.Tools
                             Plugins.Add(Plugin);
                         if (!await CreatorEnumerator.MoveNextAsync())
                         {
-                            if (!RemoteWrapper.CacheChanged)
-                            {
-                                //Cache Storage Refreshed
-                                Engine.Plugins = Plugins.ToArray();
-                                Engine.MainNavMenu.Refresh();
-                                Engine.MainNavMenu.Navigator.NavigateTo("/");
-                                return;
-                            }
-                            //Plugin Initialization Finished
-                            if (SaverEnumerator == null)
-                            {
-                                Engine.Loading.LoadStatus = "0%";
-                                Engine.Loading.Description = Engine.Language.RefreshingDesc;
-                                Engine.Loading.Refresh();
-
-                                Saver = SaveCache((x) =>
-                                {
-                                    Engine.Loading.LoadStatus = x;
-                                    Engine.Loading.Refresh();
-                                });
-                                SaverEnumerator = Saver.GetAsyncEnumerator();
-                            }
-                            else
-                            {
-                                _ = SaverEnumerator;
-                                if (!await SaverEnumerator.MoveNextAsync())
-                                {
-                                    //Cache Storage Refreshed
-                                    Engine.Plugins = Plugins.ToArray();
-                                    Engine.MainNavMenu.Refresh();
-                                    Engine.MainNavMenu.Navigator.NavigateTo("/");
-                                }
-                            }
+                            //Cache Storage Refreshed
+                            Engine.Plugins = Plugins.ToArray();
+                            Engine.MainNavMenu.Refresh();
+                            Engine.MainNavMenu.Navigator.NavigateTo("/");
+                            return;
                         }
                     }
                 }
@@ -124,7 +92,7 @@ namespace Sermone.Tools
 
             ProgressChanged?.Invoke("100%");
         }
-        private static async IAsyncEnumerable<bool> SaveCache(Action<string> ProgressChanged = null)
+        public static async IAsyncEnumerable<bool> SaveCache(Action<string> ProgressChanged = null)
         {
             var Length = RemoteWrapper.Cache.Count;
             for (int i = 0; i < Length; i++)

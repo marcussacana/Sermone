@@ -1,5 +1,7 @@
 ﻿@inherits LayoutComponentBase
-
+@using Blazored.Toast.Configuration;
+ 
+    <BlazoredToasts Position="ToastPosition.TopRight" Timeout="10" />
     <ModalDialogContainer />
 
     <NavMenu @ref="Engine.MainNavMenu" />

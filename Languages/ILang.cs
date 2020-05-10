@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Components.Rendering;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -31,5 +32,10 @@ namespace Sermone.Languages
         //About
         public string AboutVersion { get; }
         public string AboutDesc { get; }
+
+        //Notifications
+        public string BackgroundTaskWarning { get; }
+        public string NoResultsFound { get; }
+        public string TryOthersWords { get; }
     }
 }

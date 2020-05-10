@@ -25,6 +25,11 @@
 
         //About
         public string AboutVersion => "Versão Protótipo";
-        public string AboutDesc => "Essa é uma versão protótipo do software Sermone voltada para fins experimentais e como tal carece de recursos mais avançados para um uso prático, pode também contar com erros no decorrer do uso.";
+        public string AboutDesc => "Essa é uma versão protótipo do software voltada para fins experimentais e como tal carece de recursos mais avançados para um uso prático, pode também contar com erros no decorrer do uso.";
+
+        //Notifications
+        public string BackgroundTaskWarning => "O Sermone está trabalhando em segundo plano, evite fechar-lo sem confirmar a conclusão da tarefa.";
+        public string NoResultsFound => "Nenhum Resultado Encontrado";
+        public string TryOthersWords => "Tente novamente com outras palavras.";
     }
 }

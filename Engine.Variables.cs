@@ -1,5 +1,6 @@
 ﻿using Blazor.FileReader;
 using Blazored.LocalStorage;
+using Blazored.Toast.Services;
 using BlazorFileSaver;
 using BlazorWorker.Core;
 using BlazorWorker.WorkerBackgroundService;
@@ -26,6 +27,7 @@ namespace Sermone
         public static IBlazorFileSaver FSaver => MainNavMenu.SaverService;
         public static IJSRuntime JSRuntime => MainNavMenu.JSRuntime;
         public static IWorkerFactory Worker => MainNavMenu.Worker;
+        public static IToastService Toast => MainNavMenu.Toast;
 
         public static IWorkerBackgroundService<CompressorService> Compressor;
 

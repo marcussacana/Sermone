@@ -7,6 +7,7 @@ using Blazored.LocalStorage;
 using BlazorFileSaver;
 using Blazor.ModalDialog;
 using BlazorWorker.Core;
+using Blazored.Toast;
 using Sermone.Types;
 
 namespace Sermone
@@ -25,6 +26,7 @@ namespace Sermone
             builder.Services.AddBlazorFileSaver();
             builder.Services.AddModalDialog();
             builder.Services.AddWorkerFactory();
+            builder.Services.AddBlazoredToast();
             builder.Services.AddFileReaderService(opt => opt.UseWasmSharedBuffer = false);
             builder.RootComponents.Add<App>("app");
             Engine.Language = new Portuguese();

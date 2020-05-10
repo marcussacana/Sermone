@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
 namespace Sermone
@@ -28,6 +29,7 @@ namespace Sermone
                     return;
                 }
 
+                bool Found = false;
                 await SelectChanged(0);
 
                 for (int i = 0; i < DialogueBox.Items.Length; i++)
@@ -36,8 +38,16 @@ namespace Sermone
                         await DoEvents();
 
                     bool Match = DialogueBox.Items[i].Checked && DialogueBox.Items[i].Value.Minify().Contains(Query);
+                    if (Match)
+                        Found = true;
+
                     DialogueBox.Items[i].VirtualChecked = Match;
                     DialogueBox.Refresh(i);
+                }
+
+                if (!Found) {
+                    Toast.ShowInfo(Language.TryOthersWords, Language.NoResultsFound);
+                    return;
                 }
             }
             else if (!string.IsNullOrEmpty(Query))
@@ -47,7 +57,10 @@ namespace Sermone
                 return;
 
             if (!DialogueBox.Items[DialogueBox.SelectedIndex].VirtualChecked ?? true)
-                await NextDialogue();
+                if (!await NextDialogue()) {
+                    await SelectChanged(0);
+                    await NextDialogue();
+                }
         }
 
         public static void CheckedChanged(int ID, bool Checked)
@@ -75,34 +88,45 @@ namespace Sermone
             await NextDialogue();
         }
         
-        public async static Task BackDialogue() {
+        public async static Task<bool> BackDialogue() {
             int Back = DialogueBox.SelectedIndex - 1;
+            int Begin = Back;
             if (Back < 0 || Back > DialogueBox.Items.Length)
                 Back = 0;
 
             while (Back > 0 && !(DialogueBox.Items[Back].VirtualChecked ?? DialogueBox.Items[Back].Checked))
                 Back--;
 
+            if (Back == Begin && !(DialogueBox.Items[Back].VirtualChecked ?? DialogueBox.Items[Back].Checked))
+                return false;
+
             if (Back < DialogueBox.Items.Length)
             {
                 await SelectChanged(Back);
-                return;
+                return true;
             }
+
+            return false;
         }
 
-        public async static Task NextDialogue() {
+        public async static Task<bool> NextDialogue() {
             int Next = DialogueBox.SelectedIndex + 1;
+            int Begin = Next;
             if (Next < 0 || Next > DialogueBox.Items.Length)
                 Next = 0;
 
             while (Next < DialogueBox.Items.Length && !(DialogueBox.Items[Next].VirtualChecked ?? DialogueBox.Items[Next].Checked))
                 Next++;
 
-            if (Next < DialogueBox.Items.Length)
-            {
+            if (Next == Begin && !(DialogueBox.Items[Next].VirtualChecked ?? DialogueBox.Items[Next].Checked))
+                return false;
+
+            if (Next < DialogueBox.Items.Length) {
                 await SelectChanged(Next);
-                return;
+                return true;
             }
+
+            return false;
         }
     }
 }
