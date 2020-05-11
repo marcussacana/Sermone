@@ -31,5 +31,17 @@
         public string BackgroundTaskWarning => "O Sermone está trabalhando em segundo plano, evite fechar-lo sem confirmar a conclusão da tarefa.";
         public string NoResultsFound => "Nenhum Resultado Encontrado";
         public string TryOthersWords => "Tente novamente com outras palavras.";
+
+        //Settings
+        public string Settings => "Configurações";
+        public string Language => "Linguagem";
+
+        public string DennyPattern => "Padrões Inaceitáveis";
+        public string IgnorePattern => "Padrões Ignoráveis";
+        public string QuotesPattern => "Padrões de Citação";
+        public string Breakline => "Quebra de Linha";
+        public string AcceptableRange => "Alcance Tolerado";
+        public string AsianMode => ">Modo Asiático";
+        public string Sensitivity => "Sensibilidade";
     }
 }

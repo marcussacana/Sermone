@@ -59,13 +59,21 @@ namespace Sermone
             }
         }
 
-        public static bool GetLanguageByID(int ID, out ILang Language) { 
-            Language = Engine.Settings.Language switch
-            {
-                0 => new Portuguese(),
-                _ => null
-            };
-            return Language != null;
+        public static async Task UpdateSettings() { 
+            await Engine.LocalStorage.SetItemAsync("Settings", Engine.Settings);
         }
+
+        public static bool GetLanguageByID(int ID, out ILang Language) {
+            Language = AllLanguages[0];
+            if (ID < 0 || ID >= AllLanguages.Length)
+                return false;
+
+            Language = AllLanguages[ID];
+            return true;
+        }
+
+        public static ILang[] AllLanguages = new ILang[] {
+            new Portuguese()
+        };
     }
 }

@@ -1,6 +1,4 @@
-﻿@using System.IO;
-
-@using BlazorFileSaver;
+﻿@using BlazorFileSaver;
 @using Blazor.FileReader;
 @using Blazored.LocalStorage;
 @using BlazorWorker.Core;
@@ -13,6 +11,7 @@
 @inject IJSRuntime JRuntime
 @inject IWorkerFactory SWorker
 @inject IToastService SToast
+@inject IModalDialogService SModal
 
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark @NavMenuVisibility">
@@ -29,6 +28,9 @@
                 <a class="dropdown-item @(NavMenuSaveClass)" @onclick="@Engine.SaveFile" href="#">@Sermone.Engine.Language.Save</a>
 
             </div>
+        </li>
+        <li class="nav-link">
+            <a href="#" @onclick="SettingsClicked">@Engine.Language.Settings</a>
         </li>
     </ul>
     <div class="form-inline my-2 my-lg-0">
@@ -65,6 +67,13 @@
             await Engine.DoSearch(Search);
             LastEvent = DateTime.Now;
         }
+    }
+
+    async Task SettingsClicked()
+    {
+        var Result = await SModal.ShowDialogAsync<Sermone.Dialogs.Settings>(Engine.Language.Settings);
+        if (Result.Success)
+            await Program.UpdateSettings();
     }
 
     public void Refresh() => this.StateHasChanged();

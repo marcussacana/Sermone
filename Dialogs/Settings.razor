@@ -1,0 +1,107 @@
+﻿@using Sermone.Types
+@using Sermone.Languages
+@inject IModalDialogService Modal
+
+<table class="table table-striped table-bordered dataTable" style="border-collapse:collapse;width:100%;">
+    <thead>
+        <tr hidden>
+            <td width="15%"></td>
+            <td></td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@CurrentLanguage.Language</td>
+            <td>
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                        @CurrentLanguage.NativeLanguageName (@CurrentLanguage.EnglishLanguageName)
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        @for (int i = 0; i < Program.AllLanguages.Length; i++)
+                        {
+                            var Language = Program.AllLanguages[i];
+                            var Class = "";
+                            if (Configs.Language == i)
+                                Class = "active";
+
+                            <li class="@Class">
+                                <a @onclick="() => SetLanguage(i)" href="#">
+                                    @Language.NativeLanguageName (@Language.EnglishLanguageName)
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+
+            </td>
+        </tr>
+        <tr>
+            <td>@CurrentLanguage.DennyPattern</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>@CurrentLanguage.IgnorePattern</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>@CurrentLanguage.QuotesPattern</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>@CurrentLanguage.Breakline</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>@CurrentLanguage.AcceptableRange</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>@CurrentLanguage.AsianMode</td>
+            <td>&nbsp;</td>
+        </tr>
+        <tr>
+            <td>@CurrentLanguage.Sensitivity</td>
+            <td>&nbsp;</td>
+        </tr>
+    </tbody>
+</table>
+<br />
+<button @onclick="SaveClicked" class="btn btn-primary">@CurrentLanguage.Save</button>
+<br />
+
+@code {
+
+    public ILang CurrentLanguage => Program.AllLanguages[Configs.Language];
+
+    public Config? _Configs;
+    public Config Configs
+    {
+        get
+        {
+            if (_Configs != null)
+                return _Configs.Value;
+
+            _Configs = Engine.Settings;
+            return _Configs.Value;
+        }
+        set { _Configs = value; }
+    }
+
+    async void SetLanguage(int ID)
+    {
+        var TmpConf = Configs;
+        TmpConf.Language = ID;
+        Configs = TmpConf;
+        Refresh();
+    }
+
+    async Task SaveClicked()
+    {
+        Engine.Settings = Configs;
+        Modal.Close(true);
+    }
+
+    public void Refresh() => this.StateHasChanged();
+}

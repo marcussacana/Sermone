@@ -37,5 +37,16 @@ namespace Sermone.Languages
         public string BackgroundTaskWarning { get; }
         public string NoResultsFound { get; }
         public string TryOthersWords { get; }
+
+        //Settings
+        public string Settings { get; }
+        public string Language { get; }
+        public string DennyPattern { get; }
+        public string IgnorePattern { get; }
+        public string QuotesPattern { get; }
+        public string Breakline { get; }
+        public string AcceptableRange { get; }
+        public string AsianMode { get; }
+        public string Sensitivity { get; }
     }
 }
