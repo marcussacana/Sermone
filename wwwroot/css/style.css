@@ -71,9 +71,18 @@ header {
         bottom: 3px;
     }
 
+.position-relative {
+    position: relative;
+}
+
+.right {
+    right: 5px;
+    position: absolute;
+}
+
 .RightButton {
-	position: absolute;
-	right: 5px;
+    position: absolute;
+    right: 5px;
     bottom: 10px;
 }
 
@@ -152,4 +161,8 @@ header {
 
 tooltip {
     padding: 0.5rem .05rem;
+}
+
+.table.table-condensed td, .table.table-condensed th {
+    padding: 0.40rem;
 }

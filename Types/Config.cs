@@ -1,22 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Sermone.Types
+﻿namespace Sermone.Types
 {
     public struct Config
     {
-        public string DenyList;
-        public string IgnoreList;
-        public string QuoteList;
-        public string Breakline;
-        public string AcceptableRanges;
-        public bool AllowNumbers;
-        public bool FromAsian;
-        public int Sensitivity;
+        public string DenyList { get; set; }
+        public string IgnoreList { get; set; }
+        public string QuoteList { get; set; }
+        public string Breakline { get; set; }
+        public string AcceptableRanges { get; set; }
+        public bool AllowNumbers { get; set; }
+        public bool FromAsian { get; set; }
+        public int Sensitivity { get; set; }
 
-        public int Language;
+        public int Language { get; set; }
 
     }
 }

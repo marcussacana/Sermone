@@ -13,8 +13,14 @@ namespace Sermone.Tools
 
     public static class Strings
     {
-        static Strings()
+        static bool Initialized = false;
+        public static void Initialize()
         {
+            if (Initialized)
+                return;
+
+            Initialized = true;
+
             PontuationJapList = new char[] { '。', '？', '！', '…', '、', '―' };
             SpecialList = new char[] { '_', '=', '+', '#', ':', '$', '@' };
             PontuationList = new char[] { '.', '?', '!', '…', ',' };

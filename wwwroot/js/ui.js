@@ -27,6 +27,7 @@ window.EnableTooltip = () => {
     try {
         $('tooltip').tooltip();
         $('li[data-toggle=\"tooltip\"]').tooltip();
+        $('td[data-toggle=\"tooltip\"]').tooltip();
     } catch { }
 }
 

@@ -48,5 +48,14 @@ namespace Sermone.Languages
         public string AcceptableRange { get; }
         public string AsianMode { get; }
         public string Sensitivity { get; }
+
+        //Settings Tooltips
+        public string DenyPatternTooltip { get; }
+        public string IgnorePatternTooltip { get; }
+        public string QuotesPatternTooltip { get; }
+        public string BreaklineTooltip { get; }
+        public string AcceptableRangeTooltip { get; }
+        public string AsianModeTooltip { get; }
+        public string SensitivityTooltip { get; }
     }
 }

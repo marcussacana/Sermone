@@ -9,6 +9,8 @@ using Blazor.ModalDialog;
 using BlazorWorker.Core;
 using Blazored.Toast;
 using Sermone.Types;
+using Sermone.Tools;
+using Newtonsoft.Json;
 
 namespace Sermone
 {
@@ -57,6 +59,8 @@ namespace Sermone
             if (!GetLanguageByID(Engine.Settings.Language, out Engine.Language)) {
                 Engine.Language = new Portuguese();
             }
+
+            Strings.Initialize();
         }
 
         public static async Task UpdateSettings() { 

@@ -86,7 +86,8 @@ namespace Sermone.Tools
                 if (Name.StartsWith("CB64")) {
                     var Compressed = await Engine.LocalStorage.GetItemAsync<byte[]>(Name);
                     var Decompressed = await Engine.Compressor.Decompress(Compressed);
-                    yield return new ValueTuple<string, byte[]>(Name.Substring(4), Decompressed);
+                    if (Decompressed != null)
+                        yield return new ValueTuple<string, byte[]>(Name.Substring(4), Decompressed);
                 }
             }
 
