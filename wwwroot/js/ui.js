@@ -11,7 +11,6 @@ window.onclick = function(e) {
 }
 
 window.SetTitle = (title) => {
-    console.log('Setting title', title);
     document.title = title;
 }
 
@@ -22,6 +21,13 @@ window.EnsureItemVisible = (item) => {
 
 window.FocusElement = (elm) => {
     elm.focus();
+}
+
+window.EnableTooltip = () => {
+    try {
+        $('tooltip').tooltip();
+        $('li[data-toggle=\"tooltip\"]').tooltip();
+    } catch { }
 }
 
 function ShowDropDown(e) {

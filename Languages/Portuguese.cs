@@ -41,7 +41,7 @@
         public string QuotesPattern => "Padrões de Citação";
         public string Breakline => "Quebra de Linha";
         public string AcceptableRange => "Alcance Tolerado";
-        public string AsianMode => ">Modo Asiático";
+        public string AsianMode => "Modo Asiático";
         public string Sensitivity => "Sensibilidade";
     }
 }

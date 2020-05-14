@@ -149,3 +149,7 @@ header {
         right: 4rem;
         top: 0.5rem;
     }
+
+tooltip {
+    padding: 0.5rem .05rem;
+}

@@ -24,7 +24,7 @@ namespace Sermone.Tools
             using MemoryStream Stream = new MemoryStream(Convert.FromBase64String(B64));
             using MemoryStream Result = new MemoryStream();
             using BrotliStream Compressor = new BrotliStream(Result, CompressionMode.Compress);
-            Compressor.SetQuality(6);
+            Compressor.SetQuality(10);
             Stream.CopyTo(Compressor);
             Compressor.Flush();
             var Rst = Convert.ToBase64String(Result.ToArray());
