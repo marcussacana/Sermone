@@ -57,7 +57,16 @@ namespace BlazorWorker.Core
                             "mscorlib.dll",
                             "WebAssembly.Bindings.dll",
                             "System.dll",
-                            "System.Core.dll"
+                            "System.Core.dll",
+                            "Microsoft.Extensions.Configuration.Abstractions.dll",
+                            "Microsoft.AspNetCore.Components.WebAssembly.dll",
+                            "Microsoft.Extensions.Logging.Abstractions.dll",
+                            "Microsoft.AspNetCore.Components.dll",
+                            "Microsoft.JSInterop.WebAssembly.dll",
+                            "Microsoft.Extensions.Logging.dll",
+                            "System.Text.Encodings.Web.dll",
+                            "System.Text.Json.dll",
+                            "Microsoft.JSInterop.dll"
                         }.Concat(Dependencies).ToArray(),
                     CallbackMethod = nameof(OnMessage),
                     MessageEndPoint = messageMethod

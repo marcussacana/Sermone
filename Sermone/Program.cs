@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using Microsoft.Extensions.DependencyInjection;
 using Sermone.Languages;
 using Blazor.FileReader;
 using Blazored.LocalStorage;
@@ -10,7 +9,6 @@ using BlazorWorker.Core;
 using Blazored.Toast;
 using Sermone.Types;
 using Sermone.Tools;
-using Newtonsoft.Json;
 using Microsoft.JSInterop;
 
 namespace Sermone
@@ -20,11 +18,10 @@ namespace Sermone
         public static async Task Main(string[] args)
         {
             WorkerProxy.Dependencies = new string[] {
-                "System.IO.Compression.dll",
-                "BrotliSharpLib.dll"
+                "BrotliSharpLib.dll",
             };
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
-            builder.Services.AddBlazorContextMenu();
+            //builder.Services.AddBlazorContextMenu();
             builder.Services.AddBlazoredLocalStorage();
             builder.Services.AddBlazorFileSaver();
             builder.Services.AddModalDialog();

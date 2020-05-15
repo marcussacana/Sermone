@@ -27,10 +27,5 @@ namespace BlazorWorker.WorkerCore
         {
             self.Invoke("postMessage", message);
         }
-
-        public static void Dispose()
-        {
-            self.Dispose();
-        }
     }
 }
