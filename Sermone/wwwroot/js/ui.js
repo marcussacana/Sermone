@@ -38,8 +38,8 @@ window.DestroyTooltip = () => {
 }
 
 window.GetBaseDirectory = () => {
-    var Elm = document.getElementsByTagName("base");
-    return Elm.getAttribute("href")[0];
+    var Elm = document.getElementsByTagName("base")[0];
+    return Elm.getAttribute("href");
 }
 
 function ShowDropDown(e) {
