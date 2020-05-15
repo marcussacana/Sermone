@@ -1,0 +1,68 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30001.183
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sermone", "Sermone\Sermone.csproj", "{D6C03654-BC65-4F5D-9C5C-B46B8659479E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SacanaWrapper", "..\SacanaWrapper\SacanaWrapper\SacanaWrapper.csproj", "{66C4FB33-9701-4BB2-82B0-B9AD4F807DFA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorWorker.Core", "Dependencies\BlazorWorker\BlazorWorker.Core.csproj", "{859C90F9-B0CF-425A-875A-2CCFE725162E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorWorker.BackgroundServiceFactory", "Dependencies\BlazorWorker.ServiceFactory\BlazorWorker.BackgroundServiceFactory.csproj", "{AEB73FEB-26C4-499E-85C6-9E1D14614D3E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorWorker.WorkerBackgroundService", "Dependencies\BlazorWorker.WorkerBackgroundService\BlazorWorker.WorkerBackgroundService.csproj", "{CED2641D-0FAE-4F4A-BD08-D03FD6BE958A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorWorker.WorkerCore", "Dependencies\BlazorWorker.WorkerCore\BlazorWorker.WorkerCore.csproj", "{A9C41215-DDDC-45F4-9C23-037D7E74CFD9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Nuget|Any CPU = Nuget|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D6C03654-BC65-4F5D-9C5C-B46B8659479E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6C03654-BC65-4F5D-9C5C-B46B8659479E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6C03654-BC65-4F5D-9C5C-B46B8659479E}.Nuget|Any CPU.ActiveCfg = Release|Any CPU
+		{D6C03654-BC65-4F5D-9C5C-B46B8659479E}.Nuget|Any CPU.Build.0 = Release|Any CPU
+		{D6C03654-BC65-4F5D-9C5C-B46B8659479E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6C03654-BC65-4F5D-9C5C-B46B8659479E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66C4FB33-9701-4BB2-82B0-B9AD4F807DFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66C4FB33-9701-4BB2-82B0-B9AD4F807DFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66C4FB33-9701-4BB2-82B0-B9AD4F807DFA}.Nuget|Any CPU.ActiveCfg = Release|Any CPU
+		{66C4FB33-9701-4BB2-82B0-B9AD4F807DFA}.Nuget|Any CPU.Build.0 = Release|Any CPU
+		{66C4FB33-9701-4BB2-82B0-B9AD4F807DFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66C4FB33-9701-4BB2-82B0-B9AD4F807DFA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{859C90F9-B0CF-425A-875A-2CCFE725162E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{859C90F9-B0CF-425A-875A-2CCFE725162E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{859C90F9-B0CF-425A-875A-2CCFE725162E}.Nuget|Any CPU.ActiveCfg = Nuget|Any CPU
+		{859C90F9-B0CF-425A-875A-2CCFE725162E}.Nuget|Any CPU.Build.0 = Nuget|Any CPU
+		{859C90F9-B0CF-425A-875A-2CCFE725162E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{859C90F9-B0CF-425A-875A-2CCFE725162E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AEB73FEB-26C4-499E-85C6-9E1D14614D3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEB73FEB-26C4-499E-85C6-9E1D14614D3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEB73FEB-26C4-499E-85C6-9E1D14614D3E}.Nuget|Any CPU.ActiveCfg = Nuget|Any CPU
+		{AEB73FEB-26C4-499E-85C6-9E1D14614D3E}.Nuget|Any CPU.Build.0 = Nuget|Any CPU
+		{AEB73FEB-26C4-499E-85C6-9E1D14614D3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEB73FEB-26C4-499E-85C6-9E1D14614D3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CED2641D-0FAE-4F4A-BD08-D03FD6BE958A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CED2641D-0FAE-4F4A-BD08-D03FD6BE958A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CED2641D-0FAE-4F4A-BD08-D03FD6BE958A}.Nuget|Any CPU.ActiveCfg = Nuget|Any CPU
+		{CED2641D-0FAE-4F4A-BD08-D03FD6BE958A}.Nuget|Any CPU.Build.0 = Nuget|Any CPU
+		{CED2641D-0FAE-4F4A-BD08-D03FD6BE958A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CED2641D-0FAE-4F4A-BD08-D03FD6BE958A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A9C41215-DDDC-45F4-9C23-037D7E74CFD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9C41215-DDDC-45F4-9C23-037D7E74CFD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9C41215-DDDC-45F4-9C23-037D7E74CFD9}.Nuget|Any CPU.ActiveCfg = Nuget|Any CPU
+		{A9C41215-DDDC-45F4-9C23-037D7E74CFD9}.Nuget|Any CPU.Build.0 = Nuget|Any CPU
+		{A9C41215-DDDC-45F4-9C23-037D7E74CFD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9C41215-DDDC-45F4-9C23-037D7E74CFD9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DE1A0B20-A45A-48A3-9106-12A6322DA9FA}
+	EndGlobalSection
+EndGlobal
