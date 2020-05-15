@@ -69,7 +69,7 @@ namespace Sermone.Tools
                             //Cache Storage Refreshed
                             Engine.Plugins = Plugins.ToArray();
                             Engine.MainNavMenu.Refresh();
-                            Engine.MainNavMenu.Navigator.NavigateTo("/");
+                            Program.Navigate("/");
                             return;
                         }
                     }

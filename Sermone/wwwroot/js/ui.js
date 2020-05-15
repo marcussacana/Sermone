@@ -37,6 +37,11 @@ window.DestroyTooltip = () => {
     }catch { }
 }
 
+window.GetBaseDirectory = () => {
+    var Elm = document.getElementById("Base");
+    return Elm.getAttribute("href");
+}
+
 function ShowDropDown(e) {
     e.classList.toggle("show");
 }

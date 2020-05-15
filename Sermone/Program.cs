@@ -11,6 +11,7 @@ using Blazored.Toast;
 using Sermone.Types;
 using Sermone.Tools;
 using Newtonsoft.Json;
+using Microsoft.JSInterop;
 
 namespace Sermone
 {
@@ -61,6 +62,10 @@ namespace Sermone
             }
 
             Strings.Initialize();
+
+            BasePath = await Engine.JSRuntime.InvokeAsync<string>("GetBaseDirectory");
+            if (!BasePath.EndsWith("/"))
+                BasePath += "/";
         }
 
         public static async Task UpdateSettings() {
@@ -75,6 +80,11 @@ namespace Sermone
 
             Language = AllLanguages[ID];
             return true;
+        }
+
+        static string BasePath = null;
+        public static void Navigate(string Path) {
+            Engine.MainNavMenu.Navigator.NavigateTo(BasePath + Path.TrimStart('/'));
         }
 
         public static ILang[] AllLanguages = new ILang[] {

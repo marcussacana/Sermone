@@ -14,7 +14,7 @@
         if (Engine.Plugins == null)
         {
             await Program.EntryPoint();
-            Engine.MainNavMenu.Navigator.NavigateTo("/Initialize");
+            Program.Navigate("/Initialize");
         }
         await base.OnInitializedAsync();
     }
