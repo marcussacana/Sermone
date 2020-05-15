@@ -23,6 +23,7 @@
     {
         if (firstRender && Engine.Plugins != null)
         {
+            Engine.IndexPage = this;
             await ModalDialog.ShowDialogAsync<About>("Sermone", new ModalDialogOptions() { BackgroundClickToClose = true, ShowCloseButton = true });
             if (SacanaWrapper.RemoteWrapper.CacheChanged)
             {
@@ -35,5 +36,10 @@
             await Engine.SetTile("Sermone");
         }
         await base.OnAfterRenderAsync(firstRender);
+    }
+
+    public void Refresh() {
+        Engine.EditorBox.Refresh();
+        this.StateHasChanged();
     }
 }

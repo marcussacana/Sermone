@@ -36,6 +36,8 @@ namespace Sermone
         public static RemoteWrapper Wrapper = new RemoteWrapper();
         public static DialogueEditor EditorBox;
         public static LoadingViewer Loading;
+        public static MainLayout MainLayout;
+        public static Pages.Index IndexPage;
         public static NavMenu MainNavMenu;
         public static ListBox DialogueBox;
 #pragma warning restore 649

@@ -57,13 +57,14 @@ namespace Sermone
             }
 
             if (!GetLanguageByID(Engine.Settings.Language, out Engine.Language)) {
-                Engine.Language = new Portuguese();
+                Engine.Language = new English();
             }
 
             Strings.Initialize();
         }
 
-        public static async Task UpdateSettings() { 
+        public static async Task UpdateSettings() {
+            GetLanguageByID(Engine.Settings.Language, out Engine.Language);
             await Engine.LocalStorage.SetItemAsync("Settings", Engine.Settings);
         }
 
@@ -77,7 +78,7 @@ namespace Sermone
         }
 
         public static ILang[] AllLanguages = new ILang[] {
-            new Portuguese()
+            new English(), new Portuguese()
         };
     }
 }

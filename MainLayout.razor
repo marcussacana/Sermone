@@ -7,3 +7,16 @@
     <NavMenu @ref="Engine.MainNavMenu" />
 
     @Body
+
+@code {
+    protected override async Task OnAfterRenderAsync(bool firstRender) {
+        if (firstRender)
+            Engine.MainLayout = this;
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    public void Refresh() {
+        Engine.IndexPage?.Refresh();
+        this.StateHasChanged();
+    }
+}

@@ -71,9 +71,18 @@
 
     async Task SettingsClicked()
     {
+        int CurrentLang = Engine.Settings.Language;
         var Result = await SModal.ShowDialogAsync<Sermone.Dialogs.Settings>(Engine.Language.Settings);
+
         if (Result.Success)
+        {
             await Program.UpdateSettings();
+
+            if (Engine.Settings.Language != CurrentLang)
+                Engine.MainLayout.Refresh();
+
+            await JSRuntime.InvokeVoidAsync("DestroyTooltip");
+        }
     }
 
     public void Refresh() => this.StateHasChanged();

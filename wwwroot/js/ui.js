@@ -31,6 +31,12 @@ window.EnableTooltip = () => {
     } catch { }
 }
 
+window.DestroyTooltip = () => {
+    try {
+        $('div[class*="tooltip fade show"]').remove();
+    }catch { }
+}
+
 function ShowDropDown(e) {
     e.classList.toggle("show");
 }

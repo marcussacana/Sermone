@@ -63,10 +63,7 @@ header {
 }
 
     .DialogueBox input {
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        box-sizing: border-box;
-        width: calc(100vw - 225px);
+        width: calc(100vw - 230px);
         position: absolute;
         bottom: 3px;
     }
@@ -84,12 +81,14 @@ header {
     position: absolute;
     right: 5px;
     bottom: 10px;
+    width: 6.5em;
 }
 
 .LeftButton {
     position: absolute;
     left: 5px;
     bottom: 10px;
+    width: 6.5em;
 }
 
 .hide {
