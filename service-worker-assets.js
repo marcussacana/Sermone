@@ -1,6 +1,10 @@
 self.assetsManifest = {
   "assets": [
     {
+      "hash": "sha256-frcCV1k9oG9oKj3dpUqdJg1PxRT2RSN/XKdLCPjaYaY=",
+      "url": ".nojekyll"
+    },
+    {
       "hash": "sha256-qU+KhVPK6oQw3UyjzAHU4xjRmCj3TLZUU/+39dni9E0=",
       "url": "favicon.ico"
     },
