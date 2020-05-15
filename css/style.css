@@ -1,0 +1,167 @@
+html {
+    height: 100%;
+}
+
+    html body {
+        height: 100%;
+        overflow: hidden;
+    }
+
+        html body .container-fluid.body-content {
+            position: absolute;
+            top: 50px;
+            bottom: 30px;
+            right: 0;
+            left: 0;
+            overflow-y: auto;
+        }
+
+header {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 50px;
+}
+
+.footer {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 30px;
+}
+
+#ListBox {
+    height: calc(100% - 120px);
+    margin: 0 auto;
+    border: 1px solid gray;
+    border-radius: 5px;
+    margin-top: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+    padding-right: 30px;
+    overflow-y: scroll;
+}
+
+.ItemA, .ItemB {
+	padding: 3px 10px;
+}
+
+.ItemLabel {
+    display: unset;
+}
+
+.ItemB {
+	background: rgb(230,230,230);
+}
+
+.DialogueBox {
+    padding-left: 115px;
+    position: absolute;
+    bottom: 7px;
+}
+
+    .DialogueBox input {
+        width: calc(100vw - 230px);
+        position: absolute;
+        bottom: 3px;
+    }
+
+.position-relative {
+    position: relative;
+}
+
+.right {
+    right: 5px;
+    position: absolute;
+}
+
+.RightButton {
+    position: absolute;
+    right: 5px;
+    bottom: 10px;
+    width: 6.5em;
+}
+
+.LeftButton {
+    position: absolute;
+    left: 5px;
+    bottom: 10px;
+    width: 6.5em;
+}
+
+.hide {
+    display: none;
+}
+
+.loading-section {
+    text-align: center;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: center;
+}
+
+    .loading-section h2 {
+        color: #00b5dc;
+    }
+
+.loader-dot {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background-color: #00b5dc;
+    display: inline-block;
+    -webkit-animation: grow 2.1s infinite ease-in-out both;
+    animation: grow 2.1s infinite ease-in-out both;
+}
+
+    .loader-dot.dot1 {
+        -webkit-animation-delay: -0.96s;
+        animation-delay: -0.96s;
+    }
+
+    .loader-dot.dot2 {
+        -webkit-animation-delay: -0.48s;
+        animation-delay: -0.48s;
+    }
+
+
+@-webkit-keyframes grow {
+    0%, 80%, 100% {
+        -webkit-transform: scale(0)
+    }
+
+    40% {
+        -webkit-transform: scale(1.0)
+    }
+}
+
+#blazor-error-ui {
+    background: lightyellow;
+    bottom: 0;
+    box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
+    display: none;
+    left: 0;
+    padding: 0.6rem 1.25rem 0.7rem 1.25rem;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+    #blazor-error-ui .dismiss {
+        cursor: pointer;
+        position: absolute;
+        right: 4rem;
+        top: 0.5rem;
+    }
+
+tooltip {
+    padding: 0.5rem .05rem;
+}
+
+.table.table-condensed td, .table.table-condensed th {
+    padding: 0.40rem;
+}
