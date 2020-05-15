@@ -10,6 +10,7 @@ using Blazored.Toast;
 using Sermone.Types;
 using Sermone.Tools;
 using Microsoft.JSInterop;
+using System;
 
 namespace Sermone
 {
@@ -63,6 +64,10 @@ namespace Sermone
             BasePath = await Engine.JSRuntime.InvokeAsync<string>("GetBaseDirectory");
             if (!BasePath.EndsWith("/"))
                 BasePath += "/";
+
+
+            //Prevent the Optimizator remove the netstandard.dll
+            _ = System.Web.HttpUtility.HtmlEncode("");
         }
 
         public static async Task UpdateSettings() {
