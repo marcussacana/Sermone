@@ -96,7 +96,6 @@ namespace Sermone
         }
 
         private static string[] TryUsePlugin(IPluginCreator Plugin) {
-            IPlugin CurrentPlugin;
             try {
                 if (Plugin.InitializeWithScript)
                     CurrentPlugin = Plugin.Create(CurrentScript);
