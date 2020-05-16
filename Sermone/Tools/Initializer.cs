@@ -48,6 +48,7 @@ namespace Sermone.Tools
                         Engine.Loading.Refresh();
 
                         RemoteWrapper.Cache = CacheDic;
+                        RemoteWrapper.ForceBinary = true;
                         RemoteWrapper.HttpClient = new HttpClient();
 
                         Plugins = new List<IPluginCreator>();

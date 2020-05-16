@@ -11,6 +11,7 @@ using Sermone.Types;
 using Sermone.Tools;
 using Microsoft.JSInterop;
 using System;
+using System.Text;
 
 namespace Sermone
 {
@@ -18,6 +19,7 @@ namespace Sermone
     {
         public static async Task Main(string[] args)
         {
+            
             WorkerProxy.Dependencies = new string[] {
                 "BrotliSharpLib.dll",
             };
@@ -65,9 +67,7 @@ namespace Sermone
             if (!BasePath.EndsWith("/"))
                 BasePath += "/";
 
-
-            //Prevent the Optimizator remove the netstandard.dll
-            _ = System.Web.HttpUtility.HtmlEncode("");
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
         }
 
         public static async Task UpdateSettings() {

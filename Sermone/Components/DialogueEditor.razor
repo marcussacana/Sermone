@@ -27,7 +27,7 @@
             await Engine.BackDialogue();
         }
 
-        if (Args.Code == "ArrowDown" && EleapsedTime.TotalMilliseconds > 300) {
+        if (Args.Code == "ArrowDown" && EleapsedTime.TotalMilliseconds > 200) {
             LastEvent = DateTime.Now;
             await Engine.NextDialogue();
         }

@@ -46,6 +46,7 @@ namespace Sermone
         public static byte[] CurrentScript;
 
         public static IPluginCreator[] Plugins;
+        public static IPluginCreator LastWorkingPlugin;
         public static IPlugin CurrentPlugin;
 
         public static bool NotSaved;

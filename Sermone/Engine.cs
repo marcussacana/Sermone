@@ -5,6 +5,8 @@ using System.Linq;
 using Sermone.Types;
 using Sermone.Tools;
 using Microsoft.JSInterop;
+using System.Security.Cryptography;
+using SacanaWrapper;
 
 namespace Sermone
 {
@@ -25,37 +27,59 @@ namespace Sermone
         }
 
         public static async Task OpenFile() {
+            DialogueBox.SelectedIndex = 0;
             DialogueBox.SetItems(new ListBoxItemInfo[0]);
             DialogueBox.Refresh();
 
-            var CurrentExt = Path.GetExtension(CurrentName).ToLower();
-            foreach (var Plugin in Plugins) {
-                if (!Plugin.Filter.ToLower().Contains(CurrentExt))
-                    continue;
+            string[] Strings = null;
 
-                try
+            await SetTile($"Sermone - {Language.Loading}");
+
+            if (LastWorkingPlugin != null)
+                Strings = TryUsePlugin(LastWorkingPlugin);
+
+            if (Strings == null)
+            {
+                var CurrentExt = Path.GetExtension(CurrentName).ToLower();
+
+                var SupportedPlugins = (from x in Plugins where x.Filter.ToLower().Contains(CurrentExt) select x);
+                var NotSupportedPlugins = (from x in Plugins where !SupportedPlugins.Contains(x) select x);
+
+                foreach (var Plugin in SupportedPlugins)
                 {
-                    CurrentPlugin = Plugin.Create(CurrentScript);
+                    Strings = TryUsePlugin(Plugin);
+                    if (Strings != null)
+                    {
+                        LastWorkingPlugin = Plugin;
+                        break;
+                    }
                 }
-                catch (Exception ex) {
-                    Console.Error.WriteLine($"Plugin Creation Error:\n{ex}");
-                    continue;
+
+                if (Strings == null)
+                {
+                    foreach (var Plugin in NotSupportedPlugins)
+                    {
+                        Strings = TryUsePlugin(Plugin);
+                        if (Strings != null)
+                        {
+                            LastWorkingPlugin = Plugin;
+                            break;
+                        }
+                    }
                 }
-
-
-                await SetTile($"Sermone - {Language.Loading}");
-                DialogueBox.SetItems((from x in CurrentPlugin.Import()
-                                      select new ListBoxItemInfo() {
-                                        Checked = true,
-                                        Visible = true,
-                                        Value = x
-                                    }).ToArray());
-                DialogueBox.Refresh();
-
-                CanSave = true;
-                MainNavMenu.Refresh();
-                break;
             }
+
+            DialogueBox.SetItems((from x in Strings
+                                  select new ListBoxItemInfo() {
+                                      Checked = true,
+                                      Visible = true,
+                                      Value = x
+                                  }).ToArray());
+
+            DialogueBox.Refresh();
+
+            CanSave = true;
+            MainNavMenu.Refresh();
 
             var Result = await (from x in DialogueBox.Items select x.Value).ToArray().BulkIsDialogue();
             for (int i = 0, x = 0; i < Result.Length; i++) {
@@ -69,6 +93,28 @@ namespace Sermone
                     await DoEvents();
             }
             await SetTile($"Sermone");
+        }
+
+        private static string[] TryUsePlugin(IPluginCreator Plugin) {
+            IPlugin CurrentPlugin;
+            try {
+                if (Plugin.InitializeWithScript)
+                    CurrentPlugin = Plugin.Create(CurrentScript);
+                else
+                    CurrentPlugin = Plugin.Create();
+            }
+            catch (Exception ex) {
+                Console.Error.WriteLine($"Plugin \"{Plugin.Name}\" Creation Error:\n{ex}");
+                return null;
+            }
+
+            try {
+               return Plugin.InitializeWithScript ? CurrentPlugin.Import() : CurrentPlugin.Import(CurrentScript);
+            }
+            catch (Exception ex){
+                Console.Error.WriteLine($"Plugin \"{Plugin.Name}\" Load Error:\n{ex}"); 
+                return null; 
+            }
         }
 
         public static async Task SaveFile() {

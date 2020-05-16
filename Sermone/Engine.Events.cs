@@ -72,8 +72,10 @@ namespace Sermone
             DialogueBox.SelectedIndex = NewID;
             DialogueBox.Refresh(NewID);
             DialogueBox.Refresh(OldID);
-            await DialogueBox.EnsureItemVisible(NewID);
             EditorBox.Refresh();
+
+            await DoEvents();
+            await DialogueBox.EnsureItemVisible(NewID);
         }
 
         public async static Task UpdateDialogue()
