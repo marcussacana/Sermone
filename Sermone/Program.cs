@@ -32,7 +32,7 @@ namespace Sermone
             builder.Services.AddBlazoredToast();
             builder.Services.AddFileReaderService(opt => opt.UseWasmSharedBuffer = false);
             builder.RootComponents.Add<App>("app");
-            Engine.Language = new Portuguese();
+            Engine.Language = new English();
             await builder.Build().RunAsync();
         }
         public static async Task<bool> EntryPoint()
