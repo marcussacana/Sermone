@@ -8,6 +8,7 @@
         //Dropdown
         public string File => "Arquivo";
         public string Open => "Abrir";
+        public string OpenAs => "Abrir Como";
         public string Save => "Salvar";
 
         //Nav Bar
@@ -27,10 +28,20 @@
         public string AboutVersion => "Versão Protótipo";
         public string AboutDesc => "Essa é uma versão protótipo do software voltada para fins experimentais e como tal carece de recursos mais avançados para um uso prático, pode também contar com erros no decorrer do uso.";
 
+        //Plugin Picker
+        public string SelectAPlugin => "Selecione um Plugin";
+        public string Name => "Nome";
+        public string Extension => "Extensão";
+        public string ReadWrite => "Leitura/Escrita";
+        public string ReadOnly => "Apenas Leitura";
+        public string WriteOnly => "Apenas Escrita";
+
         //Notifications
         public string BackgroundTaskWarning => "O Sermone está trabalhando em segundo plano, evite fechar-lo sem confirmar a conclusão da tarefa.";
         public string NoResultsFound => "Nenhum Resultado Encontrado";
         public string TryOthersWords => "Tente novamente com outras palavras.";
+        public string NotSupported => "Não Suportado";
+        public string PluginDontSupport => "O Plugin selecionado não suporta este arquivo.";
 
         //Settings
         public string Settings => "Configurações";

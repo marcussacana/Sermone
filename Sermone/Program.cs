@@ -63,7 +63,7 @@ namespace Sermone
 
             Strings.Initialize();
 
-            BasePath = await Engine.JSRuntime.InvokeAsync<string>("GetBaseDirectory");
+            BasePath = await JSWrapper.GetBaseDirectory();
             if (!BasePath.EndsWith("/"))
                 BasePath += "/";
 

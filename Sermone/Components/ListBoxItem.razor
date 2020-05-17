@@ -11,28 +11,28 @@
 </li>
 
 @code {
-    [Parameter]
-    public int ID { get; set; }
+        [Parameter]
+        public int ID { get; set; }
 
-    [Parameter]
-    public string Value { get; set; }
+        [Parameter]
+        public string Value { get; set; }
 
-    [Parameter]
-    public bool Checked { get; set; }
+        [Parameter]
+        public bool Checked { get; set; }
 
-    [Parameter]
-    public bool Visible { get; set; }
+        [Parameter]
+        public bool Visible { get; set; }
 
-    [Parameter]
-    public bool Selected { get; set; }
+        [Parameter]
+        public bool Selected { get; set; }
 
-    [Parameter]
-    public int? VisibleIndex { get; set; }
+        [Parameter]
+        public int? VisibleIndex { get; set; }
 
-    [Parameter]
-    public bool? VirtualChecked { get; set; }
+        [Parameter]
+        public bool? VirtualChecked { get; set; }
 
-    string CKID => "CK" + ID;
+        string CKID => "CK" + ID;
 
     public string ItemClass => (ID % 2 == 0 || Selected ? "ItemA" : "ItemB")
                          + (Selected ? " list-group-item-primary" : "");
@@ -53,7 +53,9 @@
         }
     }
 
-    public async Task EnsureVisible() => await Engine.JSRuntime.InvokeVoidAsync("EnsureItemVisible", ID);
+    public async Task EnsureVisible() {
+        await JSWrapper.EnsureItemVisible(ID);
+    }
 
     public void Refresh() => this.StateHasChanged();
 }

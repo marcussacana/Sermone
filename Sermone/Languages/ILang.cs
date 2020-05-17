@@ -14,6 +14,7 @@ namespace Sermone.Languages
         //Dropdown
         public string File { get; }
         public string Open { get; }
+        public string OpenAs { get; }
         public string Save { get; }
 
         //Nav Bar
@@ -33,10 +34,20 @@ namespace Sermone.Languages
         public string AboutVersion { get; }
         public string AboutDesc { get; }
 
+        //Plugin Picker
+        public string SelectAPlugin { get; }
+        public string Name { get; }
+        public string Extension { get; }
+        public string ReadWrite { get; }
+        public string ReadOnly { get; }
+        public string WriteOnly { get; }
+
         //Notifications
         public string BackgroundTaskWarning { get; }
         public string NoResultsFound { get; }
         public string TryOthersWords { get; }
+        public string NotSupported { get; }
+        public string PluginDontSupport { get; }
 
         //Settings
         public string Settings { get; }

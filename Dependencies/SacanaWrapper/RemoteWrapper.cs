@@ -309,7 +309,7 @@ namespace SacanaWrapper
                     if (!Handler.InitializeWithScript)
                         continue;
 
-                  Creator = new PluginCreator(Plugin.Name, Plugin.Extensions, Handler);
+                  Creator = new PluginCreator(Plugin, Handler);
                 }
                 catch { continue; }
 
@@ -412,6 +412,7 @@ namespace SacanaWrapper
         public DotNetVM VM;
         public string ImportPath;
         public string ExportPath;
+        public string Support;
         public bool InitializeWithScript;
     }
 
@@ -421,13 +422,15 @@ namespace SacanaWrapper
         string Class;
         public string Filter { get; private set; }
         public string Name { get; private set; }
+        public string Type { get; private set; }
         public bool InitializeWithScript { get; private set; }
-        public PluginCreator(string Name, string Filter, PluginHandler Handler) {
+        public PluginCreator(PluginInfo Info, PluginHandler Handler) {
             VM = Handler.VM;
+            Name = Info.Name;
+            Type = Info.Type;
+            Filter = Info.Extensions;
             Class = Handler.ImportPath.Split('>').First();
             InitializeWithScript = Handler.InitializeWithScript;
-            this.Name = Name;
-            this.Filter = Filter;
         }
 
         public IPlugin Create(byte[] Script)

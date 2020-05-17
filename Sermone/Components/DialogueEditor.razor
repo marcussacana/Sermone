@@ -36,7 +36,7 @@
     ElementReference InputRef;
 
     public async Task Focus() {
-        await Engine.JSRuntime.InvokeVoidAsync("FocusElement", InputRef);
+        await InputRef.Focus();
     }
 
     public void Refresh() => this.StateHasChanged();

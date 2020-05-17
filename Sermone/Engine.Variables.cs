@@ -1,4 +1,5 @@
 ﻿using Blazor.FileReader;
+using Blazor.ModalDialog;
 using Blazored.LocalStorage;
 using Blazored.Toast.Services;
 using BlazorFileSaver;
@@ -22,9 +23,10 @@ namespace Sermone
         public static bool CanSave;
         public static ILang Language;
 
-        public static IFileReaderService FReader => MainNavMenu.ReaderService;
         public static ILocalStorageService LocalStorage => MainNavMenu.LocalStorage;
+        public static IFileReaderService FReader => MainNavMenu.ReaderService;
         public static IBlazorFileSaver FSaver => MainNavMenu.SaverService;
+        public static IModalDialogService Modal => MainNavMenu.Modal;
         public static IJSRuntime JSRuntime => MainNavMenu.JSRuntime;
         public static IWorkerFactory Worker => MainNavMenu.Worker;
         public static IToastService Toast => MainNavMenu.Toast;
@@ -50,6 +52,7 @@ namespace Sermone
         public static IPlugin CurrentPlugin;
 
         public static bool NotSaved;
+        public static bool ForceLastPlugin;
 
         public static string CurrentDialogue = string.Empty;
 

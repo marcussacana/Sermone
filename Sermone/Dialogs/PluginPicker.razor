@@ -1,0 +1,42 @@
+﻿@using SacanaWrapper
+@using System.Linq;
+@inject IModalDialogService Modal
+
+<table class="table table-striped table-condensed table-hover">
+    <tbody>
+        @foreach (var Plugin in Engine.Plugins.OrderBy(x => x.Name))
+        {
+            var lPlugin = Plugin;
+            string PluginType = Plugin.Type switch {
+                "Read/Write" => Engine.Language.ReadWrite,
+                "Read Only" => Engine.Language.ReadOnly,
+                "Write Only" => Engine.Language.WriteOnly,
+                _ => throw new Exception("Invalid Plugin Type")
+            };
+
+            <tr data-toggle="tooltip" data-placement="left" data-original-title="@PluginType" @onclick="@(() => OnPluginClicked(lPlugin))">
+                <td class="align-baseline align-middle">
+                    <a href="#" class="table-item">@Plugin.Name</a>
+                </td>
+                <td style="width: 10em;">
+                    @Plugin.Filter
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+
+                                void OnPluginClicked(IPluginCreator Plugin)
+                                {
+                                    var Return = new ModalDialogParameters();
+                                    Return.Add("Plugin", Plugin);
+                                    Modal.Close(true, Return);
+                                }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+                        {
+                            await JSWrapper.EnableTooltips();
+                        }
+                    }

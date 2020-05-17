@@ -4,6 +4,7 @@
     {
         string Name { get; }
         string Filter { get; }
+        string Type { get; }
 
         bool InitializeWithScript { get; }
         IPlugin Create(byte[] Script);

@@ -4,9 +4,8 @@ using System.Threading.Tasks;
 using System.Linq;
 using Sermone.Types;
 using Sermone.Tools;
-using Microsoft.JSInterop;
-using System.Security.Cryptography;
 using SacanaWrapper;
+using Sermone.Dialogs;
 
 namespace Sermone
 {
@@ -26,6 +25,23 @@ namespace Sermone
             }
         }
 
+        public static async Task Open(bool OpenAs = false)
+        {
+            ForceLastPlugin = OpenAs;
+            await JSWrapper.OpenFile();
+        }
+
+        public static async Task OpenAs()
+        {
+            var Result = await Modal.ShowDialogAsync<PluginPicker>(Language.SelectAPlugin);
+            await JSWrapper.DestroyTooltips();
+            if (!Result.Success)
+                return;
+
+            LastWorkingPlugin = (IPluginCreator)Result.ReturnParameters["Plugin"];
+            await Open(true);
+        }
+
         public static async Task OpenFile() {
             DialogueBox.SelectedIndex = 0;
             DialogueBox.SetItems(new ListBoxItemInfo[0]);
@@ -33,13 +49,18 @@ namespace Sermone
 
             string[] Strings = null;
 
-            await SetTile($"Sermone - {Language.Loading}");
+            await JSWrapper.SetTile($"Sermone - {Language.Loading}");
 
             if (LastWorkingPlugin != null)
                 Strings = TryUsePlugin(LastWorkingPlugin);
 
             if (Strings == null)
             {
+                if (ForceLastPlugin) {
+                    Toast.ShowError(Language.PluginDontSupport, Language.NotSupported);
+                    return;
+                }
+
                 var CurrentExt = Path.GetExtension(CurrentName).ToLower();
 
                 var SupportedPlugins = (from x in Plugins where x.Filter.ToLower().Contains(CurrentExt) select x);
@@ -92,7 +113,7 @@ namespace Sermone
                 if (x % 50 == 0)
                     await DoEvents();
             }
-            await SetTile($"Sermone");
+            await JSWrapper.SetTile($"Sermone");
         }
 
         private static string[] TryUsePlugin(IPluginCreator Plugin) {
@@ -103,7 +124,7 @@ namespace Sermone
                     CurrentPlugin = Plugin.Create();
             }
             catch (Exception ex) {
-                Console.Error.WriteLine($"Plugin \"{Plugin.Name}\" Creation Error:\n{ex}");
+                Console.WriteLine($"Plugin \"{Plugin.Name}\" Creation Error:\n{ex}");
                 return null;
             }
 
@@ -111,11 +132,10 @@ namespace Sermone
                return Plugin.InitializeWithScript ? CurrentPlugin.Import() : CurrentPlugin.Import(CurrentScript);
             }
             catch (Exception ex){
-                Console.Error.WriteLine($"Plugin \"{Plugin.Name}\" Load Error:\n{ex}"); 
+                Console.WriteLine($"Plugin \"{Plugin.Name}\" Load Error:\n{ex}"); 
                 return null; 
             }
         }
-
         public static async Task SaveFile() {
             if (!CanSave)
                 return;
@@ -126,7 +146,6 @@ namespace Sermone
             await FSaver.SaveAsBase64(CurrentName, Convert.ToBase64String(Data), "application/octet-stream");
         }
 
-        public static async Task SetTile(string Title) => await JSRuntime.InvokeVoidAsync("SetTitle", Title);
         public static async Task DoEvents() => await Task.Delay(10);
     }
 }

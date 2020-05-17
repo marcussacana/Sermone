@@ -24,7 +24,8 @@
             <div class="dropdown-menu" aria-labelledby="NavFileDropdown">
 
                 <input type="file" id="FOpen" @ref="Engine.InputRef" @onchange="Engine.FileChanged" hidden>
-                <a class="dropdown-item" onclick="OpenFile(FOpen)" href="#">@Sermone.Engine.Language.Open</a>
+                <a class="dropdown-item" @onclick="@OpenClicked" href="#">@Sermone.Engine.Language.Open</a>
+                <a class="dropdown-item" @onclick="@Engine.OpenAs" href="#">@Sermone.Engine.Language.OpenAs</a>
                 <a class="dropdown-item @(NavMenuSaveClass)" @onclick="@Engine.SaveFile" href="#">@Sermone.Engine.Language.Save</a>
 
             </div>
@@ -80,9 +81,13 @@
 
             if (Engine.Settings.Language != CurrentLang)
                 Engine.MainLayout.Refresh();
-
-            await JSRuntime.InvokeVoidAsync("DestroyTooltip");
         }
+
+        await JSWrapper.DestroyTooltips();
+    }
+
+    async Task OpenClicked() {
+        await Engine.Open();
     }
 
     public void Refresh() => this.StateHasChanged();
@@ -93,6 +98,7 @@
     public IJSRuntime JSRuntime => JRuntime;
     public IWorkerFactory Worker => SWorker;
     public IToastService Toast => SToast;
+    public IModalDialogService Modal => SModal;
 
     public NavigationManager Navigator => NavManager;
 }

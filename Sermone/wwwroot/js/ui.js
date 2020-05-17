@@ -26,14 +26,13 @@ window.FocusElement = (elm) => {
 window.EnableTooltip = () => {
     try {
         $('tooltip').tooltip();
-        $('li[data-toggle=\"tooltip\"]').tooltip();
-        $('td[data-toggle=\"tooltip\"]').tooltip();
+        $('*[data-toggle=\"tooltip\"]').tooltip();
     } catch { }
 }
 
 window.DestroyTooltip = () => {
     try {
-        $('div[class*="tooltip fade show"]').remove();
+        $('div[class*="tooltip fade"]').remove();
     }catch { }
 }
 
@@ -46,8 +45,9 @@ function ShowDropDown(e) {
     e.classList.toggle("show");
 }
 
-function OpenFile(e) {
-    e.click();
+function OpenFile(id) {
+    var elm = document.getElementById(id);
+    elm.click();
 }
 
 async function Initialize() {
