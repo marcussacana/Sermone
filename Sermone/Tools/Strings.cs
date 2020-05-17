@@ -37,28 +37,28 @@ namespace Sermone.Tools
 
         public async static Task<bool[]> BulkIsDialogue(this string[] Strings, int? Caution = null, bool UseAcceptableRanges = true)
         {
-            var lIgnoreList = IgnoreList;
-            var lDenyList = DenyList;
-            var lBeginAcceptableRanges = (from x in AcceptableRanges select x.Begin).ToArray();
-            var lEndAcceptableRanges   = (from x in AcceptableRanges select x.End  ).ToArray();
-            var lPontuationList = new string(PontuationList);
-            var lSpecialList = new string(SpecialList);
-            var lOpenQuotes =  new string((from x in Quotes select x.Start).ToArray());
-            var lCloseQuotes = new string((from x in Quotes select x.End).ToArray());
-            var lPontuationJapList = new string(PontuationJapList);
-            var lSensitivity = Engine.Settings.Sensitivity;
-            var lFromAsian = Engine.Settings.FromAsian;
-            var lAllowNumbers = Engine.Settings.AllowNumbers;
-            var lBreakline = Engine.Settings.Breakline;
-
             if (BackgroundService == null)
             {
+                var lIgnoreList = IgnoreList;
+                var lDenyList = DenyList;
+                var lBeginAcceptableRanges = (from x in AcceptableRanges select x.Begin).ToArray();
+                var lEndAcceptableRanges = (from x in AcceptableRanges select x.End).ToArray();
+                var lPontuationList = new string(PontuationList);
+                var lSpecialList = new string(SpecialList);
+                var lOpenQuotes = new string((from x in Quotes select x.Start).ToArray());
+                var lCloseQuotes = new string((from x in Quotes select x.End).ToArray());
+                var lPontuationJapList = new string(PontuationJapList);
+                var lSensitivity = Engine.Settings.Sensitivity;
+                var lFromAsian = Engine.Settings.FromAsian;
+                var lAllowNumbers = Engine.Settings.AllowNumbers;
+                var lBreakline = Engine.Settings.Breakline;
+
                 var Worker = await Engine.Worker.CreateAsync();
                 BackgroundService = await Worker.CreateBackgroundServiceAsync<StringsService>();
 
                 await BackgroundService.RunAsync((s) => s.Initialize(lIgnoreList, lDenyList, lBeginAcceptableRanges, lEndAcceptableRanges, lPontuationList, lSpecialList, lOpenQuotes, lCloseQuotes, lPontuationJapList, lSensitivity, lFromAsian, lAllowNumbers, lBreakline));
             }
-
+           
             return await BackgroundService.RunAsync((s) => s.IsDialogue(Strings, Caution, UseAcceptableRanges));
         }
 
