@@ -27,6 +27,7 @@
             await ModalDialog.ShowDialogAsync<About>("Sermone", new ModalDialogOptions() { BackgroundClickToClose = true, ShowCloseButton = true });
             if (SacanaWrapper.RemoteWrapper.CacheChanged)
             {
+                SacanaWrapper.RemoteWrapper.CacheChanged = false;
                 Engine.Toast.ShowInfo(Engine.Language.BackgroundTaskWarning, Engine.Language.Loading);
                 await foreach (var Save in Sermone.Tools.Initializer.SaveCache(async (a) => { await JSWrapper.SetTile($"{Engine.Language.Loading} ({a})"); }))
                 {

@@ -39,6 +39,9 @@ namespace Sermone.Tools
         {
             if (BackgroundService == null)
             {
+                if (Quotes == null || AcceptableRanges == null) {
+                    Console.Error.WriteLine("Settings Not Ready Yet.");
+                }
                 var lIgnoreList = IgnoreList;
                 var lDenyList = DenyList;
                 var lBeginAcceptableRanges = (from x in AcceptableRanges select x.Begin).ToArray();

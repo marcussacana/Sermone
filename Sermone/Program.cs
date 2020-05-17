@@ -37,12 +37,13 @@ namespace Sermone
         }
         public static async Task EntryPoint()
         {
-            if (await Engine.LocalStorage.ContainKeyAsync("Settings"))
-            {
+            if (await Engine.LocalStorage.ContainKeyAsync("Settings")) {
+                Console.WriteLine("Loading Settings...");
                 Engine.Settings = await Engine.LocalStorage.GetItemAsync<Config>("Settings");
             }
             else
             {
+                Console.WriteLine("Using Default Settings...");
                 Engine.Settings = new Config()
                 {
                     AcceptableRanges = "0-9A-Za-zÀ-ÃÇ-ÎÓ-ÕÚ-Ûà-ãç-îó-õú-û｡-ﾟ!?~.,''\"",

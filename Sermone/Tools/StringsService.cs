@@ -28,9 +28,10 @@ namespace Sermone.Tools
 
             Initialize(IgnoreList, DenyList, AcceptableRanges, PontuationList.ToCharArray(), SpecialList.ToCharArray(), Quotes, PontuationJapList.ToCharArray(), Sensitivity, FromAsian, AllowNumbers, Breakline);
         }
-            public void Initialize(string[] IgnoreList, string[] DenyList, CharacterRange[] AcceptableRanges,
+        public void Initialize(string[] IgnoreList, string[] DenyList, CharacterRange[] AcceptableRanges,
             char[] PontuationList, char[] SpecialList, Quote[] Quotes, char[] PontuationJapList, int Sensitivity,
-            bool FromAsian, bool AllowNumbers, string Breakline) {
+            bool FromAsian, bool AllowNumbers, string Breakline)
+        {
 
             this.IgnoreList = IgnoreList;
             this.DenyList = DenyList;
@@ -44,6 +45,7 @@ namespace Sermone.Tools
             this.AllowNumbers = AllowNumbers;
             this.Breakline = Breakline;
         }
+
         public struct Quote
         {
             public char Start;
