@@ -35,8 +35,11 @@ namespace Sermone
             Engine.Language = new Portuguese();
             await builder.Build().RunAsync();
         }
-        public static async Task EntryPoint()
+        public static async Task<bool> EntryPoint()
         {
+            if (BasePath != null)
+                return false;
+
             if (await Engine.LocalStorage.ContainKeyAsync("Settings")) {
                 Console.WriteLine("Loading Settings...");
                 Engine.Settings = await Engine.LocalStorage.GetItemAsync<Config>("Settings");
@@ -69,6 +72,7 @@ namespace Sermone
                 BasePath += "/";
 
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+            return true;
         }
 
         public static async Task UpdateSettings() {

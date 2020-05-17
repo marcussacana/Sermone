@@ -12,10 +12,7 @@
     protected override async Task OnInitializedAsync()
     {
         if (Engine.Plugins == null)
-        {
-            await Program.EntryPoint();
             Program.Navigate("/Initialize");
-        }
         await base.OnInitializedAsync();
     }
 
