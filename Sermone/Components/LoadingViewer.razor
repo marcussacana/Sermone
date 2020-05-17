@@ -16,24 +16,14 @@
     [JSInvokable]
     public static async Task Initialize()
     {
-        if (Engine.Compressor == null || Instance == null)
+        if (Engine.Compressor == null || Engine.Loading == null)
             return;
 
         if (await Program.EntryPoint())
-            Instance.Refresh();
+            return;
 
         await Tools.Initializer.LoadPlugins();
     }
-
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (Instance == null)
-            Instance = this;
-
-        await base.OnAfterRenderAsync(firstRender);
-    }
-
-    public static LoadingViewer Instance;
 
     string Description => Engine.Language.LoadingDesc;
 
@@ -42,5 +32,4 @@
     public void Refresh() => this.StateHasChanged();
 
 
-}
 }
