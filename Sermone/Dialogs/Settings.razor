@@ -2,80 +2,25 @@
 @using Sermone.Languages
 @inject IModalDialogService Modal
 
-<table class="table table-striped table-condensed">
-    <tbody>
-        <tr>
-            <td class="align-baseline align-middle" style="width: 13em;" data-toggle="tooltip" data-placement="auto" data-original-title="Language">@CurrentLanguage.Language</td>
-            <td>
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
-                        <tooltip data-toggle="tooltip" data-placement="top" data-original-title="@CurrentLanguage.EnglishLanguageName">
-                            @CurrentLanguage.NativeLanguageName
-                            <span class="caret"></span>
-                        </tooltip>
-                    </button>
-                    <ul class="dropdown-menu">
-                        @for (int i = 0; i < Program.AllLanguages.Length; i++)
-                        {
-                            var ID = i;
-                            var Language = Program.AllLanguages[i];
-                            var Class = "dropdown-item ";
-                            if (Configs.Language == i)
-                                Class += "active";
+<ul class="nav nav-tabs">
+    <li class="nav-item @(CurrentPage == 0 ? "active" : "")">
+        <a @onclick="() => SetPage(0)" class="nav-link" href="#">Sermone</a>
+    </li>
+    <li class="@(CurrentPage == 1 ? "active" : "")">
+        <a @onclick="() => SetPage(1)" class="nav-link"  href="#">Filter</a>
+    </li>
+</ul>
 
-                            <li data-toggle="tooltip" data-placement="right" title="@Language.EnglishLanguageName">
-                                <a class="@Class" @onclick="() => SetLanguage(ID)" href="#">
-                                    @Language.NativeLanguageName
-                                </a>
-                            </li>
-                        }
-                    </ul>
-                </div>
+@switch (CurrentPage)
+{
+    case 0:
+        <SettingsSermone Parent="@this" />
+        break;
+    case 1:
+        <SettingsFilter Parent="@this" />
+        break;
+}
 
-            </td>
-        </tr>
-        <tr>
-            <td class="align-baseline align-middle" data-toggle="tooltip" data-placement="auto" data-original-title="@CurrentLanguage.DenyPatternTooltip">@CurrentLanguage.DennyPattern</td>
-            <td>
-                <input type="text" class="form-control" @bind-value:event="onchange" @bind-value="@DenyList">
-            </td>
-        </tr>
-        <tr>
-            <td class="align-baseline align-middle" data-toggle="tooltip" data-placement="auto" data-original-title="@CurrentLanguage.IgnorePatternTooltip">@CurrentLanguage.IgnorePattern</td>
-            <td>
-                <input type="text" class="form-control" @bind-value:event="onchange" @bind-value="@IgnoreList">
-            </td>
-        </tr>
-        <tr>
-            <td class="align-baseline align-middle" data-toggle="tooltip" data-placement="auto" data-original-title="@CurrentLanguage.QuotesPatternTooltip">@CurrentLanguage.QuotesPattern</td>
-            <td>
-                <input type="text" class="form-control" @bind-value:event="onchange" @bind-value="@QuoteList">
-            </td>
-        </tr>
-        <tr>
-            <td class="align-baseline align-middle" data-toggle="tooltip" data-placement="auto" data-original-title="@CurrentLanguage.BreaklineTooltip">@CurrentLanguage.Breakline</td>
-            <td>
-                <input type="text" class="form-control" @bind-value:event="onchange" @bind-value="@Breakline">
-            </td>
-        </tr>
-        <tr>
-            <td class="align-baseline align-middle" data-toggle="tooltip" data-placement="auto" data-original-title="@CurrentLanguage.AcceptableRangeTooltip">@CurrentLanguage.AcceptableRange</td>
-            <td>
-                <input type="text" class="form-control" @bind-value:event="onchange" @bind-value="@AcceptableRanges">
-            </td>
-        </tr>
-        <tr>
-            <td class="align-baseline align-middle" data-toggle="tooltip" data-placement="auto" data-original-title="@CurrentLanguage.AsianModeTooltip">@CurrentLanguage.AsianMode</td>
-            <td><input type="checkbox" @bind-value:event="onchange" @bind-value="@FromAsian"></td>
-        </tr>
-        <tr>
-            <td class="align-baseline align-middle" data-toggle="tooltip" data-placement="auto" data-original-title="@CurrentLanguage.SensitivityTooltip">@CurrentLanguage.Sensitivity</td>
-            <td>
-                <input type="text" class="form-control" @bind-value:event="onchange" @bind-value="@Sensitivity">
-            </td>
-        </tr>
-    </tbody>
-</table>
 <div class="position-relative">
     <button @onclick="SaveClicked" class="btn btn-primary right">@CurrentLanguage.Save</button>
 </div>
@@ -83,6 +28,8 @@
 <br />
 
 @code {
+
+    int CurrentPage = 0;
 
     public ILang CurrentLanguage => Program.AllLanguages[Configs.Language];
 
@@ -100,9 +47,11 @@
         set { _Configs = value; }
     }
 
-    public string DenyList {
+    public string DenyList
+    {
         get { return Configs.DenyList; }
-        set {
+        set
+        {
             var TmpConf = Configs;
             TmpConf.DenyList = value;
             Configs = TmpConf;
@@ -175,7 +124,29 @@
         }
     }
 
-    void SetLanguage(int ID)
+    public string PasteUsername
+    {
+        get { return Configs.PasteUsername; }
+        set
+        {
+            var TmpConf = Configs;
+            TmpConf.PasteUsername = value;
+            Configs = TmpConf;
+        }
+    }
+
+    public string PastePassword
+    {
+        get { return Configs.PastePassword; }
+        set
+        {
+            var TmpConf = Configs;
+            TmpConf.PastePassword = value;
+            Configs = TmpConf;
+        }
+    }
+
+    public void SetLanguage(int ID)
     {
         var TmpConf = Configs;
         TmpConf.Language = ID;
@@ -187,6 +158,12 @@
     {
         Engine.Settings = Configs;
         Modal.Close(true);
+    }
+
+    void SetPage(int ID)
+    {
+        CurrentPage = ID;
+        Refresh();
     }
 
     public void Refresh() => this.StateHasChanged();

@@ -10,11 +10,8 @@ using Microsoft.JSInterop;
 using SacanaWrapper;
 using Sermone.Components;
 using Sermone.Languages;
-using Sermone.Pages;
 using Sermone.Tools;
 using Sermone.Types;
-using System;
-using System.Threading.Tasks;
 
 namespace Sermone
 {

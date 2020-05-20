@@ -1,0 +1,58 @@
+﻿<table class="table table-striped table-condensed">
+    <tbody>
+        <tr>
+            <td class="align-baseline align-middle" style="width: 13em;" data-toggle="tooltip" data-placement="auto" data-original-title="Language">@Parent.CurrentLanguage.Language</td>
+            <td>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
+                        <tooltip data-toggle="tooltip" data-placement="top" data-original-title="@Parent.CurrentLanguage.EnglishLanguageName">
+                            @Parent.CurrentLanguage.NativeLanguageName
+                            <span class="caret"></span>
+                        </tooltip>
+                    </button>
+                    <ul class="dropdown-menu">
+                        @for (int i = 0; i < Program.AllLanguages.Length; i++)
+                        {
+                            var ID = i;
+                            var Language = Program.AllLanguages[i];
+                            var Class = "dropdown-item ";
+                            if (Parent.Configs.Language == i)
+                            {
+                                Class += "active";
+                            }
+
+                            <li data-toggle="tooltip" data-placement="right" title="@Language.EnglishLanguageName">
+                                <a class="@Class" @onclick="() => Parent.SetLanguage(ID)" href="#">
+                                    @Language.NativeLanguageName
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+
+            </td>
+        </tr>
+        <tr>
+            <td class="align-baseline align-middle" style="width: 13em;">
+                Username
+            </td>
+            <td>
+                <input type="text" class="form-control" @bind-value:event="onchange" @bind-value="@Parent.PasteUsername">
+            </td>
+        </tr>
+        <tr>
+            <td class="align-baseline align-middle" style="width: 13em;">
+                Password
+            </td>
+            <td>
+                <input type="text" class="form-control" @bind-value:event="onchange" @bind-value="@Parent.PastePassword">
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+@code {
+    [Parameter]
+    public Settings Parent { get; set; }
+}

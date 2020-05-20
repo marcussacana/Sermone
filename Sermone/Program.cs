@@ -11,7 +11,9 @@ using Sermone.Types;
 using Sermone.Tools;
 using Microsoft.JSInterop;
 using System;
+using System.Net.Http;
 using System.Text;
+using Sermone.Pastes;
 
 namespace Sermone
 {
@@ -61,9 +63,7 @@ namespace Sermone
                 };
             }
 
-            if (!GetLanguageByID(Engine.Settings.Language, out Engine.Language)) {
-                Engine.Language = new English();
-            }
+            await UpdateSettings(false);
 
             Strings.Initialize();
 
@@ -75,9 +75,17 @@ namespace Sermone
             return true;
         }
 
-        public static async Task UpdateSettings() {
+        public static async Task UpdateSettings(bool Save = true)
+        {
             GetLanguageByID(Engine.Settings.Language, out Engine.Language);
-            await Engine.LocalStorage.SetItemAsync("Settings", Engine.Settings);
+            
+            if (Save)
+                await Engine.LocalStorage.SetItemAsync("Settings", Engine.Settings);
+
+            Engine.Paste = null;
+            GetPasteCreatorByID(Engine.Settings.PasteClient, out IPasteCreator PasteCreator);
+            if (!string.IsNullOrEmpty(Engine.Settings.PasteUsername) && !string.IsNullOrEmpty(Engine.Settings.PastePassword))
+                Engine.Paste = await PasteCreator.Create(Engine.Settings.PasteUsername, Engine.Settings.PastePassword);
         }
 
         public static bool GetLanguageByID(int ID, out ILang Language) {
@@ -88,6 +96,14 @@ namespace Sermone
             Language = AllLanguages[ID];
             return true;
         }
+        public static bool GetPasteCreatorByID(int ID, out IPasteCreator Paste) {
+            Paste = AllPastes[0];
+            if (ID < 0 || ID >= AllLanguages.Length)
+                return false;
+
+            Paste = AllPastes[ID];
+            return true;
+        }
 
         static string BasePath = null;
         public static void Navigate(string Path) {
@@ -96,6 +112,10 @@ namespace Sermone
 
         public static ILang[] AllLanguages = new ILang[] {
             new English(), new Portuguese()
+        };
+
+        public static IPasteCreator[] AllPastes = new IPasteCreator[] {
+            new CadenceCreator()
         };
     }
 }

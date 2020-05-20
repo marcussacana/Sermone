@@ -84,6 +84,7 @@ namespace Sermone
             DialogueBox.Refresh(DialogueBox.SelectedIndex);
 
             await NextDialogue();
+            await DialogueUpdated();
         }
         
         public async static Task<bool> BackDialogue() {

@@ -1,0 +1,65 @@
+﻿<table class="table table-striped table-condensed">
+    <tbody>
+        <tr>
+            <td class="align-baseline align-middle" style="width: 13em;" data-toggle="tooltip" data-placement="auto" data-original-title="@Parent.CurrentLanguage.DenyPatternTooltip">
+                @Parent.CurrentLanguage.DennyPattern
+            </td>
+            <td>
+                <input type="text" class="form-control" @bind-value:event="onchange" @bind-value="@Parent.DenyList">
+            </td>
+        </tr>
+        <tr>
+            <td class="align-baseline align-middle" data-toggle="tooltip" data-placement="auto" data-original-title="@Parent.CurrentLanguage.IgnorePatternTooltip">
+                @Parent.CurrentLanguage.IgnorePattern
+            </td>
+            <td>
+                <input type="text" class="form-control" @bind-value:event="onchange" @bind-value="@Parent.IgnoreList">
+            </td>
+        </tr>
+        <tr>
+            <td class="align-baseline align-middle" data-toggle="tooltip" data-placement="auto" data-original-title="@Parent.CurrentLanguage.QuotesPatternTooltip">
+                @Parent.CurrentLanguage.QuotesPattern
+            </td>
+            <td>
+                <input type="text" class="form-control" @bind-value:event="onchange" @bind-value="@Parent.QuoteList">
+            </td>
+        </tr>
+        <tr>
+            <td class="align-baseline align-middle" data-toggle="tooltip" data-placement="auto" data-original-title="@Parent.CurrentLanguage.BreaklineTooltip">
+                @Parent.CurrentLanguage.Breakline
+            </td>
+            <td>
+                <input type="text" class="form-control" @bind-value:event="onchange" @bind-value="@Parent.Breakline">
+            </td>
+        </tr>
+        <tr>
+            <td class="align-baseline align-middle" data-toggle="tooltip" data-placement="auto" data-original-title="@Parent.CurrentLanguage.AcceptableRangeTooltip">
+                @Parent.CurrentLanguage.AcceptableRange
+            </td>
+            <td>
+                <input type="text" class="form-control" @bind-value:event="onchange" @bind-value="@Parent.AcceptableRanges">
+            </td>
+        </tr>
+        <tr>
+            <td class="align-baseline align-middle" data-toggle="tooltip" data-placement="auto" data-original-title="@Parent.CurrentLanguage.AsianModeTooltip">
+                @Parent.CurrentLanguage.AsianMode
+            </td>
+            <td><input type="checkbox" @bind-value:event="onchange" @bind-value="@Parent.FromAsian"></td>
+        </tr>
+    <tr>
+        <td class="align-baseline align-middle" data-toggle="tooltip" data-placement="auto" data-original-title="@Parent.CurrentLanguage.SensitivityTooltip">
+            @Parent.CurrentLanguage.Sensitivity
+        </td>
+        <td>
+            <input type="text" class="form-control" @bind-value:event="onchange" @bind-value="@Parent.Sensitivity">
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+@code {
+
+    [Parameter]
+    public Settings Parent { get; set; }
+
+}
