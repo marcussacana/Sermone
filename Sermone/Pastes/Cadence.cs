@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Net.Http.Json;
-using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components.WebAssembly.Http;
 using Newtonsoft.Json;
+using Sermone.Tools;
 
 namespace Sermone.Pastes
 {
@@ -22,7 +19,6 @@ namespace Sermone.Pastes
             if (Client == null)
             {
                 Client = new HttpClient();
-
             }
 
             Cadence Cadence = new Cadence(Username, Password, Client);
@@ -146,23 +142,25 @@ namespace Sermone.Pastes
             async Task<string> DoRequest<T>(string Method, T Data, long ID = 0, string API = "pastes")
             {
                 try
-                {
-                    var Uri = $"https://cadence.moe/api/{API}{(ID != 0 ? $"/{ID}" : "")}";
+                {                    
+                    var URL = $"https://cadence.moe/api/{API}{(ID != 0 ? $"/{ID}" : "")}";
                     HttpContent Content = null;
-                    if (Method != "GET") {
-                        Content = JsonContent.Create(Data);
+                    if (Method != "GET")  {
+                        var JSON = JsonConvert.SerializeObject(Data);
+                        Content = new StringContent(JSON, Encoding.UTF8, "application/json");
                     }
+                    
+                    var Result = Method switch
+                    {
+                        "GET" => await Client.GetAsync(URL),
+                        "POST" => await Client.PostAsync(URL, Content),
+                        "PATCH" => await Client.PatchAsync(URL, Content),
+                        "PUT" => await Client.PutAsync(URL, Content),
+                        "DELETE" => await Client.DeleteAsync(URL),
+                        _ => throw new HttpRequestException("Invalid HTTP Method")
+                    };                    
 
-
-                    HttpRequestMessage Request = new HttpRequestMessage(new HttpMethod(Method), Uri);
-                    Request.Headers.Add("Accept", "application/json");
-                    Request.SetBrowserRequestCache(BrowserRequestCache.NoStore);
-                    Request.SetBrowserRequestMode(BrowserRequestMode.NoCors);
-                    Request.Content = Content;
-
-                    HttpResponseMessage Response = await Client.SendAsync(Request);
-
-                    return await Response.Content.ReadAsStringAsync();
+                    return await Result.Content.ReadAsStringAsync();
                 }
                 catch (HttpRequestException ex)
                 {
@@ -170,7 +168,7 @@ namespace Sermone.Pastes
                     return null;
                 }
             }
-            
+
 #pragma warning disable 649
             struct PostRequest
             {

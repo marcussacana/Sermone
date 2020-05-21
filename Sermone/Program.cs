@@ -12,7 +12,9 @@ using Sermone.Tools;
 using Microsoft.JSInterop;
 using System;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
+using Microsoft.Extensions.DependencyInjection;
 using Sermone.Pastes;
 
 namespace Sermone

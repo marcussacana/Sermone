@@ -1,4 +1,5 @@
-﻿@using BlazorFileSaver;
+﻿@using System.Net.Http;
+@using BlazorFileSaver;
 @using Blazor.FileReader;
 @using Blazored.LocalStorage;
 @using BlazorWorker.Core;
@@ -86,7 +87,8 @@
         await JSWrapper.DestroyTooltips();
     }
 
-    async Task OpenClicked() {
+    async Task OpenClicked()
+    {
         await Engine.Open();
     }
 
