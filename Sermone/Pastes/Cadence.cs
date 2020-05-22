@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components.WebAssembly.Http;
@@ -144,25 +145,10 @@ namespace Sermone.Pastes
                 try
                 {                    
                     var URL = $"https://cadence.moe/api/{API}{(ID != 0 ? $"/{ID}" : "")}";
-                    HttpContent Content = null;
-                    if (Method != "GET")  {
-                        var JSON = JsonConvert.SerializeObject(Data);
-                        Content = new StringContent(JSON, Encoding.UTF8, "application/json");
-                    }
-                    
-                    var Result = Method switch
-                    {
-                        "GET" => await Client.GetAsync(URL),
-                        "POST" => await Client.PostAsync(URL, Content),
-                        "PATCH" => await Client.PatchAsync(URL, Content),
-                        "PUT" => await Client.PutAsync(URL, Content),
-                        "DELETE" => await Client.DeleteAsync(URL),
-                        _ => throw new HttpRequestException("Invalid HTTP Method")
-                    };                    
-
-                    return await Result.Content.ReadAsStringAsync();
+                    var JSON = JsonConvert.SerializeObject(Data);
+                    return await XMLHTTPRequest.Request(Method, URL, JSON);
                 }
-                catch (HttpRequestException ex)
+                catch (Exception ex)
                 {
                     Console.Write(ex.ToString());
                     return null;

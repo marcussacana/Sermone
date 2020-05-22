@@ -7,14 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sermone", "Sermone\Sermone.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SacanaWrapper", "Dependencies\SacanaWrapper\SacanaWrapper.csproj", "{7BBD97BF-6E1B-43D0-9AA9-DE1A6FC982BA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorWorker.Core", "Dependencies\BlazorWorker\BlazorWorker.Core.csproj", "{FE4D0787-0D8B-4730-A939-319BC9FD7785}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorWorker.WorkerCore", "Dependencies\BlazorWorker.WorkerCore\BlazorWorker.WorkerCore.csproj", "{9D80F48B-DF38-47E7-9779-D9C82D623CDE}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorWorker.BackgroundServiceFactory", "Dependencies\BlazorWorker.ServiceFactory\BlazorWorker.BackgroundServiceFactory.csproj", "{6D6BFFD4-E681-40E3-A2A6-1DE3E7DE5962}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorWorker.WorkerBackgroundService", "Dependencies\BlazorWorker.WorkerBackgroundService\BlazorWorker.WorkerBackgroundService.csproj", "{4B9B38AD-B20E-4F03-939C-9250F5A8F260}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,22 +21,6 @@ Global
 		{7BBD97BF-6E1B-43D0-9AA9-DE1A6FC982BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7BBD97BF-6E1B-43D0-9AA9-DE1A6FC982BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7BBD97BF-6E1B-43D0-9AA9-DE1A6FC982BA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FE4D0787-0D8B-4730-A939-319BC9FD7785}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FE4D0787-0D8B-4730-A939-319BC9FD7785}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FE4D0787-0D8B-4730-A939-319BC9FD7785}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FE4D0787-0D8B-4730-A939-319BC9FD7785}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9D80F48B-DF38-47E7-9779-D9C82D623CDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9D80F48B-DF38-47E7-9779-D9C82D623CDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9D80F48B-DF38-47E7-9779-D9C82D623CDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9D80F48B-DF38-47E7-9779-D9C82D623CDE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6D6BFFD4-E681-40E3-A2A6-1DE3E7DE5962}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6D6BFFD4-E681-40E3-A2A6-1DE3E7DE5962}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6D6BFFD4-E681-40E3-A2A6-1DE3E7DE5962}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6D6BFFD4-E681-40E3-A2A6-1DE3E7DE5962}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4B9B38AD-B20E-4F03-939C-9250F5A8F260}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4B9B38AD-B20E-4F03-939C-9250F5A8F260}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4B9B38AD-B20E-4F03-939C-9250F5A8F260}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4B9B38AD-B20E-4F03-939C-9250F5A8F260}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

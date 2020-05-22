@@ -30,12 +30,10 @@
     <PackageReference Include="System.Runtime.Extensions" Version="4.3.1" />
     <PackageReference Include="System.Text.Encoding.CodePages" Version="5.0.0-preview.4.20251.6" />
     <PackageReference Include="Tewr.Blazor.FileReader" Version="1.5.0.20109" />
+    <PackageReference Include="Tewr.BlazorWorker.BackgroundService" Version="1.2.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Dependencies\BlazorWorker.ServiceFactory\BlazorWorker.BackgroundServiceFactory.csproj" />
-    <ProjectReference Include="..\Dependencies\BlazorWorker.WorkerBackgroundService\BlazorWorker.WorkerBackgroundService.csproj" />
-    <ProjectReference Include="..\Dependencies\BlazorWorker\BlazorWorker.Core.csproj" />
     <ProjectReference Include="..\Dependencies\SacanaWrapper\SacanaWrapper.csproj" />
   </ItemGroup>
 
