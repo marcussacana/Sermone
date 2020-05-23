@@ -37,7 +37,7 @@
                 @Parent.CurrentLanguage.Username
             </td>
             <td>
-                <input type="text" class="form-control" @bind-value:event="onchange" @bind-value="@Parent.PasteUsername" disabled>
+                <input type="text" class="form-control" @bind-value:event="onchange" @bind-value="@Parent.PasteUsername">
             </td>
         </tr>
         <tr>
@@ -45,7 +45,7 @@
                 @Parent.CurrentLanguage.Password
             </td>
             <td>
-                <input type="text" class="form-control" @bind-value:event="onchange" @bind-value="@Parent.PastePassword" disabled>
+                <input type="password" class="form-control" @bind-value:event="onchange" @bind-value="@Parent.PastePassword">
             </td>
         </tr>
         <tr>
@@ -53,7 +53,7 @@
                 @Parent.CurrentLanguage.BackupOn
             </td>
             <td>
-                <input type="text" class="form-control" @bind-value:event="onchange" @bind-value="@Parent.BackupOn" disabled>
+                <input type="text" class="form-control" @bind-value:event="onchange" @bind-value="@Parent.BackupOn">
             </td>
         </tr>
     </tbody>

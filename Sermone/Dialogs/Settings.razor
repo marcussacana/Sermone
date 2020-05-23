@@ -7,7 +7,7 @@
         <a @onclick="() => SetPage(0)" class="nav-link" href="#">Sermone</a>
     </li>
     <li class="@(CurrentPage == 1 ? "active" : "")">
-        <a @onclick="() => SetPage(1)" class="nav-link"  href="#">Filter</a>
+        <a @onclick="() => SetPage(1)" class="nav-link"  href="#">@CurrentLanguage.Filter</a>
     </li>
 </ul>
 

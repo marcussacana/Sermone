@@ -1,10 +1,4 @@
-﻿using Microsoft.AspNetCore.Components.Rendering;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Sermone.Languages
+﻿namespace Sermone.Languages
 {
     public interface ILang
     {
@@ -34,6 +28,7 @@ namespace Sermone.Languages
         //Buttons
         public string Next { get; }
         public string Back { get; }
+        public string Refresh { get; }
 
         //About
         public string AboutVersion { get; }
@@ -55,6 +50,9 @@ namespace Sermone.Languages
         public string PluginDontSupport { get; }
         public string Success { get; }
         public string BackupUpdated { get; }
+        public string Error { get; }
+        public string BackupFailed { get; }
+        public string BackupIncompatible { get; }
 
         //Settings
         public string Settings { get; }

@@ -1,33 +1,88 @@
-﻿<h3>Backups</h3>
-@if (Engine.Pastes == null)
+﻿@using Sermone.Pastes
+
+@if (Pastes == null)
 {
-    <div class="d-flex justify-content-center">
-        <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
-            <span class="sr-only">@Engine.Loading</span>
+    <div class="position-relative">
+        <div class="lds-spinner">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
         </div>
     </div>
+    <br>
+    <br>
+    <br>
+    <br>
 }
 else
 {
     <table class="table table-striped table-condensed table-hover">
         <tbody>
-            @foreach (var Backup in Engine.Pastes)
+            @foreach (var Backup in Pastes)
             {
-                var ThisBackup = Backup;
-                <tr @onclick="@(() => OnBackupClicked(ThisBackup.Key))">
+                var This = Backup;
+                <tr @onclick="@(() => OnBackupClicked(This.ID))">
                     <td class="align-baseline align-middle">
-                        <a href="#" class="table-item">@ThisBackup.Value</a>
+                        <a href="#" class="table-item">@This.Title</a>
                     </td>
+                    @if (This.CreatedAt != null)
+                    {
+                        <td class="align-baseline align-middle" style="width: 15em;">
+                            <a href="#" class="table-item">@This.CreatedAt?.ToShortDateString() (@This.CreatedAt?.ToShortTimeString())</a>
+                        </td>
+                    }
                 </tr>
             }
         </tbody>
     </table>
 }
+<div class="position-relative">
+    <button @onclick="RefreshClicked" class="btn btn-primary right">@Engine.Language.Refresh</button>
+</div>
+<br />
+<br />
 
 @code {
 
+        PasteData[] Pastes = null;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (Pastes == null)
+        {
+            await RefreshClicked();
+        }
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    async Task RefreshClicked()
+    {
+        if (Pastes != null) {
+            Pastes = null;
+            StateHasChanged();
+            await Engine.DoEvents();
+        }
+        Pastes = await Engine.Paste.EnumPastes();
+        StateHasChanged();
+    }
+
     async Task OnBackupClicked(long PasteID)
     {
-        //var Rst = Engine.Modal.ShowMessageBoxAsync("");
+        var Rst = await Engine.Modal.ShowMessageBoxAsync(Engine.Language.AreYouSure, Engine.Language.LoadBackupWarn, MessageBoxButtons.YesNo, MessageBoxDefaultButton.Button2);
+        if (Rst != MessageBoxDialogResult.Yes)
+            return;
+
+        Engine.Modal.Close(true, new ModalDialogParameters() {
+            { "Backup", PasteID }
+        });
     }
 }

@@ -27,6 +27,7 @@
         //Buttons
         public string Next => "Avançar >";
         public string Back => "< Retornar";
+        public string Refresh => "Atualizar";
 
         //About
         public string AboutVersion => "Versão Protótipo";
@@ -48,6 +49,9 @@
         public string PluginDontSupport => "O Plugin selecionado não suporta este arquivo.";
         public string Success => "Sucesso";
         public string BackupUpdated => "Backup Atualizado";
+        public string Error => "Erro";
+        public string BackupFailed => "O Backup Falhou, Verifique sua conexão com a internet.";
+        public string BackupIncompatible => "O Backup selecionado não é compatível com o script atual.";
 
         //Settings
         public string Settings => "Configurações";

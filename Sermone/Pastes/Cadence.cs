@@ -36,28 +36,41 @@ namespace Sermone.Pastes
                 this.Password = Password;
             }
 
-            public async Task<Dictionary<long, string>> EnumPastes()
-            { 
+            public async Task<PasteData[]> EnumPastes()
+            {
                 var Rst = await DoRequest("GET", API: $"pastes/?preview=256&author={Username}");
                 var Pastes = JsonConvert.DeserializeObject<PasteInfo[]>(Rst);
 
-                Dictionary<long, string> Results = new Dictionary<long, string>();
-                foreach (var Paste in  Pastes)
+
+                var Results = new List<PasteData>();
+                foreach (var Paste in Pastes)
                 {
-                    string Title = Paste.content.Split('\n').First().Trim();
-                    Results.Add(Paste.pasteID, Title);
+                    Results.Add(new PasteData()
+                    {
+                        ID = Paste.pasteID,
+                        Title = Paste.content.Split('\n').First().Trim(),
+                        CreatedAt = DateTimeOffset.FromUnixTimeMilliseconds(Paste.creationTime).DateTime
+                    });
                 }
 
-                return Results;
+                return Results.ToArray();
             }
 
-            public async Task<string[]> GetPaste(long PasteId)
+            public async Task<PasteData> GetPaste(long PasteId)
             {
                 var Rst = await DoRequest("GET", ID: PasteId);
                 var PasteInfo = JsonConvert.DeserializeObject<PasteInfo>(Rst);
-
-                return PasteInfo.content.Replace("\r\n", "\n")
+                var Title = PasteInfo.content.Split('\n').First().Trim();
+                var Content = PasteInfo.content.Replace("\r\n", "\n")
                     .Split('\n').Skip(1).ToArray();
+
+                return new PasteData()
+                {
+                    ID = PasteInfo.pasteID,
+                    Content = Content,
+                    CreatedAt = DateTimeOffset.FromUnixTimeMilliseconds(PasteInfo.creationTime).DateTime,
+                    Title = Title
+                };
             }
 
             public string GetPasteUrl(long PasteId)
@@ -117,8 +130,9 @@ namespace Sermone.Pastes
                 }, PasteId);
             }
 
-            public async Task DeletePaste(long PasteId) { 
-                    await SetPaste(null, null, PasteId);
+            public async Task DeletePaste(long PasteId)
+            {
+                await SetPaste(null, null, PasteId);
             }
 
             public async Task GetToken()
@@ -135,7 +149,7 @@ namespace Sermone.Pastes
 
                 Token = Response.token;
             }
-            
+
             async Task<string> DoRequest(string Method, long ID = 0, string API = "pastes")
             {
                 return await DoRequest<object>(Method, null, ID, API);
@@ -144,10 +158,10 @@ namespace Sermone.Pastes
             async Task<string> DoRequest<T>(string Method, T Data, long ID = 0, string API = "pastes")
             {
                 try
-                {                    
+                {
                     var URL = $"https://cadence.moe/api/{API}{(ID != 0 ? $"/{ID}" : "")}";
                     var JSON = JsonConvert.SerializeObject(Data);
-                    return await XMLHTTPRequest.Request(Method, URL, JSON);
+                    return await JSWrapper.Request(Method, URL, JSON);
                 }
                 catch (Exception ex)
                 {

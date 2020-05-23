@@ -125,14 +125,17 @@ namespace Sermone
                 return null; 
             }
         }
-        public static async Task SaveFile() {
+        public static async Task SaveFile(string Name = null) {
             if (!CanSave)
                 return;
+
+            if (Name == null)
+                Name= CurrentName;
 
             NotSaved = false;
             var Lines = (from x in DialogueBox.Items select x.Value).ToArray();
             var Data = CurrentPlugin.Export(Lines);
-            await FSaver.SaveAsBase64(CurrentName, Convert.ToBase64String(Data), "application/octet-stream");
+            await FSaver.SaveAsBase64(Name, Convert.ToBase64String(Data), "application/octet-stream");
         }
 
         public static async Task DoEvents() => await Task.Delay(10);

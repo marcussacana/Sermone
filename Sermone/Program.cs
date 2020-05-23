@@ -81,7 +81,6 @@ namespace Sermone
             GetPasteCreatorByID(Engine.Settings.PasteClient, out IPasteCreator PasteCreator);
             if (!string.IsNullOrEmpty(Engine.Settings.PasteUsername) && !string.IsNullOrEmpty(Engine.Settings.PastePassword)) { 
                 Engine.Paste = await PasteCreator.Create(Engine.Settings.PasteUsername, Engine.Settings.PastePassword);
-                Engine.Pastes = await Engine.Paste.EnumPastes();
             }
         }
 

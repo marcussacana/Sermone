@@ -27,7 +27,7 @@
                 <input type="file" id="FOpen" @ref="Engine.InputRef" @onchange="Engine.FileChanged" hidden>
                 <a class="dropdown-item" @onclick="@OpenClicked" href="#">@Sermone.Engine.Language.Open</a>
                 <a class="dropdown-item" @onclick="@Engine.OpenAs" href="#">@Sermone.Engine.Language.OpenAs</a>
-                <a class="dropdown-item @(NavMenuSaveClass)" @onclick="@Engine.SaveFile" href="#">@Sermone.Engine.Language.Save</a>
+                <a class="dropdown-item @(NavMenuSaveClass)" @onclick="@(()=> Engine.SaveFile())" href="#">@Sermone.Engine.Language.Save</a>
 
             </div>
         </li>

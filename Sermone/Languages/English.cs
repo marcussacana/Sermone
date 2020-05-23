@@ -27,11 +27,12 @@
         //Buttons
         public string Next => "Next >";
         public string Back => "< Back";
+        public string Refresh => "Refresh";
 
         //About
         public string AboutVersion => "Prototype Version";
         public string AboutDesc => "This is a prototype version of the software focused on experimental purposes and, because it lacks of more advanced resources for any practical means, errors can occur during use.";
-        
+
         //Plugin Picker
         public string SelectAPlugin => "Select a Plugin";
         public string Name => "Name";
@@ -49,6 +50,9 @@
         public string PluginDontSupport => "The selected plugin does not support this file.";
         public string Success => "Success";
         public string BackupUpdated => "Backup Updated";
+        public string Error => "Error";
+        public string BackupFailed => "Backup Failed, check your internet connection.";
+        public string BackupIncompatible => "Selected backup isn’t compatible with current script.";
 
         //Settings
         public string Settings => "Settings";
@@ -76,6 +80,6 @@
 
         //Dialogs
         public string AreYouSure => "Are you Sure?";
-        public string LoadBackupWarn => "";
+        public string LoadBackupWarn => "If you load this backup, all of your current script changes will be lost";
     }
 }

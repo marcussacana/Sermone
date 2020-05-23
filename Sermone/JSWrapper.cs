@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
+using System;
 using System.Threading.Tasks;
 
 namespace Sermone
@@ -18,17 +19,25 @@ namespace Sermone
         {
             await Engine.JSRuntime.InvokeVoidAsync("SetTitle", Title);
         }
-        public static async Task OpenFile(string InputId = "FOpen") {
+        public static async Task OpenFile(string InputId = "FOpen")
+        {
             await Engine.JSRuntime.InvokeVoidAsync("OpenFile", InputId);
         }
-        public static async Task Focus(this ElementReference Element) {
+        public static async Task Focus(this ElementReference Element)
+        {
             await Engine.JSRuntime.InvokeVoidAsync("FocusElement", Element);
         }
-        public static async Task EnsureItemVisible(int ID) {
+        public static async Task EnsureItemVisible(int ID)
+        {
             await Engine.JSRuntime.InvokeVoidAsync("EnsureItemVisible", ID);
         }
-        public static async Task<string> GetBaseDirectory() {
+        public static async Task<string> GetBaseDirectory()
+        {
             return await Engine.JSRuntime.InvokeAsync<string>("GetBaseDirectory");
+        }
+        public static async Task<string> Request(string Method, string URL, string Data = null)
+        {
+            return await Engine.JSRuntime.InvokeAsync<string>("Request", new string[] { Method, URL, Data });
         }
     }
 }
