@@ -63,4 +63,37 @@ async function Initialize() {
     setTimeout(Initialize, 10);
 }
 
+async function Request(Method, Url, Data) {
+    try {
+        return await new Promise(function(resolve, reject) {
+                var xhr = new XMLHttpRequest();
+                xhr.open(Method, Url);
+                xhr.onload = function() {
+                    if (this.status >= 200 && this.status < 300) {
+                        resolve(xhr.response);
+                    } else {
+                        reject({
+                            status: this.status,
+                            statusText: xhr.statusText
+                        });
+                    }
+                };
+                xhr.onerror = function() {
+                    reject({
+                        status: this.status,
+                        statusText: xhr.statusText
+                    });
+                };
+                xhr.send(Data);
+            });
+    } catch {
+        return await fetch(Url, {
+            "body": Data,
+            "method": Method,
+            "mode": "no-cors",
+            "credentials": "omit"
+        });
+    }
+}
+
 var Interval = setInterval(Initialize, 100);
