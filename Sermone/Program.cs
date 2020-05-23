@@ -45,12 +45,12 @@ namespace Sermone
                 Console.WriteLine("Using Default Settings...");
                 Engine.Settings = new Config()
                 {
-                    AcceptableRanges = "0-9A-Za-zÀ-ÃÇ-ÎÓ-ÕÚ-Ûà-ãç-îó-õú-û｡-ﾟ!?~.,[]()''\"",
+                    AcceptableRanges = "0-9A-Za-zÀ-ÃÇ-ÎÓ-ÕÚ-Ûà-ãç-îó-õú-û｡-ﾟ!?~.,[](){}''\"",
                     AllowNumbers = true,
                     Breakline = "\\n",
                     DenyList = "@;§;_;<;>;/;=",
                     FromAsian = false,
-                    IgnoreList = ";､;｡",
+                    IgnoreList = ";､;｡;%;{;}",
                     QuoteList = "<>;();[];“”;［］;《》;«»;「」;『』;【】;（）;'';\"\"",
                     Sensitivity = 3,
                     BackupOn = 15,
