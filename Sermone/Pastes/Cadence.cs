@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components.WebAssembly.Http;
@@ -15,31 +16,24 @@ namespace Sermone.Pastes
     public class CadenceCreator : IPasteCreator
     {
         public string Name => "Cadence";
-        public async Task<IPaste> Create(string Username, string Password, HttpClient Client)
+        public async Task<IPaste> Create(string Username, string Password)
         {
-            if (Client == null)
-            {
-                Client = new HttpClient();
-            }
-
-            Cadence Cadence = new Cadence(Username, Password, Client);
+            Cadence Cadence = new Cadence(Username, Password);
             await Cadence.GetToken();
             return Cadence;
         }
 
         class Cadence : IPaste
         {
-            readonly HttpClient Client;
             readonly string Username;
             readonly string Password;
 
             string Token;
 
-            public Cadence(string Username, string Password, HttpClient Client)
+            public Cadence(string Username, string Password)
             {
                 this.Username = Username;
                 this.Password = Password;
-                this.Client = Client;
             }
 
             public async Task<Dictionary<long, string>> EnumPastes()
@@ -50,7 +44,7 @@ namespace Sermone.Pastes
                 Dictionary<long, string> Results = new Dictionary<long, string>();
                 foreach (var Paste in  Pastes)
                 {
-                    string Title = Paste.content.Split('\n').First();
+                    string Title = Paste.content.Split('\n').First().Trim();
                     Results.Add(Paste.pasteID, Title);
                 }
 
@@ -100,7 +94,10 @@ namespace Sermone.Pastes
             public async Task SetPaste(string Title, string[] Value, long PasteId)
             {
                 StringBuilder Builder = new StringBuilder();
-                Builder.AppendLine(Title);
+
+                if (Title != null)
+                    Builder.AppendLine(Title);
+
                 if (Value != null)
                     foreach (string String in Value)
                     {
@@ -118,6 +115,10 @@ namespace Sermone.Pastes
                     content = Builder.ToString(),
                     token = Token
                 }, PasteId);
+            }
+
+            public async Task DeletePaste(long PasteId) { 
+                    await SetPaste(null, null, PasteId);
             }
 
             public async Task GetToken()

@@ -7,7 +7,8 @@
         @foreach (var Plugin in Engine.Plugins.OrderBy(x => x.Name))
         {
             var lPlugin = Plugin;
-            string PluginType = Plugin.Type switch {
+            string PluginType = Plugin.Type switch
+            {
                 "Read/Write" => Engine.Language.ReadWrite,
                 "Read Only" => Engine.Language.ReadOnly,
                 "Write Only" => Engine.Language.WriteOnly,
@@ -28,15 +29,15 @@
 
 @code {
 
-                                void OnPluginClicked(IPluginCreator Plugin)
-                                {
-                                    var Return = new ModalDialogParameters();
-                                    Return.Add("Plugin", Plugin);
-                                    Modal.Close(true, Return);
-                                }
+    void OnPluginClicked(IPluginCreator Plugin)
+    {
+        var Return = new ModalDialogParameters();
+        Return.Add("Plugin", Plugin);
+        Modal.Close(true, Return);
+    }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
-                        {
-                            await JSWrapper.EnableTooltips();
-                        }
-                    }
+    {
+        await JSWrapper.EnableTooltips();
+    }
+}

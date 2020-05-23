@@ -10,6 +10,10 @@
         public string Open => "Abrir";
         public string OpenAs => "Abrir Como";
         public string Save => "Salvar";
+        public string Filter => "Filtro";
+        public string AutoSelect => "Seleção Automática";
+        public string SelectAll => "Selecionar Tudo";
+        public string DeselectAll => "Desselecionar Tudo";
 
         //Nav Bar
         public string Search => "Procurar";
@@ -42,10 +46,15 @@
         public string TryOthersWords => "Tente novamente com outras palavras.";
         public string NotSupported => "Não Suportado";
         public string PluginDontSupport => "O Plugin selecionado não suporta este arquivo.";
+        public string Success => "Sucesso";
+        public string BackupUpdated => "Backup Atualizado";
 
         //Settings
         public string Settings => "Configurações";
         public string Language => "Linguagem";
+        public string Username => "Nome de Usuário";
+        public string Password => "Senha";
+        public string BackupOn => "Backup Em";
 
         public string DennyPattern => "Padrões Inaceitáveis";
         public string IgnorePattern => "Padrões Ignoráveis";
@@ -63,5 +72,9 @@
         public string AcceptableRangeTooltip => "Lista de alcances dos caractéres usados nos diálogos, use um hífem para declarar um alcance do primeiro até o ultimo caractere, conteúdo não separado.";
         public string AsianModeTooltip => "Otimiza o filtro de díalogos para textos em japonês/chinês";
         public string SensitivityTooltip => "Determina a rigidez do algoritmo de filtro de diálogos, onde um numero maior lhe torna mais tolerante, e um numero menor o oposto.";
+
+        //Dialogs
+        public string AreYouSure => "Você tem certeza?";
+        public string LoadBackupWarn => "Se você carregar este backup todas as alterações atuais do script serão perdidas";
     }
 }

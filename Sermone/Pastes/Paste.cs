@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace Sermone.Pastes
@@ -7,7 +6,7 @@ namespace Sermone.Pastes
     public interface IPasteCreator
     {
         string Name { get; }
-        Task<IPaste> Create(string Username, string Password, HttpClient Client = null);
+        Task<IPaste> Create(string Username, string Password);
     }
 
     public interface IPaste
@@ -16,6 +15,7 @@ namespace Sermone.Pastes
         string GetPasteUrl(long PasteId);
         Task<long> CreatePaste(string Title, string[] Value);
         Task SetPaste(string Title, string[] Value, long PasteId);
+        Task DeletePaste(long PasteId);
         Task<Dictionary<long, string>> EnumPastes();
     }
 }

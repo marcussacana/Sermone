@@ -9,12 +9,8 @@ using BlazorWorker.Core;
 using Blazored.Toast;
 using Sermone.Types;
 using Sermone.Tools;
-using Microsoft.JSInterop;
 using System;
-using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Text;
-using Microsoft.Extensions.DependencyInjection;
 using Sermone.Pastes;
 
 namespace Sermone
@@ -49,14 +45,15 @@ namespace Sermone
                 Console.WriteLine("Using Default Settings...");
                 Engine.Settings = new Config()
                 {
-                    AcceptableRanges = "0-9A-Za-zÀ-ÃÇ-ÎÓ-ÕÚ-Ûà-ãç-îó-õú-û｡-ﾟ!?~.,''\"",
+                    AcceptableRanges = "0-9A-Za-zÀ-ÃÇ-ÎÓ-ÕÚ-Ûà-ãç-îó-õú-û｡-ﾟ!?~.,[]()''\"",
                     AllowNumbers = true,
                     Breakline = "\\n",
-                    DenyList = "@;§;_;<;>;/;[;];=",
+                    DenyList = "@;§;_;<;>;/;=",
                     FromAsian = false,
                     IgnoreList = ";､;｡",
                     QuoteList = "<>;();[];“”;［］;《》;«»;「」;『』;【】;（）;'';\"\"",
-                    Sensitivity = 4,
+                    Sensitivity = 3,
+                    BackupOn = 15,
                     Language = 0
                 };
             }
@@ -82,8 +79,10 @@ namespace Sermone
 
             Engine.Paste = null;
             GetPasteCreatorByID(Engine.Settings.PasteClient, out IPasteCreator PasteCreator);
-            if (!string.IsNullOrEmpty(Engine.Settings.PasteUsername) && !string.IsNullOrEmpty(Engine.Settings.PastePassword))
+            if (!string.IsNullOrEmpty(Engine.Settings.PasteUsername) && !string.IsNullOrEmpty(Engine.Settings.PastePassword)) { 
                 Engine.Paste = await PasteCreator.Create(Engine.Settings.PasteUsername, Engine.Settings.PastePassword);
+                Engine.Pastes = await Engine.Paste.EnumPastes();
+            }
         }
 
         public static bool GetLanguageByID(int ID, out ILang Language) {

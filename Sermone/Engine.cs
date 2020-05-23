@@ -3,7 +3,6 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Linq;
 using Sermone.Types;
-using Sermone.Tools;
 using SacanaWrapper;
 using Sermone.Dialogs;
 
@@ -101,18 +100,8 @@ namespace Sermone
 
             CanSave = true;
             MainNavMenu.Refresh();
+            await AutoSelect();
 
-            var Result = await (from x in DialogueBox.Items select x.Value).ToArray().BulkIsDialogue();
-            for (int i = 0, x = 0; i < Result.Length; i++) {
-                if (!Result[i]) {
-                    DialogueBox.Items[i].Checked = Result[i];
-                    DialogueBox.Refresh(i);
-                    x++;
-                }
-
-                if (x % 50 == 0)
-                    await DoEvents();
-            }
             await JSWrapper.SetTile($"Sermone");
         }
 

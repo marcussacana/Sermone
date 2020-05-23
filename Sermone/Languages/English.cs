@@ -10,6 +10,10 @@
         public string Open => "Open";
         public string OpenAs => "Open As";
         public string Save => "Save";
+        public string Filter => "Fitler";
+        public string AutoSelect => "Auto Select";
+        public string SelectAll => "Select All";
+        public string DeselectAll => "Deselect All";
 
         //Nav Bar
         public string Search => "Find";
@@ -43,10 +47,15 @@
         public string TryOthersWords => "Try again with other words.";
         public string NotSupported => "Not Supported";
         public string PluginDontSupport => "The selected plugin does not support this file.";
+        public string Success => "Success";
+        public string BackupUpdated => "Backup Updated";
 
         //Settings
         public string Settings => "Settings";
         public string Language => "Language";
+        public string Username => "Username";
+        public string Password => "Password";
+        public string BackupOn => "Backup On";
 
         public string DennyPattern => "Denied Patterns";
         public string IgnorePattern => "Skippable Patterns";
@@ -65,5 +74,8 @@
         public string AsianModeTooltip => "Filter optimization of dialogues for texts in japanese/chinese.";
         public string SensitivityTooltip => "Set the sensitivity of the dialogue filter algorithm, which a higher number makes it more tolerant and a lesser number less tolerant.";
 
+        //Dialogs
+        public string AreYouSure => "Are you Sure?";
+        public string LoadBackupWarn => "";
     }
 }

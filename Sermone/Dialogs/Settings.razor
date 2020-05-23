@@ -146,6 +146,17 @@
         }
     }
 
+    public int BackupOn
+    {
+        get { return Configs.BackupOn; }
+        set
+        {
+            var TmpConf = Configs;
+            TmpConf.BackupOn = value;
+            Configs = TmpConf;
+        }
+    }
+
     public void SetLanguage(int ID)
     {
         var TmpConf = Configs;

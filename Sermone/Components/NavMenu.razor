@@ -31,6 +31,20 @@
 
             </div>
         </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="NavFilterDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                @Engine.Language.Filter
+            </a>
+            <div class="dropdown-menu" aria-labelledby="NavFilterDropdown">
+                <a class="dropdown-item" @onclick="@Engine.AutoSelect" href="#">@Sermone.Engine.Language.AutoSelect</a>
+                <a class="dropdown-item" @onclick="@(() => Engine.ForceSelection(true))" href="#">@Sermone.Engine.Language.SelectAll</a>
+                <a class="dropdown-item" @onclick="@(() => Engine.ForceSelection(false))" href="#">@Sermone.Engine.Language.DeselectAll</a>
+
+            </div>
+        </li>
+        <li>
+            <a class="nav-link" href="#" @onclick="SettingsClicked">Backups</a>
+        </li>
         <li>
             <a class="nav-link" href="#" @onclick="SettingsClicked">@Engine.Language.Settings</a>
         </li>

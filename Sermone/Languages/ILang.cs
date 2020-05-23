@@ -16,6 +16,11 @@ namespace Sermone.Languages
         public string Open { get; }
         public string OpenAs { get; }
         public string Save { get; }
+        
+        public string Filter { get; }
+        public string AutoSelect { get; }
+        public string SelectAll { get; }
+        public string DeselectAll { get; }
 
         //Nav Bar
         public string Search { get; }
@@ -48,10 +53,15 @@ namespace Sermone.Languages
         public string TryOthersWords { get; }
         public string NotSupported { get; }
         public string PluginDontSupport { get; }
+        public string Success { get; }
+        public string BackupUpdated { get; }
 
         //Settings
         public string Settings { get; }
         public string Language { get; }
+        public string Username { get; }
+        public string Password { get; }
+        public string BackupOn { get; }
         public string DennyPattern { get; }
         public string IgnorePattern { get; }
         public string QuotesPattern { get; }
@@ -68,5 +78,9 @@ namespace Sermone.Languages
         public string AcceptableRangeTooltip { get; }
         public string AsianModeTooltip { get; }
         public string SensitivityTooltip { get; }
+
+        //Dialogs
+        public string AreYouSure { get; }
+        public string LoadBackupWarn { get; }
     }
 }

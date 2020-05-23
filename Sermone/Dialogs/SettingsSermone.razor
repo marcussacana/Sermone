@@ -34,18 +34,26 @@
         </tr>
         <tr>
             <td class="align-baseline align-middle" style="width: 13em;">
-                Username
+                @Parent.CurrentLanguage.Username
             </td>
             <td>
-                <input type="text" class="form-control" @bind-value:event="onchange" @bind-value="@Parent.PasteUsername">
+                <input type="text" class="form-control" @bind-value:event="onchange" @bind-value="@Parent.PasteUsername" disabled>
             </td>
         </tr>
         <tr>
             <td class="align-baseline align-middle" style="width: 13em;">
-                Password
+                @Parent.CurrentLanguage.Password
             </td>
             <td>
-                <input type="text" class="form-control" @bind-value:event="onchange" @bind-value="@Parent.PastePassword">
+                <input type="text" class="form-control" @bind-value:event="onchange" @bind-value="@Parent.PastePassword" disabled>
+            </td>
+        </tr>
+        <tr>
+            <td class="align-baseline align-middle" style="width: 13em;">
+                @Parent.CurrentLanguage.BackupOn
+            </td>
+            <td>
+                <input type="text" class="form-control" @bind-value:event="onchange" @bind-value="@Parent.BackupOn" disabled>
             </td>
         </tr>
     </tbody>
