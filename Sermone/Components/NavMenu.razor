@@ -26,7 +26,9 @@
 
                 <input type="file" id="FOpen" @ref="Engine.InputRef" @onchange="Engine.FileChanged" hidden>
                 <a class="dropdown-item" @onclick="@OpenClicked" href="#">@Sermone.Engine.Language.Open</a>
-                <a class="dropdown-item" @onclick="@Engine.OpenAs" href="#">@Sermone.Engine.Language.OpenAs</a>
+                <a class="dropdown-item" @onclick="@OpenAsClicked" href="#">@Sermone.Engine.Language.OpenAs</a>
+                <a class="dropdown-item" @onclick="@OpenSecondaryClicked" href="#">@Sermone.Engine.Language.OpenReference</a>
+                <a class="dropdown-item" @onclick="@OpenSecondaryAsClicked" href="#">@Sermone.Engine.Language.OpenAsReference</a>
                 <a class="dropdown-item @(NavMenuSaveClass)" @onclick="@(()=> Engine.SaveFile())" href="#">@Sermone.Engine.Language.Save</a>
 
             </div>
@@ -106,6 +108,21 @@
     async Task OpenClicked()
     {
         await Engine.Open();
+    }
+
+    async Task OpenAsClicked()
+    {
+        await Engine.OpenAs(false);
+    }
+
+    async Task OpenSecondaryClicked()
+    {
+        await Engine.Open(AsSecondary: true);
+    }
+
+    async Task OpenSecondaryAsClicked()
+    {
+        await Engine.OpenAs(true);
     }
 
     public void Refresh() => this.StateHasChanged();

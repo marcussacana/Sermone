@@ -2,7 +2,7 @@
     <ol>
         @for (int i = 0; i < Items?.Length; i++)
         {
-            <ListBoxItem Checked="@Items[i].Checked" Value="@Items[i].Value" Selected="@(i == SelectedIndex)" ID="@i" Visible="@Items[i].Visible" VirtualChecked="@Items[i].VirtualChecked" VisibleIndex="@Items[i].VisibleIndex" @ref="Reference"/>
+            <ListBoxItem Checked="@Items[i].Checked" Value="@Items[i].Value" SubValue="@Items[i].SubValue" Selected="@(i == SelectedIndex)" ID="@i" Visible="@Items[i].Visible" VirtualChecked="@Items[i].VirtualChecked" VisibleIndex="@Items[i].VisibleIndex" @ref="Reference"/>
         }
     </ol>
 </div>
@@ -30,6 +30,7 @@
         Refs[ItemID].Checked = Items[ItemID].Checked;
         Refs[ItemID].Visible = Items[ItemID].Visible;
         Refs[ItemID].Value = Items[ItemID].Value;
+        Refs[ItemID].SubValue = Items[ItemID].SubValue;
 #pragma warning restore BL0005
         Refs[ItemID].Refresh();
     }

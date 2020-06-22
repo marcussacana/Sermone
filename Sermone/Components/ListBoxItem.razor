@@ -7,53 +7,66 @@
     {
         <input type="checkbox" id="@CKID" @onchange="Args => CheckedChanged(Args.Value)">
     }
-    <label for="@CKID" class="ItemLabel" @onclick="@OnItemClicked" @onclick:preventDefault="@PreventCheck">@Value</label>
+    <label for="@CKID" class="ItemLabel" @onclick="@OnItemClicked" @onclick:preventDefault="@PreventCheck">
+        @Value
+        @if (SubValue != null && Value != SubValue)
+        {
+            <div class="SubLabel">@SubValue</div>
+        }
+    </label>
 </li>
 
 @code {
-        [Parameter]
-        public int ID { get; set; }
+    [Parameter]
+    public int ID { get; set; }
 
-        [Parameter]
-        public string Value { get; set; }
+    [Parameter]
+    public string Value { get; set; }
 
-        [Parameter]
-        public bool Checked { get; set; }
+    [Parameter]
+    public string SubValue { get; set; }
 
-        [Parameter]
-        public bool Visible { get; set; }
+    [Parameter]
+    public bool Checked { get; set; }
 
-        [Parameter]
-        public bool Selected { get; set; }
+    [Parameter]
+    public bool Visible { get; set; }
 
-        [Parameter]
-        public int? VisibleIndex { get; set; }
+    [Parameter]
+    public bool Selected { get; set; }
 
-        [Parameter]
-        public bool? VirtualChecked { get; set; }
+    [Parameter]
+    public int? VisibleIndex { get; set; }
 
-        string CKID => "CK" + ID;
+    [Parameter]
+    public bool? VirtualChecked { get; set; }
+
+    string CKID => "CK" + ID;
 
     public string ItemClass => (ID % 2 == 0 || Selected ? "ItemA" : "ItemB")
                          + (Selected ? " list-group-item-primary" : "");
     //+ (Visible ? "" : " hide");
 
-    private void CheckedChanged(object nChecked) {
+    private void CheckedChanged(object nChecked)
+    {
         Checked = (bool)nChecked;
         Engine.CheckedChanged(ID, Checked);
     }
 
     private bool PreventCheck;
 
-    private async Task OnItemClicked(MouseEventArgs Args) {
+    private async Task OnItemClicked(MouseEventArgs Args)
+    {
         PreventCheck = Args.ClientX > 100;
-        if (PreventCheck) {
+        if (PreventCheck)
+        {
             await Engine.SelectChanged(ID);
             await Engine.EditorBox.Focus();
         }
     }
 
-    public async Task EnsureVisible() {
+    public async Task EnsureVisible()
+    {
         await JSWrapper.EnsureItemVisible(ID);
     }
 

@@ -9,6 +9,8 @@
         public string File => "File";
         public string Open => "Open";
         public string OpenAs => "Open As";
+        public string OpenReference => "Open Reference";
+        public string OpenAsReference => "Open Reference As";
         public string Save => "Save";
         public string Filter => "Fitler";
         public string AutoSelect => "Auto Select";
@@ -30,8 +32,8 @@
         public string Refresh => "Refresh";
 
         //About
-        public string AboutVersion => "Prototype Version";
-        public string AboutDesc => "This is a prototype version of the software focused on experimental purposes and, because it lacks of more advanced resources for any practical means, errors can occur during use.";
+        public string AboutVersion => "Alpha Version";
+        public string AboutDesc => "This is a Alpha release, bugs may be occur and not at all resources are done for use.";
 
         //Plugin Picker
         public string SelectAPlugin => "Select a Plugin";
@@ -53,6 +55,8 @@
         public string Error => "Error";
         public string BackupFailed => "Backup Failed, check your internet connection.";
         public string BackupIncompatible => "Selected backup isn’t compatible with current script.";
+        public string OpenAScriptBefore => "You must open a script before.";
+        public string IncompatibleReferenceScript => "The Script selected as a reference is incompatible with the currently open script.";
 
         //Settings
         public string Settings => "Settings";

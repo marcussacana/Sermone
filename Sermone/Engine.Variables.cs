@@ -50,6 +50,8 @@ namespace Sermone
         public static IPluginCreator LastWorkingPlugin;
         public static IPlugin CurrentPlugin;
 
+        public static bool OpenAsSecondary;
+
         public static bool NotSaved;
         public static bool ForceLastPlugin;
 

@@ -9,6 +9,8 @@
         public string File { get; }
         public string Open { get; }
         public string OpenAs { get; }
+        public string OpenReference { get; }
+        public string OpenAsReference { get; }
         public string Save { get; }
         
         public string Filter { get; }
@@ -53,6 +55,8 @@
         public string Error { get; }
         public string BackupFailed { get; }
         public string BackupIncompatible { get; }
+        public string OpenAScriptBefore { get; }
+        public string IncompatibleReferenceScript { get; }
 
         //Settings
         public string Settings { get; }

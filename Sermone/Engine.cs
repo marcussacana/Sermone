@@ -10,7 +10,8 @@ namespace Sermone
 {
     static partial class Engine
     {
-        public async static void FileChanged() {
+        public async static void FileChanged()
+        {
             foreach (var file in await FReader.CreateReference(InputRef).EnumerateFilesAsync())
             {
                 var FileInfo = await file.ReadFileInfoAsync();
@@ -24,13 +25,19 @@ namespace Sermone
             }
         }
 
-        public static async Task Open(bool OpenAs = false)
+        public static async Task Open(bool OpenAs = false, bool AsSecondary = false)
         {
+            if (!CanSave && AsSecondary)
+            {
+                Toast.ShowError(Language.OpenAScriptBefore, Language.Error);
+                return;
+            }
             ForceLastPlugin = OpenAs;
+            OpenAsSecondary = AsSecondary;
             await JSWrapper.OpenFile();
         }
 
-        public static async Task OpenAs()
+        public static async Task OpenAs(bool AsSecondary = false)
         {
             var Result = await Modal.ShowDialogAsync<PluginPicker>(Language.SelectAPlugin);
             await JSWrapper.DestroyTooltips();
@@ -38,13 +45,20 @@ namespace Sermone
                 return;
 
             LastWorkingPlugin = (IPluginCreator)Result.ReturnParameters["Plugin"];
-            await Open(true);
+            await Open(true, AsSecondary);
         }
 
-        public static async Task OpenFile() {
-            DialogueBox.SelectedIndex = 0;
-            DialogueBox.SetItems(new ListBoxItemInfo[0]);
-            DialogueBox.Refresh();
+        public static async Task OpenFile()
+        {
+            var OriPlugin = CurrentPlugin;
+            var OriLastWork = LastWorkingPlugin;
+
+            if (!OpenAsSecondary)
+            {
+                DialogueBox.SelectedIndex = 0;
+                DialogueBox.SetItems(new ListBoxItemInfo[0]);
+                DialogueBox.Refresh();
+            }
 
             string[] Strings = null;
 
@@ -55,7 +69,8 @@ namespace Sermone
 
             if (Strings == null)
             {
-                if (ForceLastPlugin) {
+                if (ForceLastPlugin)
+                {
                     Toast.ShowError(Language.PluginDontSupport, Language.NotSupported);
                     return;
                 }
@@ -89,48 +104,70 @@ namespace Sermone
                 }
             }
 
-            DialogueBox.SetItems((from x in Strings
-                                  select new ListBoxItemInfo() {
-                                      Checked = true,
-                                      Visible = true,
-                                      Value = x
-                                  }).ToArray());
+            if (OpenAsSecondary)
+            {
+                OpenAsSecondary = false;
+                CurrentPlugin = OriPlugin;
+                LastWorkingPlugin = OriLastWork;
+                if (Strings.Length != DialogueBox.Items.Length)
+                {
+                    Toast.ShowError(Language.IncompatibleReferenceScript, Language.Error);
+                }
+                else
+                {
+                    for (int i = 0; i < Strings.Length; i++)
+                    {
+                        DialogueBox.Items[i].SubValue = Strings[i];
+                    }
+                    DialogueBox.Refresh();
+                }
+            }
+            else
+            {
+                DialogueBox.SetItems((from x in Strings select new ListBoxItemInfo(true, true, x, null)).ToArray());
 
-            DialogueBox.Refresh();
+                DialogueBox.Refresh();
 
-            CanSave = true;
-            MainNavMenu.Refresh();
-            await AutoSelect();
+                CanSave = true;
+                MainNavMenu.Refresh();
+                await AutoSelect();
+            }
 
             await JSWrapper.SetTile($"Sermone");
         }
 
-        private static string[] TryUsePlugin(IPluginCreator Plugin) {
-            try {
+        private static string[] TryUsePlugin(IPluginCreator Plugin)
+        {
+            try
+            {
                 if (Plugin.InitializeWithScript)
                     CurrentPlugin = Plugin.Create(CurrentScript);
                 else
                     CurrentPlugin = Plugin.Create();
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 Console.WriteLine($"Plugin \"{Plugin.Name}\" Creation Error:\n{ex}");
                 return null;
             }
 
-            try {
-               return Plugin.InitializeWithScript ? CurrentPlugin.Import() : CurrentPlugin.Import(CurrentScript);
+            try
+            {
+                return Plugin.InitializeWithScript ? CurrentPlugin.Import() : CurrentPlugin.Import(CurrentScript);
             }
-            catch (Exception ex){
-                Console.WriteLine($"Plugin \"{Plugin.Name}\" Load Error:\n{ex}"); 
-                return null; 
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Plugin \"{Plugin.Name}\" Load Error:\n{ex}");
+                return null;
             }
         }
-        public static async Task SaveFile(string Name = null) {
+        public static async Task SaveFile(string Name = null)
+        {
             if (!CanSave)
                 return;
 
             if (Name == null)
-                Name= CurrentName;
+                Name = CurrentName;
 
             NotSaved = false;
             var Lines = (from x in DialogueBox.Items select x.Value).ToArray();

@@ -9,6 +9,8 @@
         public string File => "Arquivo";
         public string Open => "Abrir";
         public string OpenAs => "Abrir Como";
+        public string OpenReference => "Abrir Referência";
+        public string OpenAsReference => "Abrir Referência Como";
         public string Save => "Salvar";
         public string Filter => "Filtro";
         public string AutoSelect => "Seleção Automática";
@@ -30,8 +32,8 @@
         public string Refresh => "Atualizar";
 
         //About
-        public string AboutVersion => "Versão Protótipo";
-        public string AboutDesc => "Essa é uma versão protótipo do software voltada para fins experimentais e como tal carece de recursos mais avançados para um uso prático, pode também contar com erros no decorrer do uso.";
+        public string AboutVersion => "Versão Alfa";
+        public string AboutDesc => "Essa é uma versão alfa do software e portanto, bugs podem ocorrerem e nem todos os recursos estão prontos para uso.";
 
         //Plugin Picker
         public string SelectAPlugin => "Selecione um Plugin";
@@ -52,6 +54,8 @@
         public string Error => "Erro";
         public string BackupFailed => "O Backup Falhou, Verifique sua conexão com a internet.";
         public string BackupIncompatible => "O Backup selecionado não é compatível com o script atual.";
+        public string OpenAScriptBefore => "Você precisa abrir um script antes.";
+        public string IncompatibleReferenceScript => "O Script selecionado como referência é incompatível com o script atualmente aberto.";
 
         //Settings
         public string Settings => "Configurações";

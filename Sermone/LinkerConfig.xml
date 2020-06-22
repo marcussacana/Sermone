@@ -4,37 +4,43 @@
   stripped by the IL Linker even if they aren't referenced by user code.
 -->
 <linker>
-  <assembly fullname="mscorlib">
-    <!--
+	<assembly fullname="mscorlib">
+		<!--
       Preserve the methods in WasmRuntime because its methods are called by 
       JavaScript client-side code to implement timers.
       Fixes: https://github.com/dotnet/blazor/issues/239
     -->
-    <type fullname="System.Threading.WasmRuntime" />
-    <!-- Preserve the methods used by the SacanaWrapper Plugins -->
-    <type fullname="System.BitConverter" />
-    <type fullname="System.IO.MemoryStream" />
-    <type fullname="System.IO.BinaryReader" />
-    <type fullname="System.IO.BinaryWriter" />
+		<type fullname="System.Threading.WasmRuntime" />
+		<!-- Preserve the methods used by the SacanaWrapper Plugins -->
+		<type fullname="System.BitConverter" />
+		<type fullname="System.IO.MemoryStream" />
+		<type fullname="System.IO.BinaryReader" />
+		<type fullname="System.IO.BinaryWriter" />
 
-  </assembly>
-  
-  <assembly fullname="System">
-    <!-- Preserve the methods used by the SacanaWrapper Plugins -->
-    <type fullname="System.IO.InternalBufferOverflowException"/>
-  </assembly>
-  
-  <assembly fullname="System.Core">
-    <!--
+	</assembly>
+
+	<assembly fullname="System">
+		<!-- Preserve the methods used by the SacanaWrapper Plugins -->
+		<type fullname="System.IO.InternalBufferOverflowException"/>
+	</assembly>
+
+	<assembly fullname="System.Core">
+		<!--
       System.Linq.Expressions* is required by Json.NET and any 
       expression.Compile caller. The assembly isn't stripped.
     -->
-    <type fullname="System.Linq.Expressions*" />
-  </assembly>
-  <!--
+		<type fullname="System.Linq.Expressions*" />
+	</assembly>
+
+	<assembly fullname="System.IO.Compression">
+		<!-- Preserve the methods used by the SacanaWrapper Plugins -->
+		<type fullname="System.IO.Compression.*" />
+	</assembly>
+	
+	<!--
     In this example, the app's entry point assembly is listed. The assembly
     isn't stripped by the IL Linker.
   -->
-  <assembly fullname="Sermone" preserve="all" />
-  <assembly fullname="netstandard" preserve="all" />
+	<assembly fullname="Sermone" preserve="all" />
+	<assembly fullname="netstandard" preserve="all" />
 </linker>
