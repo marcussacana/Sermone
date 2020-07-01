@@ -103,7 +103,7 @@ namespace Sermone
 
         static string BasePath = null;
         public static void Navigate(string Path) {
-            Engine.MainNavMenu.Navigator.NavigateTo(BasePath + Path.TrimStart('/'));
+            Header.Navigator.NavigateTo(BasePath + Path.TrimStart('/'));
         }
 
         public static ILang[] AllLanguages = new ILang[] {

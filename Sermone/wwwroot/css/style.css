@@ -52,15 +52,18 @@ header {
 }
 
 img {
-	margin-top: -100pt;
-	width: 30%;
-	margin: -100pt auto;
+	display:block;
+	min-height: 500px;
+	min-width: 500px;
+	margin: 0 auto;
 }
 
 #LoadTitle {
+	display:block;
+	margin-top: -100px;
 	line-height: 48px;
 	background-image: linear-gradient(to right, purple , red);
-	background-size: 15%;
+	background-size: 300px;
 	background-repeat: no-repeat;
 	background-position: center;
 	-webkit-background-clip: text;

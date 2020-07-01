@@ -1,21 +1,4 @@
-﻿@using System.Net.Http;
-@using BlazorFileSaver;
-@using Blazor.FileReader;
-@using Blazored.LocalStorage;
-@using BlazorWorker.Core;
-@using BlazorWorker.BackgroundServiceFactory
-
-@inject ILocalStorageService LStorage
-@inject IFileReaderService FReader
-@inject IBlazorFileSaver FSaver
-@inject NavigationManager NavManager
-@inject IJSRuntime JRuntime
-@inject IWorkerFactory SWorker
-@inject IToastService SToast
-@inject IModalDialogService SModal
-
-
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark @NavMenuVisibility">
+﻿<nav class="navbar navbar-expand-lg navbar-dark bg-dark @NavMenuVisibility">
     <a class="navbar-brand" href="#">Sermone</a>
     <ul class="navbar-nav mr-auto">
         <li class="nav-item dropdown">
@@ -59,18 +42,6 @@
 
 @code {
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (Engine.Compressor == null)
-        {
-            var Worker = await Engine.Worker.CreateAsync();
-            Engine.Compressor = await Worker.CreateBackgroundServiceAsync<Sermone.Tools.CompressorService>(new WorkerInitOptions(){
-                DependentAssemblyFilenames = new[] { "BrotliSharpLib.dll", "Sermone.dll" }
-            });
-        }
-        await base.OnAfterRenderAsync(firstRender);
-    }
-
     public string Search { get; private set; }
 
     private string NavMenuVisibility => Engine.Plugins == null ? "hide" : "";
@@ -92,7 +63,7 @@
     async Task SettingsClicked()
     {
         int CurrentLang = Engine.Settings.Language;
-        var Result = await SModal.ShowDialogAsync<Sermone.Dialogs.Settings>(Engine.Language.Settings);
+        var Result = await Header.Modal.ShowDialogAsync<Sermone.Dialogs.Settings>(Engine.Language.Settings);
 
         if (Result.Success)
         {
@@ -126,14 +97,4 @@
     }
 
     public void Refresh() => this.StateHasChanged();
-
-    public ILocalStorageService LocalStorage => LStorage;
-    public IFileReaderService ReaderService => FReader;
-    public IBlazorFileSaver SaverService => FSaver;
-    public IJSRuntime JSRuntime => JRuntime;
-    public IWorkerFactory Worker => SWorker;
-    public IToastService Toast => SToast;
-    public IModalDialogService Modal => SModal;
-
-    public NavigationManager Navigator => NavManager;
 }

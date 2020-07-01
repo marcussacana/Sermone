@@ -22,13 +22,13 @@ namespace Sermone
         public static bool CanSave;
         public static ILang Language;
 
-        public static ILocalStorageService LocalStorage => MainNavMenu.LocalStorage;
-        public static IFileReaderService FReader => MainNavMenu.ReaderService;
-        public static IBlazorFileSaver FSaver => MainNavMenu.SaverService;
-        public static IModalDialogService Modal => MainNavMenu.Modal;
-        public static IJSRuntime JSRuntime => MainNavMenu.JSRuntime;
-        public static IWorkerFactory Worker => MainNavMenu.Worker;
-        public static IToastService Toast => MainNavMenu.Toast;
+        public static ILocalStorageService LocalStorage => Header.LocalStorage;
+        public static IFileReaderService FReader => Header.ReaderService;
+        public static IBlazorFileSaver FSaver => Header.SaverService;
+        public static IModalDialogService Modal => Header.Modal;
+        public static IJSRuntime JSRuntime => Header.JSRuntime;
+        public static IWorkerFactory Worker => Header.Worker;
+        public static IToastService Toast => Header.Toast;
 
         public static IWorkerBackgroundService<CompressorService> Compressor;
 

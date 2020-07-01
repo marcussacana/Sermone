@@ -1,0 +1,47 @@
+﻿@using BlazorFileSaver;
+@using Blazor.FileReader;
+@using Blazored.LocalStorage;
+@using BlazorWorker.Core;
+@using BlazorWorker.BackgroundServiceFactory
+
+@inject ILocalStorageService LStorage
+@inject IFileReaderService FReader
+@inject IBlazorFileSaver FSaver
+@inject NavigationManager NavManager
+@inject IJSRuntime JRuntime
+@inject IWorkerFactory SWorker
+@inject IToastService SToast
+@inject IModalDialogService SModal
+
+@code {        
+    
+    protected override void OnInitialized()
+    {
+        Instance = this;
+        base.OnInitialized();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (Engine.Compressor == null)
+        {
+            var Worker = await Engine.Worker.CreateAsync();
+            Engine.Compressor = await Worker.CreateBackgroundServiceAsync<Sermone.Tools.CompressorService>(new WorkerInitOptions(){
+                DependentAssemblyFilenames = new[] { "BrotliSharpLib.dll", "Sermone.dll" }
+            });
+        }
+        await base.OnAfterRenderAsync(firstRender);
+    }
+
+    public static Header Instance = null;
+
+    public static ILocalStorageService LocalStorage => Instance.LStorage;
+    public static IFileReaderService ReaderService => Instance.FReader;
+    public static IBlazorFileSaver SaverService => Instance.FSaver;
+    public static IJSRuntime JSRuntime => Instance.JRuntime;
+    public static IWorkerFactory Worker => Instance.SWorker;
+    public static IToastService Toast => Instance.SToast;
+    public static IModalDialogService Modal => Instance.SModal;
+
+    public static NavigationManager Navigator => Instance.NavManager;
+}
