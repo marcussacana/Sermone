@@ -16,6 +16,8 @@
 		<type fullname="System.IO.MemoryStream" />
 		<type fullname="System.IO.BinaryReader" />
 		<type fullname="System.IO.BinaryWriter" />
+		<type fullname="System.Array" preserve="all"/>
+		<type fullname="System.Runtime.InteropServices.Marshal" preserve="all"/>
 
 	</assembly>
 
