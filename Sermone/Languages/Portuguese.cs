@@ -71,6 +71,8 @@
         public string AcceptableRange => "Alcance Tolerado";
         public string AsianMode => "Modo Asiático";
         public string Sensitivity => "Sensibilidade";
+        public string Export => "Exportar";
+        public string Import => "Importar";
 
         //Settings Tooltips
         public string DenyPatternTooltip => "Lista de padrões que nunca aparecem em um díalogo, separado por ponto e vírgula.";

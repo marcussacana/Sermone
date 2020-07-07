@@ -1,0 +1,30 @@
+﻿@inject IModalDialogService Modal
+
+<textarea class="form-control" @bind-value:event="onchange" @bind-value="@Text" style="height: 60vh;"></textarea>
+
+@if (AllowSave)
+{
+    <br />
+    <div class="position-relative">
+        <div class="btn-group right">
+            <button @onclick="SaveClicked" class="btn btn-primary">@Engine.Language.Save</button>
+        </div>
+    </div>
+}
+<br />
+<br />
+@code {
+
+    [Parameter]
+    public string Text { get; set; }
+
+    [Parameter]
+    public bool AllowSave { get; set; }
+
+    void SaveClicked()
+    {
+        var Return = new ModalDialogParameters();
+        Return.Add("Text", Text);
+        Modal.Close(true, Return);
+    }
+}

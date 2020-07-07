@@ -71,6 +71,8 @@
         public string AcceptableRange { get; }
         public string AsianMode { get; }
         public string Sensitivity { get; }
+        public string Export { get; }
+        public string Import { get; }
 
         //Settings Tooltips
         public string DenyPatternTooltip { get; }

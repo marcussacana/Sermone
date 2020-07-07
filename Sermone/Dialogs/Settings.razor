@@ -1,5 +1,6 @@
 ﻿@using Sermone.Types
 @using Sermone.Languages
+@using Newtonsoft.Json
 @inject IModalDialogService Modal
 
 <ul class="nav nav-tabs">
@@ -7,7 +8,7 @@
         <a @onclick="() => SetPage(0)" class="nav-link" href="#">Sermone</a>
     </li>
     <li class="@(CurrentPage == 1 ? "active" : "")">
-        <a @onclick="() => SetPage(1)" class="nav-link"  href="#">@CurrentLanguage.Filter</a>
+        <a @onclick="() => SetPage(1)" class="nav-link" href="#">@CurrentLanguage.Filter</a>
     </li>
 </ul>
 
@@ -22,7 +23,11 @@
 }
 
 <div class="position-relative">
-    <button @onclick="SaveClicked" class="btn btn-primary right">@CurrentLanguage.Save</button>
+    <div class="btn-group right">
+        <button @onclick="ExportClicked" class="btn btn-default">@CurrentLanguage.Export</button>
+        <button @onclick="ImportClicked" class="btn btn-default">@CurrentLanguage.Import</button>
+        <button @onclick="SaveClicked" class="btn btn-primary">@CurrentLanguage.Save</button>
+    </div>
 </div>
 <br />
 <br />
@@ -169,6 +174,31 @@
     {
         Engine.Settings = Configs;
         Modal.Close(true);
+    }
+
+    async void ExportClicked()
+    {
+        var JSON = JsonConvert.SerializeObject(Engine.Settings, Formatting.Indented);
+        await Modal.ShowDialogAsync<TextArea>(Engine.Language.Export, parameters: new ModalDialogParameters()
+{
+            { "Text",      JSON },
+            { "AllowSave", false }
+        });
+    }
+
+    async void ImportClicked()
+    {
+        var Rst = await Modal.ShowDialogAsync<TextArea>(Engine.Language.Import, parameters: new ModalDialogParameters()
+        {
+            { "Text",      string.Empty },
+            { "AllowSave", true         }
+        });
+
+        if (!Rst.Success)
+            return;
+
+        _Configs = Engine.Settings = JsonConvert.DeserializeObject<Config>((string)Rst.ReturnParameters["Text"]);
+        Refresh();
     }
 
     void SetPage(int ID)

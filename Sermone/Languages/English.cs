@@ -72,6 +72,8 @@
         public string AcceptableRange => "Acceptable Range";
         public string AsianMode => "Asian Mode";
         public string Sensitivity => "Sensitivity";
+        public string Export => "Export";
+        public string Import => "Import";
 
         //Settings Tooltips
         public string DenyPatternTooltip => "Patterns list which never appear in a dialogue. Separeted by semicolon.";

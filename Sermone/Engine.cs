@@ -5,6 +5,7 @@ using System.Linq;
 using Sermone.Types;
 using SacanaWrapper;
 using Sermone.Dialogs;
+using Sermone.Tools;
 
 namespace Sermone
 {
@@ -67,7 +68,7 @@ namespace Sermone
             if (LastWorkingPlugin != null)
                 Strings = TryUsePlugin(LastWorkingPlugin);
 
-            if (Strings == null)
+            if (IsValidStrings(Strings))
             {
                 if (ForceLastPlugin)
                 {
@@ -83,7 +84,7 @@ namespace Sermone
                 foreach (var Plugin in SupportedPlugins)
                 {
                     Strings = TryUsePlugin(Plugin);
-                    if (Strings != null)
+                    if (IsValidStrings(Strings))
                     {
                         LastWorkingPlugin = Plugin;
                         break;
@@ -95,7 +96,7 @@ namespace Sermone
                     foreach (var Plugin in NotSupportedPlugins)
                     {
                         Strings = TryUsePlugin(Plugin);
-                        if (Strings != null)
+                        if (IsValidStrings(Strings))
                         {
                             LastWorkingPlugin = Plugin;
                             break;
@@ -134,6 +135,15 @@ namespace Sermone
             }
 
             await JSWrapper.SetTile($"Sermone");
+        }
+
+        private static bool IsValidStrings(string[] Strs)
+        {
+            if (Strs == null || Strs.Length == 0)
+                return false;
+            if (Strs.Length == 1)
+                return Strs[0].IsDialogue();
+            return true;
         }
 
         private static string[] TryUsePlugin(IPluginCreator Plugin)
