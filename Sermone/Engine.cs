@@ -68,7 +68,7 @@ namespace Sermone
             if (LastWorkingPlugin != null)
                 Strings = TryUsePlugin(LastWorkingPlugin);
 
-            if (IsValidStrings(Strings))
+            if (!IsValidStrings(Strings))
             {
                 if (ForceLastPlugin)
                 {
@@ -103,6 +103,12 @@ namespace Sermone
                         }
                     }
                 }
+            }
+
+            if (Strings == null)
+            {
+                Toast.ShowError(Language.NotSupportedPluginFound, Language.Error);
+                return;
             }
 
             if (OpenAsSecondary)

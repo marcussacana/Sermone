@@ -48,6 +48,7 @@
         public string NoResultsFound => "Nenhum Resultado Encontrado";
         public string TryOthersWords => "Tente novamente com outras palavras.";
         public string NotSupported => "Não Suportado";
+        public string NotSupportedPluginFound => "Não há nenhum plugin que suporte o arquivo selecionado";
         public string PluginDontSupport => "O Plugin selecionado não suporta este arquivo.";
         public string Success => "Sucesso";
         public string BackupUpdated => "Backup Atualizado";

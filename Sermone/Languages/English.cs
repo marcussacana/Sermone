@@ -49,6 +49,7 @@
         public string NoResultsFound => "No results found.";
         public string TryOthersWords => "Try again with other words.";
         public string NotSupported => "Not Supported";
+        public string NotSupportedPluginFound => "There is no plugin that supports the selected file";
         public string PluginDontSupport => "The selected plugin does not support this file.";
         public string Success => "Success";
         public string BackupUpdated => "Backup Updated";

@@ -49,6 +49,7 @@
         public string NoResultsFound { get; }
         public string TryOthersWords { get; }
         public string NotSupported { get; }
+        public string NotSupportedPluginFound { get; }
         public string PluginDontSupport { get; }
         public string Success { get; }
         public string BackupUpdated { get; }
