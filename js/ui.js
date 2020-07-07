@@ -47,6 +47,7 @@ function ShowDropDown(e) {
 
 function OpenFile(id) {
     var elm = document.getElementById(id);
+    elm.value = null;
     elm.click();
 }
 
