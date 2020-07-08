@@ -302,3 +302,14 @@ tooltip {
         opacity: 0;
     }
 }
+
+@media only screen and (max-width: 780px) {
+    #NavLogo {
+        display: none;
+    }
+}
+@media only screen and (max-width: 580px) {
+    #NavSearchBtn {
+        display: none;
+    }
+}

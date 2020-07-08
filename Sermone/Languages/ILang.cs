@@ -6,7 +6,6 @@
         public string NativeLanguageName { get; }
 
         //Dropdown
-        public string File { get; }
         public string Open { get; }
         public string OpenAs { get; }
         public string OpenReference { get; }
@@ -18,8 +17,11 @@
         public string SelectAll { get; }
         public string DeselectAll { get; }
 
+
         //Nav Bar
+        public string File { get; }
         public string Search { get; }
+        public string Others { get; }
 
         //Loading Page
         public string Loading { get; }

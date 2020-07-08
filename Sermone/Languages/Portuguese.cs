@@ -6,7 +6,6 @@
         public string NativeLanguageName => "Português (Brasil)";
 
         //Dropdown
-        public string File => "Arquivo";
         public string Open => "Abrir";
         public string OpenAs => "Abrir Como";
         public string OpenReference => "Abrir Referência";
@@ -18,6 +17,8 @@
         public string DeselectAll => "Desselecionar Tudo";
 
         //Nav Bar
+        public string File => "Arquivo";
+        public string Others => "Outros";
         public string Search => "Procurar";
 
         //Loading Page

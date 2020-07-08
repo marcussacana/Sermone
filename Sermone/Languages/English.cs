@@ -6,7 +6,6 @@
         public string NativeLanguageName => "English (US)";
 
         //Dropdown
-        public string File => "File";
         public string Open => "Open";
         public string OpenAs => "Open As";
         public string OpenReference => "Open Reference";
@@ -18,7 +17,9 @@
         public string DeselectAll => "Deselect All";
 
         //Nav Bar
+        public string File => "File";
         public string Search => "Find";
+        public string Others => "Others";
 
         //Loading Page
         public string Loading => "Loading...";

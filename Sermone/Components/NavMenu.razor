@@ -1,5 +1,5 @@
-﻿<nav class="navbar navbar-expand-lg navbar-dark bg-dark @NavMenuVisibility">
-    <a class="navbar-brand" href="#">Sermone</a>
+﻿<nav class="navbar navbar-expand-sm navbar-dark bg-dark @NavMenuVisibility">
+    <a class="navbar-brand" id="NavLogo" href="#">Sermone</a>
     <ul class="navbar-nav mr-auto">
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="NavFileDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -27,16 +27,19 @@
 
             </div>
         </li>
-        <li>
-            <a class="nav-link" href="#" @onclick="Engine.ShowBackups">Backups</a>
-        </li>
-        <li>
-            <a class="nav-link" href="#" @onclick="SettingsClicked">@Engine.Language.Settings</a>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="NavOthersDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                @Engine.Language.Others
+            </a>
+            <div class="dropdown-menu" aria-labelledby="NavOthersDropdown">
+                <a class="dropdown-item" @onclick="Engine.ShowBackups" href="#" >Backups</a>
+                <a class="dropdown-item" @onclick="SettingsClicked" href="#">@Engine.Language.Settings</a>
+            </div>
         </li>
     </ul>
     <div class="form-inline my-2 my-lg-0">
         <input class="form-control mr-sm-2" type="search" placeholder="@Engine.Language.Search" aria-label="@Engine.Language.Search" @bind-value:event="oninput" @bind-value="@Search" @onkeydown="@OnSearchKeyDown">
-        <button class="btn btn-outline-success my-2 my-sm-0" @onclick="@(async() => await Engine.DoSearch(Search))">@Engine.Language.Search</button>
+        <button class="btn btn-outline-success my-2 my-sm-0" id="NavSearchBtn" @onclick="@(async() => await Engine.DoSearch(Search))">@Engine.Language.Search</button>
     </div>
 </nav>
 
