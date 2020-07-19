@@ -137,7 +137,16 @@ namespace Sermone
 
                 CanSave = true;
                 MainNavMenu.Refresh();
-                await AutoSelect();
+
+                switch (Settings.SelectionMode)
+                {
+                    case 1:
+                        await ForceSelection(true);
+                        break;
+                    default:
+                        await AutoSelect();
+                        break;
+                }
             }
 
             await JSWrapper.SetTile($"Sermone");

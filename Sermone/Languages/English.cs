@@ -66,7 +66,10 @@
         public string Username => "Username";
         public string Password => "Password";
         public string BackupOn => "Backup On";
+        public string Theme => "Theme";
+        public string CustomCss => "Custom CSS";
 
+        public string DefaultSelection => "Default Selection";
         public string DennyPattern => "Denied Patterns";
         public string IgnorePattern => "Skippable Patterns";
         public string QuotesPattern => "Quote Patterns";

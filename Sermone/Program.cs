@@ -73,7 +73,8 @@ namespace Sermone
         public static async Task UpdateSettings(bool Save = true)
         {
             GetLanguageByID(Engine.Settings.Language, out Engine.Language);
-            
+            await JSWrapper.SetCustomCSS(Engine.Settings.CustomCSS);
+
             if (Save)
                 await Engine.LocalStorage.SetItemAsync("Settings", Engine.Settings);
 

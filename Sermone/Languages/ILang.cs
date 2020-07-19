@@ -67,6 +67,9 @@
         public string Username { get; }
         public string Password { get; }
         public string BackupOn { get; }
+        public string Theme { get; }
+        public string CustomCss { get; }
+        public string DefaultSelection { get; }
         public string DennyPattern { get; }
         public string IgnorePattern { get; }
         public string QuotesPattern { get; }

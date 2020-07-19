@@ -9,6 +9,9 @@
         public string QuoteList { get; set; }
         public string Breakline { get; set; }
         public string AcceptableRanges { get; set; }
+
+        public string CustomCSS { get; set; }
+        public int SelectionMode { get; set; }
         public bool AllowNumbers { get; set; }
         public bool FromAsian { get; set; }
         public int Sensitivity { get; set; }

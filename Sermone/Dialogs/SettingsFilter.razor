@@ -1,6 +1,37 @@
 ﻿<table class="table table-striped table-condensed">
     <tbody>
         <tr>
+            <td class="align-baseline align-middle" style="width: 13em;" data-toggle="tooltip" data-placement="auto" data-original-title="Language">@Parent.CurrentLanguage.DefaultSelection</td>
+            <td>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
+                        @switch (Parent.Configs.SelectionMode)
+                        {
+                            case 1:
+                                @Parent.CurrentLanguage.SelectAll
+                                break;
+                            default:
+                                @Parent.CurrentLanguage.AutoSelect
+                            break;
+                    }
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a class="@GetSelectionOptionClass(0)" @onclick="() => SetSelectionMode(0)" href="#">
+                                @Parent.CurrentLanguage.AutoSelect
+                            </a>
+                        </li>
+                        <li>
+                            <a class="@GetSelectionOptionClass(1)" @onclick="() => SetSelectionMode(1)" href="#">
+                                @Parent.CurrentLanguage.SelectAll
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+            </td>
+        </tr>
+        <tr>
             <td class="align-baseline align-middle" style="width: 13em;" data-toggle="tooltip" data-placement="auto" data-original-title="@Parent.CurrentLanguage.DenyPatternTooltip">
                 @Parent.CurrentLanguage.DennyPattern
             </td>
@@ -46,14 +77,14 @@
             </td>
             <td><input type="checkbox" @bind-value:event="onchange" @bind-value="@Parent.FromAsian"></td>
         </tr>
-    <tr>
-        <td class="align-baseline align-middle" data-toggle="tooltip" data-placement="auto" data-original-title="@Parent.CurrentLanguage.SensitivityTooltip">
-            @Parent.CurrentLanguage.Sensitivity
-        </td>
-        <td>
-            <input type="text" class="form-control" @bind-value:event="onchange" @bind-value="@Parent.Sensitivity">
-        </td>
-    </tr>
+        <tr>
+            <td class="align-baseline align-middle" data-toggle="tooltip" data-placement="auto" data-original-title="@Parent.CurrentLanguage.SensitivityTooltip">
+                @Parent.CurrentLanguage.Sensitivity
+            </td>
+            <td>
+                <input type="text" class="form-control" @bind-value:event="onchange" @bind-value="@Parent.Sensitivity">
+            </td>
+        </tr>
     </tbody>
 </table>
 
@@ -62,4 +93,11 @@
     [Parameter]
     public Settings Parent { get; set; }
 
+    void SetSelectionMode(int ID)
+    {
+        Parent.SelectionMode = ID;
+        StateHasChanged();
+    }
+
+    string GetSelectionOptionClass(int ID) => Parent.SelectionMode == ID ? "dropdown-item active" : "dropdown-item";
 }

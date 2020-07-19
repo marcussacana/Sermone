@@ -52,6 +52,28 @@
         set { _Configs = value; }
     }
 
+    public string CustomCSS
+    {
+        get { return Configs.CustomCSS; }
+        set
+        {
+            var TmpConf = Configs;
+            TmpConf.CustomCSS = value;
+            Configs = TmpConf;
+        }
+    }
+
+    public int SelectionMode
+    {
+        get { return Configs.SelectionMode; }
+        set
+        {
+            var TmpConf = Configs;
+            TmpConf.SelectionMode = value;
+            Configs = TmpConf;
+        }
+    }
+
     public string DenyList
     {
         get { return Configs.DenyList; }

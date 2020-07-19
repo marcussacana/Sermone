@@ -65,7 +65,10 @@
         public string Username => "Nome de Usuário";
         public string Password => "Senha";
         public string BackupOn => "Backup Em";
+        public string Theme => "Tema";
+        public string CustomCss => "CSS Costumizado";
 
+        public string DefaultSelection => "Seleção Padrão";
         public string DennyPattern => "Padrões Inaceitáveis";
         public string IgnorePattern => "Padrões Ignoráveis";
         public string QuotesPattern => "Padrões de Citação";

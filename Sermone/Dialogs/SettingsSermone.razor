@@ -1,4 +1,5 @@
-﻿<table class="table table-striped table-condensed">
+﻿@inject IModalDialogService Modal
+<table class="table table-striped table-condensed">
     <tbody>
         <tr>
             <td class="align-baseline align-middle" style="width: 13em;" data-toggle="tooltip" data-placement="auto" data-original-title="Language">@Parent.CurrentLanguage.Language</td>
@@ -56,6 +57,12 @@
                 <input type="text" class="form-control" @bind-value:event="onchange" @bind-value="@Parent.BackupOn">
             </td>
         </tr>
+        <tr>
+            <td>@Parent.CurrentLanguage.Theme</td>
+            <td>
+                <button class="btn btn-secondary" @onclick="@CustomCss">@Parent.CurrentLanguage.CustomCss</button>
+            </td>
+        </tr>
     </tbody>
 </table>
 
@@ -63,4 +70,17 @@
 @code {
     [Parameter]
     public Settings Parent { get; set; }
+
+    public async Task CustomCss()
+    {
+        var Rst = await Modal.ShowDialogAsync<TextArea>(Engine.Language.CustomCss, parameters: new ModalDialogParameters() {
+            { "Text",      Parent.CustomCSS },
+            { "AllowSave", true             }
+        });
+
+        if (!Rst.Success)
+            return;
+
+        Parent.CustomCSS = (string)Rst.ReturnParameters["Text"];
+    }
 }

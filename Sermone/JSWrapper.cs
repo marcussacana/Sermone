@@ -31,6 +31,10 @@ namespace Sermone
         {
             await Engine.JSRuntime.InvokeVoidAsync("EnsureItemVisible", ID);
         }
+        public static async Task SetCustomCSS(string CSS)
+        {
+            await Engine.JSRuntime.InvokeVoidAsync("SetCustomCSS", CSS);
+        }
         public static async Task<string> GetBaseDirectory()
         {
             return await Engine.JSRuntime.InvokeAsync<string>("GetBaseDirectory");
