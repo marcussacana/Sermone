@@ -1,4 +1,4 @@
-window.onclick = function(e) {
+window.onclick = function (e) {
     if (!e.target.matches('.dropbtn')) {
         var DropDowns = document.getElementsByClassName('dropdown-content');
         for (var i = 0; i < DropDowns.length; i++) {
@@ -7,7 +7,7 @@ window.onclick = function(e) {
                 Dropdown.classList.remove('show');
             }
         }
-  }
+    }
 }
 
 window.SetTitle = (title) => {
@@ -33,12 +33,16 @@ window.EnableTooltip = () => {
 window.DestroyTooltip = () => {
     try {
         $('div[class*="tooltip fade"]').remove();
-    }catch { }
+    } catch { }
 }
 
 window.GetBaseDirectory = () => {
     var Elm = document.getElementsByTagName("base")[0];
     return Elm.getAttribute("href");
+}
+
+window.SetCustomCSS = (a) => {
+    CustomCSS.innerText = a;
 }
 
 function ShowDropDown(e) {
@@ -66,27 +70,27 @@ async function Initialize() {
 
 async function Request(Method, Url, Data) {
     try {
-        return await new Promise(function(resolve, reject) {
-                var xhr = new XMLHttpRequest();
-                xhr.open(Method, Url);
-                xhr.onload = function() {
-                    if (this.status >= 200 && this.status < 300) {
-                        resolve(xhr.response);
-                    } else {
-                        reject({
-                            status: this.status,
-                            statusText: xhr.statusText
-                        });
-                    }
-                };
-                xhr.onerror = function() {
+        return await new Promise(function (resolve, reject) {
+            var xhr = new XMLHttpRequest();
+            xhr.open(Method, Url);
+            xhr.onload = function () {
+                if (this.status >= 200 && this.status < 300) {
+                    resolve(xhr.response);
+                } else {
                     reject({
                         status: this.status,
                         statusText: xhr.statusText
                     });
-                };
-                xhr.send(Data);
-            });
+                }
+            };
+            xhr.onerror = function () {
+                reject({
+                    status: this.status,
+                    statusText: xhr.statusText
+                });
+            };
+            xhr.send(Data);
+        });
     } catch {
         return await fetch(Url, {
             "body": Data,
