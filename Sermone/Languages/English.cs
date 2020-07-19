@@ -11,7 +11,7 @@
         public string OpenReference => "Open Reference";
         public string OpenAsReference => "Open Reference As";
         public string Save => "Save";
-        public string Filter => "Fitler";
+        public string Filter => "Filter";
         public string AutoSelect => "Auto Select";
         public string SelectAll => "Select All";
         public string DeselectAll => "Deselect All";
