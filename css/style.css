@@ -104,6 +104,18 @@ img {
         bottom: 3px;
     }
 
+.MobileDialogueBox {
+    padding-left: 50px;
+    position: absolute;
+    bottom: 7px;
+}
+
+    .MobileDialogueBox input {
+        width: calc(100vw - 100px);
+        position: absolute;
+        bottom: 3px;
+    }
+
 .position-relative {
     position: relative;
 }
@@ -125,6 +137,19 @@ img {
     left: 5px;
     bottom: 10px;
     width: 6.5em;
+}
+.MobRightButton {
+    position: absolute;
+    right: 5px;
+    bottom: 10px;
+    width: 2.5em;
+}
+
+.MobLeftButton {
+    position: absolute;
+    left: 5px;
+    bottom: 10px;
+    width: 2.5em;
 }
 
 .hide {
@@ -303,13 +328,34 @@ tooltip {
     }
 }
 
+@media only screen and (max-width: 990px) {
+    #ListBox {
+        height: calc(100% - 130px);
+    }
+}
+
 @media only screen and (max-width: 780px) {
     #NavLogo {
         display: none;
     }
 }
+
 @media only screen and (max-width: 580px) {
-    #NavSearchBtn {
+    #DefNavBar {
+        display: none;
+    }
+    #DefDiagEditor {
+        display: none;
+    }
+    #ListBox {
+        height: calc(100% - 120px);
+    }
+}
+@media only screen and (min-width: 581px) {
+    #MobNavBar {
+        display: none;
+    }
+    #MobDiagEditor {
         display: none;
     }
 }
