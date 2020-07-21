@@ -1,11 +1,17 @@
-﻿<div class="footer">
+﻿<div class="footer" id="DefDiagEditor">
     <div class="DialogueBox">
         <input type="text" class="form-control" spellcheck="true" @ref="@InputRef" @onkeypress="@OnKeyPress" @onkeydown="@OnKeyDown" @bind-value:event="oninput" @bind-value="@Engine.CurrentDialogue">
     </div>
     <button type="button" class="btn btn-primary LeftButton" @onclick="@Engine.BackDialogue">@Engine.Language.Back</button>
     <button type="button" class="btn btn-primary RightButton" @onclick="@Engine.NextDialogue">@Engine.Language.Next</button>
 </div>
-
+<div class="footer" id="MobDiagEditor">
+    <div class="MobileDialogueBox">
+        <input type="text" class="form-control" spellcheck="true" @ref="@InputRef" @onkeypress="@OnKeyPress" @onkeydown="@OnKeyDown" @bind-value:event="oninput" @bind-value="@Engine.CurrentDialogue">
+    </div>
+    <button type="button" class="btn btn-primary MobLeftButton" @onclick="@Engine.BackDialogue">@("<")</button>
+    <button type="button" class="btn btn-primary MobRightButton" @onclick="@Engine.NextDialogue">@(">")</button>
+</div>
 @code {
 
     private async Task OnKeyPress(KeyboardEventArgs Args) {

@@ -1,4 +1,4 @@
-﻿<nav class="navbar navbar-expand-sm navbar-dark bg-dark @NavMenuVisibility">
+﻿<nav class="navbar navbar-expand-sm navbar-dark bg-dark @NavMenuVisibility" id="DefNavBar">
     <a class="navbar-brand" id="NavLogo" href="#">Sermone</a>
     <ul class="navbar-nav mr-auto">
         <li class="nav-item dropdown">
@@ -12,7 +12,7 @@
                 <a class="dropdown-item" @onclick="@OpenAsClicked" href="#">@Sermone.Engine.Language.OpenAs</a>
                 <a class="dropdown-item" @onclick="@OpenSecondaryClicked" href="#">@Sermone.Engine.Language.OpenReference</a>
                 <a class="dropdown-item" @onclick="@OpenSecondaryAsClicked" href="#">@Sermone.Engine.Language.OpenAsReference</a>
-                <a class="dropdown-item @(NavMenuSaveClass)" @onclick="@(()=> Engine.SaveFile())" href="#">@Sermone.Engine.Language.Save</a>
+                <a class="dropdown-item @(NavMenuSaveClass)" @onclick="@(async () => await Engine.SaveFile())" href="#">@Sermone.Engine.Language.Save</a>
 
             </div>
         </li>
@@ -32,7 +32,7 @@
                 @Engine.Language.Others
             </a>
             <div class="dropdown-menu" aria-labelledby="NavOthersDropdown">
-                <a class="dropdown-item" @onclick="Engine.ShowBackups" href="#" >Backups</a>
+                <a class="dropdown-item" @onclick="Engine.ShowBackups" href="#">Backups</a>
                 <a class="dropdown-item" @onclick="SettingsClicked" href="#">@Engine.Language.Settings</a>
             </div>
         </li>
@@ -41,6 +41,9 @@
         <input class="form-control mr-sm-2" type="search" placeholder="@Engine.Language.Search" aria-label="@Engine.Language.Search" @bind-value:event="oninput" @bind-value="@Search" @onkeydown="@OnSearchKeyDown">
         <button class="btn btn-outline-success my-2 my-sm-0" id="NavSearchBtn" @onclick="@(async() => await Engine.DoSearch(Search))">@Engine.Language.Search</button>
     </div>
+</nav>
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark @NavMenuVisibility" id="MobNavBar">
+    <a class="navbar-brand" id="MobileNavMenu" href="#" @onclick="@MobileNavBar">@Engine.Language.Menu</a>
 </nav>
 
 @code {
@@ -63,7 +66,7 @@
         }
     }
 
-    async Task SettingsClicked()
+    public async Task SettingsClicked()
     {
         int CurrentLang = Engine.Settings.Language;
         var Result = await Header.Modal.ShowDialogAsync<Sermone.Dialogs.Settings>(Engine.Language.Settings);
@@ -79,24 +82,29 @@
         await JSWrapper.DestroyTooltips();
     }
 
-    async Task OpenClicked()
+    public async Task OpenClicked()
     {
         await Engine.Open();
     }
 
-    async Task OpenAsClicked()
+    public async Task OpenAsClicked()
     {
         await Engine.OpenAs(false);
     }
 
-    async Task OpenSecondaryClicked()
+    public async Task OpenSecondaryClicked()
     {
         await Engine.Open(AsSecondary: true);
     }
 
-    async Task OpenSecondaryAsClicked()
+    public async Task OpenSecondaryAsClicked()
     {
         await Engine.OpenAs(true);
+    }
+
+    async Task MobileNavBar()
+    {
+        await Engine.Modal.ShowDialogAsync<Mobile.NavMobile>(Engine.Language.Menu);
     }
 
     public void Refresh() => this.StateHasChanged();

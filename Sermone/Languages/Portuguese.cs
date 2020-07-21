@@ -17,6 +17,7 @@
         public string DeselectAll => "Desselecionar Tudo";
 
         //Nav Bar
+        public string Menu => "Menu";
         public string File => "Arquivo";
         public string Others => "Outros";
         public string Search => "Procurar";
@@ -30,6 +31,7 @@
         //Buttons
         public string Next => "Avançar >";
         public string Back => "< Retornar";
+        public string BackNoArrow => "Voltar";
         public string Refresh => "Atualizar";
 
         //About

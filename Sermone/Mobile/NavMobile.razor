@@ -1,0 +1,172 @@
+﻿@inject IModalDialogService Modal
+<table class="table table-striped table-condensed">
+    <tbody>
+        @switch (CurrentPage)
+        {
+            default:
+                <tr @onclick="@(() => SetPage(1))">
+                    <td class="align-baseline align-middle text-center">
+                        <a href="#" class="table-item">@Engine.Language.File</a>
+                    </td>
+                </tr>
+                <tr @onclick="@(() => SetPage(2))">
+                    <td class="align-baseline align-middle text-center">
+                        <a href="#" class="table-item">@Engine.Language.Filter</a>
+                    </td>
+                </tr>
+                <tr @onclick="@Backups">
+                    <td class="align-baseline align-middle text-center">
+                        <a href="#" class="table-item">Backups</a>
+                    </td>
+                </tr>
+                <tr @onclick="@Settings">
+                    <td class="align-baseline align-middle text-center">
+                        <a href="#" class="table-item">@Engine.Language.Settings</a>
+                    </td>
+                </tr>
+                <tr @onclick="@Search">
+                    <td class="align-baseline align-middle text-center">
+                        <a href="#" class="table-item">@Engine.Language.Search</a>
+                    </td>
+                </tr>
+                break;
+            case 1:
+                <tr @onclick="@Open">
+                    <td class="align-baseline align-middle text-center">
+                        <a href="#" class="table-item">@Engine.Language.Open</a>
+                    </td>
+                </tr>
+                <tr @onclick="@OpenAs">
+                    <td class="align-baseline align-middle text-center">
+                        <a href="#" class="table-item">@Engine.Language.OpenAs</a>
+                    </td>
+                </tr>
+                <tr @onclick="@OpenReference">
+                    <td class="align-baseline align-middle text-center">
+                        <a href="#" class="table-item">@Engine.Language.OpenReference</a>
+                    </td>
+                </tr>
+                <tr @onclick="@OpenReferenceAs">
+                    <td class="align-baseline align-middle text-center">
+                        <a href="#" class="table-item">@Engine.Language.OpenAsReference</a>
+                    </td>
+                </tr>
+                <tr @onclick="@Save">
+                    <td class="align-baseline align-middle text-center">
+                        <a href="#" class="table-item">@Engine.Language.Save</a>
+                    </td>
+                </tr>
+                break;
+            case 2:
+                <tr @onclick="@AutoSelect">
+                    <td class="align-baseline align-middle text-center">
+                        <a href="#" class="table-item">@Engine.Language.AutoSelect</a>
+                    </td>
+                </tr>
+                <tr @onclick="@SelectAll">
+                    <td class="align-baseline align-middle text-center">
+                        <a href="#" class="table-item">@Engine.Language.SelectAll</a>
+                    </td>
+                </tr>
+                <tr @onclick="@DeselectAll">
+                    <td class="align-baseline align-middle text-center">
+                        <a href="#" class="table-item">@Engine.Language.DeselectAll</a>
+                    </td>
+                </tr>
+                break;
+        }
+        @if (CurrentPage != 0)
+        {
+            <tr @onclick="@(() => SetPage(0))">
+                <td class="align-baseline align-middle text-center">
+                    <a href="#" class="table-item">@Engine.Language.BackNoArrow</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<br />
+<br />
+
+@code {
+
+    int CurrentPage = 0;
+
+    void SetPage(int Page)
+    {
+        CurrentPage = Page;
+        StateHasChanged();
+    }
+
+    async Task Open()
+    {
+        Close();
+        await Engine.MainNavMenu.OpenClicked();
+    }
+
+    async Task OpenAs()
+    {
+        Close();
+        await Engine.MainNavMenu.OpenAsClicked();
+    }
+
+    async Task OpenReference()
+    {
+        Close();
+        await Engine.MainNavMenu.OpenSecondaryClicked();
+    }
+
+    async Task OpenReferenceAs()
+    {
+        Close();
+        await Engine.MainNavMenu.OpenSecondaryAsClicked();
+    }
+
+    async Task Save()
+    {
+        Close();
+        await Engine.SaveFile();
+    }
+
+    async Task AutoSelect()
+    {
+        Close();
+        await Engine.AutoSelect();
+    }
+
+    async Task SelectAll()
+    {
+        Close();
+        await Engine.ForceSelection(true);
+    }
+
+    async Task DeselectAll()
+    {
+        Close();
+        await Engine.ForceSelection(false);
+    }
+
+    async Task Backups()
+    {
+        Close();
+        await Engine.ShowBackups();
+    }
+
+    async Task Settings()
+    {
+        Close();
+        await Engine.MainNavMenu.SettingsClicked();
+    }
+
+    async Task Search()
+    {
+        Close();
+        await Modal.ShowDialogAsync<MobileSearch>(Engine.Language.Search);
+    }
+
+    void Close()
+    {
+        Modal.Close(true);
+    }
+}

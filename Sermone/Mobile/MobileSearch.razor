@@ -1,0 +1,41 @@
+﻿@inject IModalDialogService Modal
+<table class="table table-striped table-condensed">
+    <tbody>
+        <tr>
+            <td class="align-baseline align-middle">
+                <input class="form-control mr-sm-2" type="search" placeholder="@Engine.Language.Search" aria-label="@Engine.Language.Search" @bind-value:event="oninput" @bind-value="@Search" @onkeydown="@OnSearchKeyDown">
+            </td>
+            <td style="width: 13em;">
+                <button class="btn btn-outline-success my-2 my-sm-0" id="NavSearchBtn" @onclick="@DoSearch">@Engine.Language.Search</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+@code {
+
+    DateTime LastEvent = DateTime.Now;
+    TimeSpan EleapsedTime => DateTime.Now - LastEvent;
+
+    public static string Search { get; private set; }
+
+    public async Task OnSearchKeyDown(KeyboardEventArgs Args)
+    {
+        if (Args.Code == "Enter" && EleapsedTime.TotalMilliseconds > 200)
+        {
+            await DoSearch();
+            LastEvent = DateTime.Now;
+        }
+    }
+
+    async Task DoSearch()
+    {
+        Close();
+        await Engine.DoSearch(Search);
+    }
+
+    void Close()
+    {
+        Modal.Close(true);
+    }
+}

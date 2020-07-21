@@ -19,6 +19,7 @@
 
 
         //Nav Bar
+        public string Menu { get; }
         public string File { get; }
         public string Search { get; }
         public string Others { get; }
@@ -32,6 +33,7 @@
         //Buttons
         public string Next { get; }
         public string Back { get; }
+        public string BackNoArrow { get; }
         public string Refresh { get; }
 
         //About
