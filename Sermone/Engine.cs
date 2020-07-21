@@ -63,7 +63,7 @@ namespace Sermone
 
             string[] Strings = null;
 
-            await JSWrapper.SetTile($"Sermone - {Language.Loading}");
+            await JSWrapper.SetTile($"{Language.Loading} - Sermone");
 
             if (LastWorkingPlugin != null)
                 Strings = TryUsePlugin(LastWorkingPlugin);
@@ -149,7 +149,7 @@ namespace Sermone
                 }
             }
 
-            await JSWrapper.SetTile($"Sermone");
+            await JSWrapper.SetTile($"{CurrentName} - Sermone");
         }
 
         private static bool IsValidStrings(string[] Strs)
