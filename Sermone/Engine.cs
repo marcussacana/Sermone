@@ -63,7 +63,7 @@ namespace Sermone
 
             string[] Strings = null;
 
-            await JSWrapper.SetTile($"{Language.Loading} - Sermone");
+            await JSWrapper.SetTile($"Sermone - {Language.Loading}");
 
             if (LastWorkingPlugin != null)
                 Strings = TryUsePlugin(LastWorkingPlugin);
