@@ -35,8 +35,8 @@
         public string Refresh => "Atualizar";
 
         //About
-        public string AboutVersion => "Versão Alfa";
-        public string AboutDesc => "Essa é uma versão alfa do software e portanto, bugs podem ocorrerem e nem todos os recursos estão prontos para uso.";
+        public string AboutVersion => "Versão Beta";
+        public string AboutDesc => "Essa é uma versão beta do software e portanto, bugs podem ocorrerem e nem todos os recursos estão prontos para uso.";
 
         //Plugin Picker
         public string SelectAPlugin => "Selecione um Plugin";

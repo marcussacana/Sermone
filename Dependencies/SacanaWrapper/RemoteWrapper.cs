@@ -306,10 +306,8 @@ namespace SacanaWrapper
                     ProgressChanged?.Invoke(Plugin.Name);
 
                     var Handler = await GetPluginHandler(Plugin);
-                    if (!Handler.InitializeWithScript)
-                        continue;
 
-                  Creator = new PluginCreator(Plugin, Handler);
+                    Creator = new PluginCreator(Plugin, Handler);
                 }
                 catch { continue; }
 

@@ -1,6 +1,6 @@
 ﻿using System.Net;
 using System.Net.Http;
-using Blazor.FileReader;
+using Tewr.Blazor.FileReader;
 using Blazor.ModalDialog;
 using Blazored.LocalStorage;
 using Blazored.Toast.Services;

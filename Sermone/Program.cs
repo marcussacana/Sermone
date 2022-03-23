@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Sermone.Languages;
-using Blazor.FileReader;
 using Blazored.LocalStorage;
 using BlazorFileSaver;
 using Blazor.ModalDialog;
@@ -12,6 +11,7 @@ using Sermone.Tools;
 using System;
 using System.Text;
 using Sermone.Pastes;
+using Tewr.Blazor.FileReader;
 
 namespace Sermone
 {
@@ -80,7 +80,7 @@ namespace Sermone
 
             Engine.Paste = null;
             GetPasteCreatorByID(Engine.Settings.PasteClient, out IPasteCreator PasteCreator);
-            if (!string.IsNullOrEmpty(Engine.Settings.PasteUsername) && !string.IsNullOrEmpty(Engine.Settings.PastePassword)) { 
+            if (PasteCreator != null && !string.IsNullOrEmpty(Engine.Settings.PasteUsername) && !string.IsNullOrEmpty(Engine.Settings.PastePassword)) { 
                 Engine.Paste = await PasteCreator.Create(Engine.Settings.PasteUsername, Engine.Settings.PastePassword);
             }
         }
@@ -94,8 +94,8 @@ namespace Sermone
             return true;
         }
         public static bool GetPasteCreatorByID(int ID, out IPasteCreator Paste) {
-            Paste = AllPastes[0];
-            if (ID < 0 || ID >= AllLanguages.Length)
+            Paste = null;
+            if (ID < 0 || ID >= AllPastes.Length)
                 return false;
 
             Paste = AllPastes[ID];
@@ -112,7 +112,6 @@ namespace Sermone
         };
 
         public static IPasteCreator[] AllPastes = new IPasteCreator[] {
-            new CadenceCreator()
         };
     }
 }
