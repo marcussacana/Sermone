@@ -19,6 +19,11 @@ namespace Sermone
         {
             await Engine.JSRuntime.InvokeVoidAsync("SetTitle", Title);
         }
+        public static async Task SetUnsaved(bool Unsaved)
+        {
+            Engine.Modified = Unsaved;
+            await Engine.JSRuntime.InvokeVoidAsync("SetUnsaved", Unsaved);
+        }
         public static async Task OpenFile(string InputId = "FOpen")
         {
             await Engine.JSRuntime.InvokeVoidAsync("OpenFile", InputId);

@@ -34,9 +34,15 @@
         public string BackNoArrow => "Back";
         public string Refresh => "Refresh";
 
+
+        //Question
+        public string UnsavedChanges => "You have unsaved changes, are you sure you want to continue?";
+        public string Yes => "Yes";
+        public string No => "No";
+
         //About
-        public string AboutVersion => "Alpha Version";
-        public string AboutDesc => "This is a Alpha release, bugs may be occur and not at all resources are done for use.";
+        public string AboutVersion => "Beta Version";
+        public string AboutDesc => "This is a Beta release, bugs may be occur and not at all resources are done for use.";
 
         //Plugin Picker
         public string SelectAPlugin => "Select a Plugin";

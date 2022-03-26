@@ -1,0 +1,35 @@
+﻿@inject IModalDialogService Modal
+
+<p class="text-center" style="font-size: 24.5px; font-weight: 400;">@Text</p>
+
+<br />
+
+<div class="position-relative">
+    <div class="btn-group left">
+        <button @onclick="YesClicked" style="width: 100px" class="btn btn-secondary">@Engine.Language.Yes</button>
+    </div>
+    <div class="btn-group right">
+        <button @onclick="NoClicked" style="width: 100px" class="btn btn-primary">@Engine.Language.No</button>
+    </div>
+</div>
+<br />  
+
+@code {
+
+    [Parameter]
+    public string Text { get; set; }
+
+    void YesClicked()
+    {
+        var Return = new ModalDialogParameters();
+        Return.Add("Result", true);
+        Modal.Close(true, Return);
+    }
+
+    void NoClicked()
+    {
+        var Return = new ModalDialogParameters();
+        Return.Add("Result", false);
+        Modal.Close(true, Return);
+    }
+}

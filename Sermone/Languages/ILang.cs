@@ -35,10 +35,16 @@
         public string Back { get; }
         public string BackNoArrow { get; }
         public string Refresh { get; }
-
+        
         //About
         public string AboutVersion { get; }
         public string AboutDesc { get; }
+
+
+        //Question
+        public string UnsavedChanges { get; }
+        public string Yes { get; }
+        public string No { get; }
 
         //Plugin Picker
         public string SelectAPlugin { get; }

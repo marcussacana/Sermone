@@ -9,11 +9,11 @@ using BlazorWorker.Core;
 using BlazorWorker.WorkerBackgroundService;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
-using SacanaWrapper;
 using Sermone.Components;
 using Sermone.Languages;
 using Sermone.Tools;
 using Sermone.Types;
+using aio;
 
 namespace Sermone
 {
@@ -34,7 +34,6 @@ namespace Sermone
 
 #pragma warning disable 649
         public static ElementReference InputRef;
-        public static RemoteWrapper Wrapper = new RemoteWrapper();
         public static DialogueEditor EditorBox;
         public static LoadingViewer Loading;
         public static MainLayout MainLayout;
@@ -46,9 +45,9 @@ namespace Sermone
         public static string CurrentName;
         public static byte[] CurrentScript;
 
-        public static IPluginCreator[] Plugins;
-        public static IPluginCreator LastWorkingPlugin;
-        public static IPlugin CurrentPlugin;
+        public static PluginCreator[] Plugins;
+        public static PluginCreator LastWorkingPlugin;
+        public static PluginBase CurrentPlugin;
 
         public static bool OpenAsSecondary;
 

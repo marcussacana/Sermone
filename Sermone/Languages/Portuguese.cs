@@ -34,6 +34,12 @@
         public string BackNoArrow => "Voltar";
         public string Refresh => "Atualizar";
 
+        
+        //Question
+        public string UnsavedChanges => "Você tem alterações não salvas, tem certeza que deseja continuar?";
+        public string Yes => "Sim";
+        public string No => "Não";
+
         //About
         public string AboutVersion => "Versão Beta";
         public string AboutDesc => "Essa é uma versão beta do software e portanto, bugs podem ocorrerem e nem todos os recursos estão prontos para uso.";

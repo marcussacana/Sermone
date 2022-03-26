@@ -80,6 +80,8 @@ namespace Sermone
 
         public async static Task UpdateDialogue()
         {
+            await JSWrapper.SetUnsaved(true);
+
             DialogueBox.Items[DialogueBox.SelectedIndex].Value = CurrentDialogue;
             DialogueBox.Refresh(DialogueBox.SelectedIndex);
 

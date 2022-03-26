@@ -1,0 +1,3 @@
+[submodule "Dependencies/AIO"]
+	path = Dependencies/AIO
+	url = https://github.com/marcussacana/AIO/

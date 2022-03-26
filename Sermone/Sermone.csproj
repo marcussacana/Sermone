@@ -33,7 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Dependencies\SacanaWrapper\SacanaWrapper.csproj" />
+    <ProjectReference Include="..\..\aio\aio.csproj" />
   </ItemGroup>
 
   <ItemGroup>

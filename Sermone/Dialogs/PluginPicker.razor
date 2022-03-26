@@ -1,4 +1,4 @@
-﻿@using SacanaWrapper
+﻿@using aio
 @using System.Linq;
 @inject IModalDialogService Modal
 
@@ -7,11 +7,11 @@
         @foreach (var Plugin in Engine.Plugins.OrderBy(x => x.Name))
         {
             var lPlugin = Plugin;
-            string PluginType = Plugin.Type switch
+            string PluginType = (Plugin.CanRead, Plugin.CanWrite) switch
             {
-                "Read/Write" => Engine.Language.ReadWrite,
-                "Read Only" => Engine.Language.ReadOnly,
-                "Write Only" => Engine.Language.WriteOnly,
+                (true, true) => Engine.Language.ReadWrite,
+                (true, false) => Engine.Language.ReadOnly,
+                (false, true) => Engine.Language.WriteOnly,
                 _ => throw new Exception("Invalid Plugin Type")
             };
 
@@ -20,7 +20,7 @@
                     <a href="#" class="table-item">@Plugin.Name</a>
                 </td>
                 <td style="width: 10em;">
-                    @Plugin.Filter
+                    @Plugin.Extensions
                 </td>
             </tr>
         }
@@ -29,7 +29,7 @@
 
 @code {
 
-    void OnPluginClicked(IPluginCreator Plugin)
+    void OnPluginClicked(PluginCreator Plugin)
     {
         var Return = new ModalDialogParameters();
         Return.Add("Plugin", Plugin);

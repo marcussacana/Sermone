@@ -3,14 +3,16 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Linq;
 using Sermone.Types;
-using SacanaWrapper;
-using Sermone.Dialogs;
 using Sermone.Tools;
+using Sermone.Dialogs;
+using aio;
 
 namespace Sermone
 {
     static partial class Engine
     {
+        public static bool Modified = false;
+
         public async static void FileChanged()
         {
             foreach (var file in await FReader.CreateReference(InputRef).EnumerateFilesAsync())
@@ -28,11 +30,25 @@ namespace Sermone
 
         public static async Task Open(bool OpenAs = false, bool AsSecondary = false)
         {
+            if (Modified && !AsSecondary) {
+                var Result = await Modal.ShowDialogAsync<Question>("", new Blazor.ModalDialog.ModalDialogOptions() {
+                    BackgroundClickToClose = false,
+                    ShowCloseButton = false
+                }, new Blazor.ModalDialog.ModalDialogParameters() {
+                    { "Text", Language.UnsavedChanges }
+                });
+
+                var YesNo = (bool)Result.ReturnParameters["Result"];
+                if (!YesNo)
+                    return;
+            }
+
             if (!CanSave && AsSecondary)
             {
                 Toast.ShowError(Language.OpenAScriptBefore, Language.Error);
                 return;
             }
+            
             ForceLastPlugin = OpenAs;
             OpenAsSecondary = AsSecondary;
             await JSWrapper.OpenFile();
@@ -45,7 +61,7 @@ namespace Sermone
             if (!Result.Success)
                 return;
 
-            LastWorkingPlugin = (IPluginCreator)Result.ReturnParameters["Plugin"];
+            LastWorkingPlugin = (PluginCreator)Result.ReturnParameters["Plugin"];
             await Open(true, AsSecondary);
         }
 
@@ -56,6 +72,8 @@ namespace Sermone
 
             if (!OpenAsSecondary)
             {
+                await JSWrapper.SetUnsaved(false);
+
                 DialogueBox.SelectedIndex = 0;
                 DialogueBox.SetItems(new ListBoxItemInfo[0]);
                 DialogueBox.Refresh();
@@ -65,7 +83,7 @@ namespace Sermone
 
             await JSWrapper.SetTile($"Sermone - {Language.Loading}");
 
-            if (LastWorkingPlugin != null)
+            if (LastWorkingPlugin is not null)
                 Strings = TryUsePlugin(LastWorkingPlugin);
 
             if (!IsValidStrings(Strings))
@@ -78,7 +96,7 @@ namespace Sermone
 
                 var CurrentExt = Path.GetExtension(CurrentName).ToLower();
 
-                var SupportedPlugins = (from x in Plugins where x.Filter.ToLower().Contains(CurrentExt) select x);
+                var SupportedPlugins = (from x in Plugins where x.Extensions.ToLower().Contains(CurrentExt) select x);
                 var NotSupportedPlugins = (from x in Plugins where !SupportedPlugins.Contains(x) select x);
 
                 foreach (var Plugin in SupportedPlugins)
@@ -161,14 +179,11 @@ namespace Sermone
             return true;
         }
 
-        private static string[] TryUsePlugin(IPluginCreator Plugin)
+        private static string[] TryUsePlugin(PluginCreator Plugin)
         {
             try
             {
-                if (Plugin.InitializeWithScript)
-                    CurrentPlugin = Plugin.Create(CurrentScript);
-                else
-                    CurrentPlugin = Plugin.Create();
+                CurrentPlugin = Plugin.Create(CurrentScript);
             }
             catch (Exception ex)
             {
@@ -178,7 +193,7 @@ namespace Sermone
 
             try
             {
-                return Plugin.InitializeWithScript ? CurrentPlugin.Import() : CurrentPlugin.Import(CurrentScript);
+                return CurrentPlugin.Import();
             }
             catch (Exception ex)
             {
@@ -190,6 +205,8 @@ namespace Sermone
         {
             if (!CanSave)
                 return;
+
+            await JSWrapper.SetUnsaved(false);
 
             if (Name == null)
                 Name = CurrentName;
