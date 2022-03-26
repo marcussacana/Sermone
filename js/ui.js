@@ -14,6 +14,10 @@ window.SetTitle = (title) => {
     document.title = title;
 }
 
+window.SetUnsaved = (unsaved) => {
+    globalThis.Unsaved = unsaved;
+}
+
 window.EnsureItemVisible = (item) => {
     var elm = document.getElementById("CK" + item).parentElement;
     elm.scrollIntoView({ block: 'center', behavior: 'smooth' });
@@ -100,5 +104,18 @@ async function Request(Method, Url, Data) {
         });
     }
 }
+
+globalThis.Unsaved = false;
+function onBeforeUnload(e) {
+    if (globalThis.Unsaved) {
+        e.preventDefault();
+        e.returnValue = '';
+        return;
+    }
+
+    delete e['returnValue'];
+}
+
+window.addEventListener('beforeunload', onBeforeUnload);
 
 var Interval = setInterval(Initialize, 100);
