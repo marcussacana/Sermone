@@ -46,7 +46,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\aio\aio.csproj" />
+    <ProjectReference Include="..\AIO\AIO.csproj" />
   </ItemGroup>
 
   <ItemGroup>

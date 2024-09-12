@@ -1,3 +1,6 @@
 [submodule "Dependencies/AIO"]
 	path = Dependencies/AIO
 	url = https://github.com/marcussacana/AIO/
+[submodule "AIO"]
+	path = AIO
+	url = https://github.com/marcussacana/AIO
