@@ -15,12 +15,12 @@ jobs:
               with:
                   dotnet-version: 8.0.x
                   include-prerelease: true
-
-            - name: Dotnet Restore Workloads
-              run: dotnet workload restore
               
             - name: Init Git Submodules
               run: git submodule update --init --recursive
+
+            - name: Dotnet Restore Workloads
+              run: dotnet workload restore
 
             - name: Publish .NET Core Project
               run: dotnet publish -c Release -o release --nologo
