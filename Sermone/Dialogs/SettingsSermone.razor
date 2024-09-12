@@ -72,12 +72,12 @@
 				<input type="password" class="form-control" @bind-value:event="onchange" @bind-value="@Parent.PastePassword">
 			</td>
 		</tr>
-		<tr hidden>
+		<tr>
 			<td class="align-baseline align-middle" style="width: 13em;">
 				@Parent.CurrentLanguage.BackupOn
 			</td>
 			<td>
-				<input type="text" class="form-control" @bind-value:event="onchange" @bind-value="@Parent.BackupOn">
+				<input type="text" class="form-control" @bind-value:event="onchange" @bind-value="@Parent.BackupOn" disabled>
 			</td>
 		</tr>
 		<tr>

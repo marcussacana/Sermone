@@ -9,28 +9,33 @@ namespace Sermone.Tools
     {
         public void Initialize(string[] IgnoreList, string[] DenyList, ushort[] BeginAcceptableRanges, ushort[] EndAcceptableRanges,
             string PontuationList, string SpecialList, string OpenQuotes, string CloseQuotes, string PontuationJapList, int Sensitivity,
-            bool FromAsian, bool AllowNumbers, string Breakline) {
+            bool FromAsian, bool AllowNumbers, string Breakline, string RegexFilter) {
 
             var AcceptableRanges = new CharacterRange[BeginAcceptableRanges.Length];
             for (int i = 0; i < AcceptableRanges.Length; i++)
+            {
                 AcceptableRanges[i] = new CharacterRange()
                 {
                     Begin = BeginAcceptableRanges[i],
                     End = EndAcceptableRanges[i]
                 };
+            }
 
             var Quotes = new Quote[OpenQuotes.Length];
             for (int i = 0; i < Quotes.Length; i++)
-                Quotes[i] = new Quote() {
+            {
+                Quotes[i] = new Quote()
+                {
                     Start = OpenQuotes[i],
                     End = CloseQuotes[i]
                 };
+            }
 
-            Initialize(IgnoreList, DenyList, AcceptableRanges, PontuationList.ToCharArray(), SpecialList.ToCharArray(), Quotes, PontuationJapList.ToCharArray(), Sensitivity, FromAsian, AllowNumbers, Breakline);
+            Initialize(IgnoreList, DenyList, AcceptableRanges, PontuationList.ToCharArray(), SpecialList.ToCharArray(), Quotes, PontuationJapList.ToCharArray(), Sensitivity, FromAsian, AllowNumbers, Breakline, RegexFilter);
         }
         public void Initialize(string[] IgnoreList, string[] DenyList, CharacterRange[] AcceptableRanges,
             char[] PontuationList, char[] SpecialList, Quote[] Quotes, char[] PontuationJapList, int Sensitivity,
-            bool FromAsian, bool AllowNumbers, string Breakline)
+            bool FromAsian, bool AllowNumbers, string Breakline, string RegexFilter)
         {
 
             this.IgnoreList = IgnoreList;
@@ -44,6 +49,7 @@ namespace Sermone.Tools
             this.FromAsian = FromAsian;
             this.AllowNumbers = AllowNumbers;
             this.Breakline = Breakline;
+            this.RegexFilter = RegexFilter;
         }
 
         public struct Quote
@@ -64,8 +70,9 @@ namespace Sermone.Tools
         bool FromAsian;
         bool AllowNumbers;
         string Breakline;
+		string RegexFilter;
 
-        public bool[] IsDialogue(string[] Strings, int? Caution = null, bool UseAcceptableRange = true) {
+		public bool[] IsDialogue(string[] Strings, int? Caution = null, bool UseAcceptableRange = true) {
             var Results = new bool[Strings.Length];
             for (int i = 0; i < Strings.Length; i++)
                 Results[i] = IsDialogue(Strings[i], Caution, UseAcceptableRange);
@@ -78,6 +85,11 @@ namespace Sermone.Tools
             {
                 if (string.IsNullOrWhiteSpace(String))
                     return false;
+
+                if (!string.IsNullOrWhiteSpace(RegexFilter) && String.Match(RegexFilter).Any())
+                {
+                    return true;
+                }
 
                 string Str = String.Trim();
                 Str = Str.Replace(Breakline, "\n");

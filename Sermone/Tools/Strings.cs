@@ -35,7 +35,7 @@ namespace Sermone.Tools
                     .Select(x => new Quote() { Start = x[0], End = x[1] }).ToArray();
 
             Service = new StringsService();
-            Service.Initialize(IgnoreList, DenyList, AcceptableRanges, PontuationList, SpecialList, Quotes, PontuationJapList, Engine.Settings.Sensitivity, Engine.Settings.FromAsian, Engine.Settings.AllowNumbers, Engine.Settings.Breakline);
+            Service.Initialize(IgnoreList, DenyList, AcceptableRanges, PontuationList, SpecialList, Quotes, PontuationJapList, Engine.Settings.Sensitivity, Engine.Settings.FromAsian, Engine.Settings.AllowNumbers, Engine.Settings.Breakline, Engine.Settings.RegexFilter);
             BackgroundService = null;
         }
 
@@ -59,11 +59,12 @@ namespace Sermone.Tools
                 var lFromAsian = Engine.Settings.FromAsian;
                 var lAllowNumbers = Engine.Settings.AllowNumbers;
                 var lBreakline = Engine.Settings.Breakline;
+                var lRegexFilter = Engine.Settings.RegexFilter;
 
                 var Worker = await Engine.Worker.CreateAsync();
                 BackgroundService = await Worker.CreateBackgroundServiceAsync<StringsService>();
 
-                await BackgroundService.RunAsync((s) => s.Initialize(lIgnoreList, lDenyList, lBeginAcceptableRanges, lEndAcceptableRanges, lPontuationList, lSpecialList, lOpenQuotes, lCloseQuotes, lPontuationJapList, lSensitivity, lFromAsian, lAllowNumbers, lBreakline));
+                await BackgroundService.RunAsync((s) => s.Initialize(lIgnoreList, lDenyList, lBeginAcceptableRanges, lEndAcceptableRanges, lPontuationList, lSpecialList, lOpenQuotes, lCloseQuotes, lPontuationJapList, lSensitivity, lFromAsian, lAllowNumbers, lBreakline, lRegexFilter));
             }
            
             return await BackgroundService.RunAsync((s) => s.IsDialogue(Strings, Caution, UseAcceptableRanges));
