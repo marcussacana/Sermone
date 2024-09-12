@@ -1,5 +1,5 @@
 ﻿using Sermone.Tools;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace Sermone
 {
@@ -42,7 +42,7 @@ namespace Sermone
                 }
 
                 if (!Found) {
-                    Toast.ShowInfo(Language.TryOthersWords, Language.NoResultsFound);
+                    Toast.ShowInfo(Language.TryOthersWords);
                     return;
                 }
             }
@@ -68,7 +68,24 @@ namespace Sermone
         public async static Task SelectChanged(int NewID)
         {
             int OldID = DialogueBox.SelectedIndex;
-            CurrentDialogue = DialogueBox.Items[NewID].Value;
+            var NewValue = DialogueBox.Items[NewID].Value;
+
+            CurrentDialogueUnfiltered = null;
+
+            if (!string.IsNullOrWhiteSpace(Settings.RegexFilter))
+            {
+                var Result = NewValue.Match(Settings.RegexFilter);
+
+                if (Result.Any())
+                {
+                    var Capture = Result.First();
+
+                    CurrentDialogueUnfiltered = NewValue;
+                    NewValue = Capture.Value;
+                }
+            }
+
+            CurrentDialogue = NewValue;
             DialogueBox.SelectedIndex = NewID;
             DialogueBox.Refresh(NewID);
             DialogueBox.Refresh(OldID);
@@ -82,7 +99,20 @@ namespace Sermone
         {
             await JSWrapper.SetUnsaved(true);
 
-            DialogueBox.Items[DialogueBox.SelectedIndex].Value = CurrentDialogue;
+            var NewDialogue = CurrentDialogue;
+
+            if (CurrentDialogueUnfiltered != null)
+            {
+                var Result = CurrentDialogueUnfiltered.Match(Settings.RegexFilter);
+
+                var Capture = Result.First();
+
+                NewDialogue = CurrentDialogueUnfiltered.Substring(0, Capture.Index);
+                NewDialogue += CurrentDialogue;
+                NewDialogue += CurrentDialogueUnfiltered.Substring(Capture.Index + Capture.Length);
+            }
+
+            DialogueBox.Items[DialogueBox.SelectedIndex].Value = NewDialogue;
             DialogueBox.Refresh(DialogueBox.SelectedIndex);
 
             await NextDialogue();
@@ -118,6 +148,12 @@ namespace Sermone
 
             while (Next < DialogueBox.Items.Length && !(DialogueBox.Items[Next].VirtualChecked ?? DialogueBox.Items[Next].Checked))
                 Next++;
+
+            if (Next >= DialogueBox.Items.Length)
+            {
+                Toast.ShowSuccess(Language.Congratulations);
+                return false;
+            }
 
             if (Next == Begin && !(DialogueBox.Items[Next].VirtualChecked ?? DialogueBox.Items[Next].Checked))
                 return false;

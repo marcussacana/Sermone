@@ -1,10 +1,12 @@
 {
   "name": "Sermone",
   "short_name": "Sermone",
+  "id": "./",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#800080",
+  "prefer_related_applications": false,
   "icons": [
     {
       "src": "icon-512.png",

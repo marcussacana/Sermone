@@ -23,13 +23,6 @@
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (Engine.Compressor == null)
-        {
-            var Worker = await Engine.Worker.CreateAsync();
-            Engine.Compressor = await Worker.CreateBackgroundServiceAsync<Sermone.Tools.CompressorService>(new WorkerInitOptions(){
-                DependentAssemblyFilenames = new[] { "BrotliSharpLib.dll", "Sermone.dll" }
-            });
-        }
         await base.OnAfterRenderAsync(firstRender);
     }
 

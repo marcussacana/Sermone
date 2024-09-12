@@ -41,11 +41,11 @@ namespace Sermone
                 else
                     await Paste.SetPaste(CurrentName, Lines, CurrentPaste);
 
-                Toast.ShowSuccess(Language.BackupUpdated, Language.Success);
+                Toast.ShowSuccess(Language.BackupUpdated);
             }
             catch
             {
-                Toast.ShowError(Language.BackupFailed, Language.Error);
+                Toast.ShowError(Language.BackupFailed);
             }
         }
 
@@ -71,7 +71,7 @@ namespace Sermone
                 var Backup = await Paste.GetPaste(CurrentPaste);
                 if (Math.Abs(Backup.Content.Length - DialogueBox.Items.Length) > 1)
                 {
-                    Toast.ShowError(Language.BackupIncompatible, Language.Error);
+                    Toast.ShowError(Language.BackupIncompatible);
                 }
                 else
                 {
@@ -87,7 +87,7 @@ namespace Sermone
             }
             catch
             {
-                Toast.ShowError(Language.BackupFailed, Language.Error);
+                Toast.ShowError(Language.BackupFailed);
             }
             await JSWrapper.SetTile("Sermone");
         }

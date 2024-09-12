@@ -1,11 +1,22 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
+	<Nullable>enable</Nullable>
+	<ImplicitUsings>enable</ImplicitUsings>
     <!--<BlazorWebAssemblyEnableLinking>false</BlazorWebAssemblyEnableLinking>-->
-    <RazorLangVersion>3.0</RazorLangVersion>
     <BlazorWebAssemblyI18NAssemblies>all</BlazorWebAssemblyI18NAssemblies>
     <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <RunAOTCompilation>False</RunAOTCompilation>
+    <DebugType>embedded</DebugType>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <RunAOTCompilation>True</RunAOTCompilation>
+    <DebugType>embedded</DebugType>
   </PropertyGroup>
 
   <ItemGroup>
@@ -15,21 +26,22 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Blazored.LocalStorage" Version="4.2.0" />
-    <PackageReference Include="Blazored.Toast" Version="3.2.2" />
-    <PackageReference Include="BlazorFileSaver" Version="3.1.1" />
-    <PackageReference Include="BrotliSharpLib" Version="0.3.3" />
-    <PackageReference Include="LiquidTechnologies.Blazor.ModalDialog" Version="0.9.7" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="5.0.15" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="5.0.15" PrivateAssets="all" />
+	<PackageReference Include="LiquidTechnologies.Blazor.ModalDialog" Version="0.9.7" />
+	<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.8" />
+	<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.8" PrivateAssets="all" />
+	<PackageReference Include="Blazored.LocalStorage" Version="4.5.0" />
+	<PackageReference Include="Blazored.Toast" Version="4.2.1" />
+	<PackageReference Include="BlazorFileSaver" Version="3.1.1" />
+	<PackageReference Include="BrotliSharpLib" Version="0.3.3" />
     <PackageReference Include="NETStandard.Library" Version="2.0.3" />
     <PackageReference Include="System.IO" Version="4.3.0" />
     <PackageReference Include="System.IO.Compression" Version="4.3.0" />
-    <PackageReference Include="System.Net.Http.Json" Version="5.0.0" />
+    <PackageReference Include="System.Net.Http.Json" Version="8.0.0" />
     <PackageReference Include="System.Runtime.Extensions" Version="4.3.1" />
-    <PackageReference Include="System.Text.Encoding.CodePages" Version="5.0.0" />
-    <PackageReference Include="Tewr.Blazor.FileReader" Version="3.3.1.21360" />
-    <PackageReference Include="Tewr.BlazorWorker.BackgroundService" Version="3.1.0" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="8.0.0" />
+    <PackageReference Include="System.Text.Json" Version="8.0.4" />
+    <PackageReference Include="Tewr.Blazor.FileReader" Version="3.3.2.23201" />
+    <PackageReference Include="Tewr.BlazorWorker.BackgroundService" Version="4.1.2" />
   </ItemGroup>
 
   <ItemGroup>

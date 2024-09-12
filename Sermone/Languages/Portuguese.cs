@@ -41,8 +41,8 @@
         public string No => "Não";
 
         //About
-        public string AboutVersion => "Versão Beta";
-        public string AboutDesc => "Essa é uma versão beta do software e portanto, bugs podem ocorrerem e nem todos os recursos estão prontos para uso.";
+        public string AboutVersion => "Isenção de Responsabilidade";
+        public string AboutDesc => "O Sermone é um software de código aberto disponibilizado gratuitamente. Este software é fornecido \"no estado em que se encontra\", sem garantias de qualquer tipo, expressas ou implícitas, incluindo, mas não se limitando a, garantias de comercialização, adequação a um propósito específico ou não violação.\r\n\r\nO desenvolvedor não se responsabiliza por quaisquer danos diretos, indiretos, acidentais, consequenciais ou especiais, incluindo, mas não se limitando a, perda de dados, interrupção de negócios ou outros danos, que possam surgir do uso ou da incapacidade de usar este software.\r\n\r\nO usuário é responsável por avaliar e assumir todos os riscos associados ao uso deste software. Ao utilizar este software, você concorda em isentar o desenvolvedor de qualquer responsabilidade por danos que possam ocorrer.";
 
         //Plugin Picker
         public string SelectAPlugin => "Selecione um Plugin";
@@ -70,6 +70,8 @@
         //Settings
         public string Settings => "Configurações";
         public string Language => "Linguagem";
+        public string Escape => "Escapamento";
+        public string Regex => "Regex";
         public string Username => "Nome de Usuário";
         public string Password => "Senha";
         public string BackupOn => "Backup Em";
@@ -88,6 +90,7 @@
         public string Import => "Importar";
 
         //Settings Tooltips
+        public string RegexFilterTooltip => "Regex que é aplicada aos dialogos para filtragem, se houver ocorrência.";
         public string DenyPatternTooltip => "Lista de padrões que nunca aparecem em um díalogo, separado por ponto e vírgula.";
         public string IgnorePatternTooltip => "Lista de padrões especiais que aparecem em um diálogo e devem ser tolerados pelo filtro, separado por ponto e vírgula.";
         public string QuotesPatternTooltip => "Lista de sequências de citações do díalogo, composta por dois caractéres, sendo o primeiro a abertura, o segundo o fechamento, separado por ponto e vírgula.";
@@ -99,5 +102,6 @@
         //Dialogs
         public string AreYouSure => "Você tem certeza?";
         public string LoadBackupWarn => "Se você carregar este backup todas as alterações atuais do script serão perdidas";
+        public string Congratulations => "Parabéns! Você terminou o script!";
     }
 }

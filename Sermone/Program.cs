@@ -12,6 +12,7 @@ using System;
 using System.Text;
 using Sermone.Pastes;
 using Tewr.Blazor.FileReader;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace Sermone
 {
@@ -27,8 +28,17 @@ namespace Sermone
             builder.Services.AddWorkerFactory();
             builder.Services.AddBlazoredToast();
             builder.Services.AddFileReaderService(opt => opt.UseWasmSharedBuffer = false);
-            builder.RootComponents.Add<App>("app");
+
+            builder.RootComponents.Add<App>("#app");
+            builder.RootComponents.Add<HeadOutlet>("head::after");
+
             Engine.Language = new English();
+
+            builder.Services.AddScoped(sp => new HttpClient { 
+                BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) 
+            });
+
+
             await builder.Build().RunAsync();
         }
         public static async Task<bool> EntryPoint()
@@ -36,13 +46,26 @@ namespace Sermone
             if (BasePath != null)
                 return false;
 
+            bool DefaultSettings = true;
+
             if (await Engine.LocalStorage.ContainKeyAsync("Settings")) {
                 Console.WriteLine("Loading Settings...");
-                Engine.Settings = await Engine.LocalStorage.GetItemAsync<Config>("Settings");
+
+                try
+                {
+                    Engine.Settings = await Engine.LocalStorage.GetItemAsync<Config>("Settings");
+                    DefaultSettings = false;
+                }
+                catch
+                {
+                    Console.WriteLine("Failed to load the Settings...");
+                }
             }
-            else
+
+            if (DefaultSettings)
             {
                 Console.WriteLine("Using Default Settings...");
+                Engine.FirstInit = true;
                 Engine.Settings = new Config()
                 {
                     AcceptableRanges = "0-9A-Za-zÀ-ÃÇ-ÎÓ-ÕÚ-Ûà-ãç-îó-õú-û｡-ﾟ!?~.,[](){}''\"",

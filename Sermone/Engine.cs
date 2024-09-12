@@ -6,13 +6,12 @@ using Sermone.Types;
 using Sermone.Tools;
 using Sermone.Dialogs;
 using aio;
+using BlazorWorker.WorkerBackgroundService;
 
 namespace Sermone
 {
     static partial class Engine
     {
-        public static bool Modified = false;
-
         public async static void FileChanged()
         {
             foreach (var file in await FReader.CreateReference(InputRef).EnumerateFilesAsync())
@@ -45,7 +44,7 @@ namespace Sermone
 
             if (!CanSave && AsSecondary)
             {
-                Toast.ShowError(Language.OpenAScriptBefore, Language.Error);
+                Toast.ShowError(Language.OpenAScriptBefore);
                 return;
             }
             
@@ -90,7 +89,7 @@ namespace Sermone
             {
                 if (ForceLastPlugin)
                 {
-                    Toast.ShowError(Language.PluginDontSupport, Language.NotSupported);
+                    Toast.ShowError(Language.PluginDontSupport);
                     return;
                 }
 
@@ -125,8 +124,16 @@ namespace Sermone
 
             if (Strings == null)
             {
-                Toast.ShowError(Language.NotSupportedPluginFound, Language.Error);
+                Toast.ShowError(Language.NotSupportedPluginFound);
                 return;
+            }
+
+            if (Escaped = Settings.Escape)
+            {
+                for (int i = 0; i < Strings.Length; i++)
+                {
+                    Strings[i] = Strings[i].Escape();
+                }
             }
 
             if (OpenAsSecondary)
@@ -136,7 +143,7 @@ namespace Sermone
                 LastWorkingPlugin = OriLastWork;
                 if (Strings.Length != DialogueBox.Items.Length)
                 {
-                    Toast.ShowError(Language.IncompatibleReferenceScript, Language.Error);
+                    Toast.ShowError(Language.IncompatibleReferenceScript);
                 }
                 else
                 {
@@ -213,6 +220,15 @@ namespace Sermone
 
             NotSaved = false;
             var Lines = (from x in DialogueBox.Items select x.Value).ToArray();
+
+            if (Escaped)
+            {
+                for (var i = 0; i < Lines.Length; i++)
+                {
+                    Lines[i] = Lines[i].Unescape();
+                }
+            }
+
             var Data = CurrentPlugin.Export(Lines);
             await FSaver.SaveAsBase64(Name, Convert.ToBase64String(Data), "application/octet-stream");
         }

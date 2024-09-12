@@ -41,8 +41,8 @@
         public string No => "No";
 
         //About
-        public string AboutVersion => "Beta Version";
-        public string AboutDesc => "This is a Beta release, bugs may be occur and not at all resources are done for use.";
+        public string AboutVersion => "Disclaimer";
+        public string AboutDesc => "Sermone is open-source software provided free of charge. This software is offered \"as is,\" without any warranties of any kind, either express or implied, including but not limited to warranties of merchantability, fitness for a particular purpose, or non-infringement.\r\n\r\nThe developer is not liable for any direct, indirect, incidental, consequential, or special damages, including but not limited to loss of data, business interruption, or other damages, arising from the use or inability to use this software.\r\n\r\nThe user assumes all risks associated with the use of this software. By using this software, you agree to hold the developer harmless from any damages that may occur.";
 
         //Plugin Picker
         public string SelectAPlugin => "Select a Plugin";
@@ -71,6 +71,8 @@
         //Settings
         public string Settings => "Settings";
         public string Language => "Language";
+        public string Escape => "Escape";
+        public string Regex => "Regex";
         public string Username => "Username";
         public string Password => "Password";
         public string BackupOn => "Backup On";
@@ -89,7 +91,9 @@
         public string Import => "Import";
 
         //Settings Tooltips
-        public string DenyPatternTooltip => "Patterns list which never appear in a dialogue. Separeted by semicolon.";
+        public string RegexFilterTooltip => "Let you filter the dialog being translated with a custom regex that is applied only if the dialogue matches.";
+
+		public string DenyPatternTooltip => "Patterns list which never appear in a dialogue. Separeted by semicolon.";
         public string IgnorePatternTooltip => "Special patterns list which appear in a dialogue and must be tolerated by the filter. Separeted by semicolon.";
         public string QuotesPatternTooltip => "String list of dialogues citations. It is composed by two characters, which the first is the oppening and the second is the closing. Separeted by semicolon.";
         public string BreaklineTooltip => "Special character used in the game to break the dialogue line. Escaped content.";
@@ -100,5 +104,6 @@
         //Dialogs
         public string AreYouSure => "Are you Sure?";
         public string LoadBackupWarn => "If you load this backup, all of your current script changes will be lost";
+        public string Congratulations => "Congratulations! You finished the Script!";
     }
 }

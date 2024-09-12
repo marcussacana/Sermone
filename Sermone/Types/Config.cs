@@ -10,6 +10,9 @@
         public string Breakline { get; set; }
         public string AcceptableRanges { get; set; }
 
+        public bool Escape { get; set; }
+        public string RegexFilter { get; set; }
+
         public string CustomCSS { get; set; }
         public int SelectionMode { get; set; }
         public bool AllowNumbers { get; set; }

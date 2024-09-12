@@ -151,6 +151,28 @@
         }
     }
 
+    public bool Escape
+    {
+        get { return Configs.Escape; }
+        set
+        {
+            var TmpConf = Configs;
+            TmpConf.Escape = value;
+            Configs = TmpConf;
+        }
+    }
+
+    public string RegexFilter
+    {
+        get { return Configs.RegexFilter; }
+        set
+        {
+            var TmpConf = Configs;
+            TmpConf.RegexFilter = value;
+            Configs = TmpConf;
+        }
+    }
+
     public string PasteUsername
     {
         get { return Configs.PasteUsername; }
@@ -202,7 +224,7 @@
     {
         var JSON = JsonConvert.SerializeObject(Engine.Settings, Formatting.Indented);
         await Modal.ShowDialogAsync<TextArea>(Engine.Language.Export, parameters: new ModalDialogParameters()
-{
+        {
             { "Text",      JSON },
             { "AllowSave", false }
         });

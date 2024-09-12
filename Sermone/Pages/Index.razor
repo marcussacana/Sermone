@@ -22,7 +22,9 @@
         {
             Engine.IndexPage = this;
 
+            //if (Engine.FirstInit) // TODO: Let disable this box in settings
             await ModalDialog.ShowDialogAsync<About>("Sermone", new ModalDialogOptions() { BackgroundClickToClose = true, ShowCloseButton = true });
+            
             await JSWrapper.SetTile("Sermone");
         }
         await base.OnAfterRenderAsync(firstRender);

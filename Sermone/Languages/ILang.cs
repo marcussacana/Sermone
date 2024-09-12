@@ -1,4 +1,6 @@
-﻿namespace Sermone.Languages
+﻿using Microsoft.AspNetCore.Components.Rendering;
+
+namespace Sermone.Languages
 {
     public interface ILang
     {
@@ -72,6 +74,8 @@
         //Settings
         public string Settings { get; }
         public string Language { get; }
+        public string Escape { get; }
+        public string Regex { get; }
         public string Username { get; }
         public string Password { get; }
         public string BackupOn { get; }
@@ -89,6 +93,8 @@
         public string Import { get; }
 
         //Settings Tooltips
+
+        public string RegexFilterTooltip { get; }
         public string DenyPatternTooltip { get; }
         public string IgnorePatternTooltip { get; }
         public string QuotesPatternTooltip { get; }
@@ -100,5 +106,6 @@
         //Dialogs
         public string AreYouSure { get; }
         public string LoadBackupWarn { get; }
+        public string Congratulations { get; }
     }
 }

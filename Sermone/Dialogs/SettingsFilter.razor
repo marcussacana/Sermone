@@ -75,7 +75,16 @@
             <td class="align-baseline align-middle" data-toggle="tooltip" data-placement="auto" data-original-title="@Parent.CurrentLanguage.AsianModeTooltip">
                 @Parent.CurrentLanguage.AsianMode
             </td>
-            <td><input type="checkbox" @bind-value:event="onchange" @bind-value="@Parent.FromAsian"></td>
+            <td>
+                @if (Parent.FromAsian)
+                {
+                    <input type="checkbox" @bind-value:event="onchange" @bind-value="@Parent.FromAsian" checked>
+                }
+                else
+                {
+                    <input type="checkbox" @bind-value:event="onchange" @bind-value="@Parent.FromAsian">
+                }
+            </td>
         </tr>
         <tr>
             <td class="align-baseline align-middle" data-toggle="tooltip" data-placement="auto" data-original-title="@Parent.CurrentLanguage.SensitivityTooltip">

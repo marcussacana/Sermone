@@ -17,7 +17,7 @@
     [JSInvokable]
     public static async Task Initialize()
     {
-        if (Engine.Compressor == null || Engine.Loading == null)
+        if (Engine.Loading == null)
             return;
 
         if (await Program.EntryPoint())

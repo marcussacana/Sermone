@@ -30,8 +30,6 @@ namespace Sermone
         public static IWorkerFactory Worker => Header.Worker;
         public static IToastService Toast => Header.Toast;
 
-        public static IWorkerBackgroundService<CompressorService> Compressor;
-
 #pragma warning disable 649
         public static ElementReference InputRef;
         public static DialogueEditor EditorBox;
@@ -54,9 +52,14 @@ namespace Sermone
         public static bool NotSaved;
         public static bool ForceLastPlugin;
 
+        public static string? CurrentDialogueUnfiltered = null;
         public static string CurrentDialogue = string.Empty;
 
-        public static string CurrentSearch = null;
+        public static string? CurrentSearch = null;
+
+        public static bool Modified;
+        public static bool Escaped;
+        public static bool FirstInit;
 
         public static Config Settings;
     }

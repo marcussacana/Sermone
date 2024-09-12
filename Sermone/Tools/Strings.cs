@@ -1,8 +1,12 @@
 ﻿using BlazorWorker.BackgroundServiceFactory;
 using BlazorWorker.WorkerBackgroundService;
+using Sermone.Dialogs;
+using Sermone.Types;
 using System;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using static Sermone.Tools.StringsService;
 
@@ -63,6 +67,22 @@ namespace Sermone.Tools
             }
            
             return await BackgroundService.RunAsync((s) => s.IsDialogue(Strings, Caution, UseAcceptableRanges));
+        }
+
+        public static IEnumerable<RegexCapture> Match(this string String, string Pattern, RegexOptions Options = RegexOptions.Multiline)
+        {
+            foreach (Match Match in Regex.Matches(String, Pattern, RegexOptions.Multiline))
+            {
+                for (int i = 1; i < Match.Groups.Count; i++)
+                {
+                    Group group = Match.Groups[i];
+
+                    if (group.Success)
+                    {
+                        yield return new RegexCapture(group.Index, group.Length, group.Value);
+                    }
+                }
+            }
         }
 
         public static IWorkerBackgroundService<StringsService> BackgroundService;
