@@ -2,7 +2,7 @@ name: Deploy Blazor WASM to GitHub Pages
 
 on:
     push:
-        branches: [main]
+        branches: [master]
 
 jobs:
     deploy-to-github-pages:
@@ -15,6 +15,11 @@ jobs:
               with:
                   dotnet-version: 8.0.x
                   include-prerelease: true
+              
+            - name:  Git Submodule Update
+              run: |
+                git pull --recurse-submodules
+                git submodule update --remote --recursive
 
             - name: Dotnet Restore Workloads
               run: dotnet workload restore
@@ -29,10 +34,8 @@ jobs:
               run: touch release/wwwroot/.nojekyll
 
             - name: Commit wwwroot to GitHub Pages
-              uses: JamesIves/github-pages-deploy-action@4
+              uses: JamesIves/github-pages-deploy-action@v4
               with:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                   BRANCH: gh-pages
                   FOLDER: release/wwwroot
-                  
-# Based on https://swimburger.net/blog/dotnet/how-to-deploy-aspnet-blazor-webassembly-to-github-pages
