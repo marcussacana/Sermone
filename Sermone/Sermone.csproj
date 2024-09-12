@@ -16,6 +16,7 @@
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <RunAOTCompilation>True</RunAOTCompilation>
+	<WasmStripILAfterAOT>true</WasmStripILAfterAOT>
     <DebugType>embedded</DebugType>
   </PropertyGroup>
 
