@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "Sermone",
   "resources": {
-    "hash": "sha256-MPAtJesK+Z3DiQASsH9FWqA+7F++QJ+ic5khqmjBjYQ=",
+    "hash": "sha256-q3C9BBxNoA4lfrf0IBpojIEx8CayZRt+/rMMZpPEd/M=",
     "jsModuleNative": {
       "dotnet.native.8.0.8.8eiq3235jg.js": "sha256-H08AnCsc5v2ggjoCm5U/Crc+6qIACvK+B1eTanVmKSc="
     },
@@ -9,7 +9,7 @@
       "dotnet.runtime.8.0.8.gjn324r0ni.js": "sha256-0Dpj/NkVD5WqSC16ZvJLmlc38iv9+Je+umYBVOycPVU="
     },
     "wasmNative": {
-      "dotnet.native.wasm": "sha256-0qFvxQfpT/PhzSmx4/35dNrJPidD9icLgemNSVDeo04="
+      "dotnet.native.wasm": "sha256-Iv1Bs2GxkZkyrmD6Fyt8P186osBCuFcW5pdK68viS7Q="
     },
     "icu": {
       "icudt_CJK.dat": "sha256-SZLtQnRc0JkwqHab0VUVP7T3uBPSeYzxzDnpxPpUnHk=",
@@ -46,7 +46,7 @@
       "netstandard.wasm": "sha256-DzX3OlRRFFzK8NTy6m2ONgd+VQs/qUgt8re3ll4VmbI=",
       "Newtonsoft.Json.wasm": "sha256-GlXMWKvDs45M2pACoR3Y4Qh8mcrOZGljqmvJY+6JZ5s=",
       "Serialize.Linq.wasm": "sha256-gqlDfjUFaIRhZwP82TgJtXCuO+sD/ZR5bK7wXe0WIuk=",
-      "Sermone.wasm": "sha256-nEVo3NFQnp1UAPinJ9DDKrOUK7e9Hheu4/1Y8VtZkag=",
+      "Sermone.wasm": "sha256-JAxSOElEWBVl4ZugOGgAXMA3vktTs7RWm0KC3Qco5Os=",
       "SQLitePCLRaw.core.wasm": "sha256-5ncp/PNVntosOHmUwpvRVJZvvreYP08nlkqD9XgBkdA=",
       "System.Collections.Concurrent.wasm": "sha256-35AfM7LJ0q0RMtwYEjmPWicgcFDBV/GPwTbqg2E+CXI=",
       "System.Collections.NonGeneric.wasm": "sha256-sK8kDnVci1HIJi248etu7BdPdUYv/5OTn6F3IIrht2A=",
